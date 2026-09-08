@@ -1,667 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Paw Prints Weekly</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <meta
         name="description"
-        content="Paw Prints Weekly — News, stories, events, and student voices."
+        content="Paw Prints Weekly — The student voice of Glen A. Wilson High School."
     >
+
+    <title>Paw Prints Weekly | Glen A. Wilson High School</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
+    <!-- =========================================
+         DECORATIVE BACKGROUND
+    ========================================== -->
+
+    <div class="background-decoration">
+        <div class="decor-circle circle-one"></div>
+        <div class="decor-circle circle-two"></div>
+        <div class="decor-line line-one"></div>
+        <div class="decor-line line-two"></div>
+    </div>
+
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
 
     <header class="site-header">
+
+        <div class="header-top">
+
+            <div class="header-container">
+
+                <span>
+                    GLEN A. WILSON HIGH SCHOOL
+                </span>
+
+                <span class="header-date" id="currentDate">
+                    SEPTEMBER 2026
+                </span>
+
+            </div>
+
+        </div>
+
+
         <div class="nav-container">
 
-            <a href="#home" class="logo">
-                <span class="logo-paw">🐾</span>
-                <span>
-                    <strong>PAW PRINTS</strong>
-                    <small>WEEKLY</small>
-                </span>
+            <a href="#home" class="brand">
+
+                <img
+                    src="images/wildcat.png"
+                    alt="Glen A. Wilson Wildcat"
+                    class="brand-logo"
+                >
+
+                <div class="brand-text">
+
+                    <strong>
+                        PAW PRINTS
+                    </strong>
+
+                    <span>
+                        WEEKLY
+                    </span>
+
+                </div>
+
             </a>
 
-            <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
-                ☰
+
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
 
+
             <nav id="mainNav">
-                <a href="#home">Home</a>
-                <a href="#latest">Latest</a>
-                <a href="#school">School</a>
-                <a href="#community">Community</a>
-                <a href="#opinions">Opinions</a>
-                <a href="#about">About</a>
+
+                <a href="#home" class="active">
+                    Home
+                </a>
+
+                <a href="#latest">
+                    Latest
+                </a>
+
+                <a href="#school">
+                    School
+                </a>
+
+                <a href="#student-life">
+                    Student Life
+                </a>
+
+                <a href="#sports">
+                    Sports
+                </a>
+
+                <a href="#opinions">
+                    Opinions
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
             </nav>
 
         </div>
+
     </header>
 
 
-    <!-- =========================
-         HERO
-    ========================== -->
+    <!-- =========================================
+         MAIN
+    ========================================== -->
 
-    <main id="home">
+    <main>
 
-        <section class="hero">
+
+        <!-- =====================================
+             HERO
+        ====================================== -->
+
+        <section class="hero" id="home">
+
+            <div class="hero-paw paw-one">🐾</div>
+            <div class="hero-paw paw-two">🐾</div>
+            <div class="hero-paw paw-three">🐾</div>
+
 
             <div class="hero-content">
 
-                <p class="eyebrow">PAW PRINTS WEEKLY</p>
+                <div class="school-label">
+
+                    <span></span>
+
+                    GLEN A. WILSON HIGH SCHOOL
+
+                    <span></span>
+
+                </div>
+
 
                 <h1>
-                    Your school.<br>
-                    <span>Your stories.</span>
+
+                    PAW PRINTS
+
+                    <em>
+                        WEEKLY
+                    </em>
+
                 </h1>
 
-                <p class="hero-description">
-                    News, events, opinions, and stories from the students
-                    and community that make our school what it is.
+
+                <div class="gold-divider"></div>
+
+
+                <p class="hero-tagline">
+                    THE VOICE OF THE WILDCATS.
                 </p>
 
+
+                <p class="hero-description">
+
+                    News, stories, opinions, events, and student life
+                    from the Glen A. Wilson community.
+
+                </p>
+
+
                 <div class="hero-buttons">
-                    <a href="#latest" class="button primary">
+
+                    <a
+                        href="#latest"
+                        class="button primary"
+                    >
                         Read the latest
                     </a>
 
-                    <a href="#about" class="button secondary">
+                    <a
+                        href="#about"
+                        class="button secondary"
+                    >
                         About PPW
                     </a>
-                </div>
-
-            </div>
-
-            <div class="hero-decoration">
-                <div class="paw-large">🐾</div>
-                <div class="weekly-card">
-                    <span>THE</span>
-                    <strong>WEEKLY</strong>
-                    <small>EST. 2026</small>
-                </div>
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             BREAKING / ANNOUNCEMENT
-        ========================== -->
-
-        <div class="announcement">
-            <div class="announcement-label">
-                LATEST
-            </div>
-
-            <div class="announcement-text">
-                Welcome to Paw Prints Weekly — check back regularly for
-                the newest stories and updates.
-            </div>
-
-            <a href="#latest">View stories →</a>
-        </div>
-
-
-        <!-- =========================
-             FEATURED STORY
-        ========================== -->
-
-        <section class="section featured-section" id="latest">
-
-            <div class="section-heading">
-                <div>
-                    <p class="eyebrow">TOP STORY</p>
-                    <h2>Featured</h2>
-                </div>
-
-                <span class="section-line"></span>
-            </div>
-
-            <article class="featured-story">
-
-                <div class="featured-image">
-                    <div class="image-placeholder">
-                        <span>🐾</span>
-                        <p>FEATURED IMAGE</p>
-                    </div>
-                </div>
-
-                <div class="featured-content">
-
-                    <span class="category">FEATURED</span>
-
-                    <h3>
-                        A New Week, A New Story
-                    </h3>
-
-                    <p class="article-description">
-                        This space can feature your biggest story of the
-                        week. Replace this text with the introduction to
-                        your latest article.
-                    </p>
-
-                    <div class="article-meta">
-                        <span>By PPW Staff</span>
-                        <span>September 8, 2026</span>
-                    </div>
-
-                    <a href="#" class="read-more">
-                        Read full story →
-                    </a>
-
-                </div>
-
-            </article>
-
-        </section>
-
-
-        <!-- =========================
-             LATEST ARTICLES
-        ========================== -->
-
-        <section class="section">
-
-            <div class="section-heading">
-                <div>
-                    <p class="eyebrow">WHAT'S NEW</p>
-                    <h2>Latest Stories</h2>
-                </div>
-
-                <a href="#" class="view-all">
-                    View all →
-                </a>
-            </div>
-
-
-            <div class="article-grid">
-
-                <!-- Article 1 -->
-                <article class="article-card">
-
-                    <div class="card-image">
-                        <span>NEWS</span>
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="category">SCHOOL</span>
-
-                        <h3>
-                            What's Happening Around Campus?
-                        </h3>
-
-                        <p>
-                            Catch up on the latest news, announcements,
-                            and developments around school.
-                        </p>
-
-                        <div class="article-meta">
-                            <span>PPW Staff</span>
-                            <span>Sep. 8</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Article 2 -->
-                <article class="article-card">
-
-                    <div class="card-image second">
-                        <span>EVENTS</span>
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="category">EVENTS</span>
-
-                        <h3>
-                            Events You Don't Want to Miss
-                        </h3>
-
-                        <p>
-                            From school activities to community events,
-                            here's what's coming up.
-                        </p>
-
-                        <div class="article-meta">
-                            <span>PPW Staff</span>
-                            <span>Sep. 7</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Article 3 -->
-                <article class="article-card">
-
-                    <div class="card-image third">
-                        <span>STUDENT LIFE</span>
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="category">STUDENT LIFE</span>
-
-                        <h3>
-                            The People Behind Our School
-                        </h3>
-
-                        <p>
-                            Meet the students, teachers, and people who
-                            help make our community special.
-                        </p>
-
-                        <div class="article-meta">
-                            <span>PPW Staff</span>
-                            <span>Sep. 5</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-
-                <!-- Article 4 -->
-                <article class="article-card">
-
-                    <div class="card-image fourth">
-                        <span>SPORTS</span>
-                    </div>
-
-                    <div class="card-content">
-
-                        <span class="category">SPORTS</span>
-
-                        <h3>
-                            This Week in Sports
-                        </h3>
-
-                        <p>
-                            Scores, highlights, upcoming games, and more
-                            from around the school.
-                        </p>
-
-                        <div class="article-meta">
-                            <span>PPW Sports</span>
-                            <span>Sep. 4</span>
-                        </div>
-
-                    </div>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             SCHOOL
-        ========================== -->
-
-        <section class="dark-section" id="school">
-
-            <div class="section dark-inner">
-
-                <div class="section-heading light-heading">
-
-                    <div>
-                        <p class="eyebrow">CAMPUS</p>
-                        <h2>School News</h2>
-                    </div>
-
-                    <a href="#" class="view-all light-link">
-                        More school news →
-                    </a>
-
-                </div>
-
-
-                <div class="news-list">
-
-                    <article class="news-item">
-                        <div class="news-number">01</div>
-
-                        <div>
-                            <span class="category">ANNOUNCEMENT</span>
-                            <h3>Important School Updates</h3>
-                            <p>
-                                The latest announcements and information
-                                students should know.
-                            </p>
-                        </div>
-
-                        <span class="news-arrow">→</span>
-                    </article>
-
-
-                    <article class="news-item">
-                        <div class="news-number">02</div>
-
-                        <div>
-                            <span class="category">CLUBS</span>
-                            <h3>What's Happening in Student Clubs?</h3>
-                            <p>
-                                Discover what clubs are doing and how
-                                students can get involved.
-                            </p>
-                        </div>
-
-                        <span class="news-arrow">→</span>
-                    </article>
-
-
-                    <article class="news-item">
-                        <div class="news-number">03</div>
-
-                        <div>
-                            <span class="category">STUDENT VOICE</span>
-                            <h3>Students Speak Up</h3>
-                            <p>
-                                Perspectives and experiences from members
-                                of our student community.
-                            </p>
-                        </div>
-
-                        <span class="news-arrow">→</span>
-                    </article>
 
                 </div>
 
             </div>
 
-        </section>
+
+            <!-- HERO WILDCAT -->
+
+            <div class="hero-logo-area">
+
+                <div class="orbit orbit-one"></div>
+                <div class="orbit orbit-two"></div>
 
 
-        <!-- =========================
-             COMMUNITY
-        ========================== -->
-
-        <section class="section" id="community">
-
-            <div class="split-section">
-
-                <div class="split-text">
-
-                    <p class="eyebrow">BEYOND CAMPUS</p>
-
-                    <h2>
-                        Our Community
-                    </h2>
-
-                    <p>
-                        Our school doesn't exist in a bubble. Explore the
-                        people, organizations, events, and stories that
-                        connect our school with the wider community.
-                    </p>
-
-                    <a href="#" class="button primary">
-                        Explore community
-                    </a>
-
+                <div class="gold-star star-one">
+                    ✦
                 </div>
 
-                <div class="community-box">
-
-                    <div class="community-paw">🐾</div>
-
-                    <div>
-                        <strong>COMMUNITY</strong>
-                        <span>Stories that go beyond campus.</span>
-                    </div>
-
+                <div class="gold-star star-two">
+                    ✦
                 </div>
 
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             OPINIONS
-        ========================== -->
-
-        <section class="opinion-section" id="opinions">
-
-            <div class="section">
-
-                <div class="section-heading">
-                    <div>
-                        <p class="eyebrow">STUDENT VOICE</p>
-                        <h2>Opinions</h2>
-                    </div>
+                <div class="gold-star star-three">
+                    ✦
                 </div>
 
 
-                <div class="opinion-grid">
+                <div class="wildcat-circle">
 
-                    <article class="opinion-card">
+                    <div class="circle-inner"></div>
 
-                        <span class="quote-mark">“</span>
-
-                        <h3>
-                            What do students really think?
-                        </h3>
-
-                        <p>
-                            A place for thoughtful student perspectives,
-                            editorials, and discussions about the issues
-                            that matter to our community.
-                        </p>
-
-                        <span class="opinion-author">
-                            — PPW Opinion
-                        </span>
-
-                    </article>
-
-
-                    <article class="opinion-card dark-opinion">
-
-                        <span class="quote-mark">“</span>
-
-                        <h3>
-                            Your voice belongs here.
-                        </h3>
-
-                        <p>
-                            Have an opinion or perspective you'd like to
-                            share? PPW is a place for student voices.
-                        </p>
-
-                        <a href="#" class="read-more white">
-                            Submit an opinion →
-                        </a>
-
-                    </article>
+                    <img
+                        src="images/wildcat.png"
+                        alt="Glen A. Wilson Wildcat"
+                    >
 
                 </div>
 
-            </div>
 
-        </section>
+                <div class="hero-school-name">
 
-
-        <!-- =========================
-             ABOUT
-        ========================== -->
-
-        <section class="about-section" id="about">
-
-            <div class="section about-grid">
-
-                <div>
-                    <p class="eyebrow">ABOUT US</p>
-
-                    <h2>
-                        What is<br>
-                        Paw Prints Weekly?
-                    </h2>
-                </div>
-
-                <div class="about-text">
-
-                    <p>
-                        <strong>Paw Prints Weekly</strong> is a student
-                        newspaper created to inform, connect, and give
-                        students a place to tell their stories.
-                    </p>
-
-                    <p>
-                        From school news and events to opinions,
-                        photography, sports, and community stories,
-                        PPW aims to capture what is happening around
-                        our school.
-                    </p>
-
-                    <div class="about-stats">
-
-                        <div>
-                            <strong>01</strong>
-                            <span>Student voices</span>
-                        </div>
-
-                        <div>
-                            <strong>02</strong>
-                            <span>School news</span>
-                        </div>
-
-                        <div>
-                            <strong>03</strong>
-                            <span>Community stories</span>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             NEWSLETTER / CTA
-        ========================== -->
-
-        <section class="newsletter">
-
-            <div>
-
-                <p class="eyebrow">STAY CONNECTED</p>
-
-                <h2>
-                    Never miss a story.
-                </h2>
-
-                <p>
-                    Keep up with the latest from Paw Prints Weekly.
-                </p>
-
-            </div>
-
-            <form id="newsletterForm">
-
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Your email address"
-                    required
-                >
-
-                <button type="submit">
-                    Subscribe
-                </button>
-
-            </form>
-
-        </section>
-
-    </main>
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer>
-
-        <div class="footer-main">
-
-            <div class="footer-brand">
-
-                <div class="logo footer-logo">
-                    <span class="logo-paw">🐾</span>
+                    <strong>
+                        WILSON
+                    </strong>
 
                     <span>
-                        <strong>PAW PRINTS</strong>
-                        <small>WEEKLY</small>
+                        WILDCATS
                     </span>
+
                 </div>
 
-                <p>
-                    News. Stories. Student voices.
-                </p>
-
             </div>
 
+        </section>
 
-            <div class="footer-column">
 
-                <h4>Explore</h4>
 
-                <a href="#latest">Latest Stories</a>
-                <a href="#school">School</a>
-                <a href="#community">Community</a>
-                <a href="#opinions">Opinions</a>
+        <!-- =====================================
+             ANNOUNCEMENT BAR
+        ====================================== -->
 
+        <section class="announcement">
+
+            <div class="announcement-label">
+                <span class="pulse-dot"></span>
+                PPW UPDATE
             </div>
 
+            <div class="announcement-content">
 
-            <div class="footer-column">
-
-                <h4>PPW</h4>
-
-                <a href="#about">About Us</a>
-                <a href="#">Our Staff</a>
-                <a href="#">Contact</a>
-                <a href="#">Submit a Story</a>
-
-            </div>
-
-        </div>
-
-
-        <div class="footer-bottom">
-
-            <span>
-                © 2026 Paw Prints Weekly
-            </span>
-
-            <span>
-                Made for the students, by the students.
-            </span>
-
-        </div>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
-</body>
-</html>
+                <span class="

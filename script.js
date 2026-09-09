@@ -1,598 +1,1041 @@
 /* =====================================================
-   PAW PRINTS WEEKLY — SCRIPT.JS
+   PAW PRINTS WEEKLY
    Glen A. Wilson High School
+   Main JavaScript
 ===================================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
 
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
+/* =====================================================
+   ELEMENTS
+===================================================== */
 
-    const menuToggle = document.getElementById("menuToggle");
-    const mainNav = document.getElementById("mainNav");
-    const newsletterForm = document.getElementById("newsletterForm");
-    const emailInput = document.getElementById("emailInput");
-    const currentDate = document.getElementById("currentDate");
+const menuToggle =
+    document.getElementById("menuToggle");
+
+const mainNav =
+    document.getElementById("mainNav");
+
+const newsletterForm =
+    document.getElementById("newsletterForm");
+
+const emailInput =
+    document.getElementById("email");
+
+const currentDate =
+    document.getElementById("currentDate");
 
 
-    /* =====================================================
-       CURRENT DATE
-    ===================================================== */
+/* =====================================================
+   CURRENT DATE
+===================================================== */
 
-    if (currentDate) {
-        const now = new Date();
+function updateDate(){
 
-        currentDate.textContent = now.toLocaleDateString("en-US", {
-            month: "long",
-            year: "numeric"
-        }).toUpperCase();
+    if(!currentDate){
+        return;
     }
 
+    const date=
+        new Date();
 
-    /* =====================================================
-       MOBILE NAVIGATION
-    ===================================================== */
+    const options={
+        month:"long",
+        year:"numeric"
+    };
 
-    if (menuToggle && mainNav) {
+    currentDate.textContent=
+        date.toLocaleDateString(
+            "en-US",
+            options
+        ).toUpperCase();
 
-        menuToggle.addEventListener("click", () => {
-            const isOpen = mainNav.classList.toggle("open");
+}
 
-            menuToggle.classList.toggle("active", isOpen);
-            menuToggle.setAttribute("aria-expanded", isOpen);
-        });
+updateDate();
 
 
-        /* Close menu when clicking a navigation link */
+/* =====================================================
+   MOBILE NAVIGATION
+===================================================== */
 
-        mainNav.querySelectorAll("a").forEach(link => {
-            link.addEventListener("click", () => {
-                mainNav.classList.remove("open");
-                menuToggle.classList.remove("active");
-                menuToggle.setAttribute("aria-expanded", "false");
-            });
-        });
+if(menuToggle&&mainNav){
+
+    menuToggle.addEventListener(
+        "click",
+        ()=>{
+
+            const isOpen=
+                mainNav.classList.toggle(
+                    "open"
+                );
+
+            menuToggle.classList.toggle(
+                "active",
+                isOpen
+            );
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                isOpen
+            );
+
+            document.body.classList.toggle(
+                "menu-open",
+                isOpen
+            );
+
+        }
+    );
+
+
+    /* Close menu when clicking a link */
+
+    const navLinks=
+        mainNav.querySelectorAll(
+            "a"
+        );
+
+    navLinks.forEach(
+        link=>{
+
+            link.addEventListener(
+                "click",
+                ()=>{
+
+                    mainNav.classList.remove(
+                        "open"
+                    );
+
+                    menuToggle.classList.remove(
+                        "active"
+                    );
+
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                    document.body.classList.remove(
+                        "menu-open"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealElements=
+    document.querySelectorAll(
+        ".reveal"
+    );
+
+
+const revealObserver=
+    new IntersectionObserver(
+
+        entries=>{
+
+            entries.forEach(
+                entry=>{
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        /*
+                         * Remove visible first
+                         * so the animation can
+                         * replay.
+                         */
+
+                        entry.target.classList.remove(
+                            "visible"
+                        );
+
+                        /*
+                         * Force browser reflow.
+                         */
+
+                        void entry.target.offsetWidth;
+
+                        /*
+                         * Start animation again.
+                         */
+
+                        entry.target.classList.add(
+                            "visible"
+                        );
+
+                    }else{
+
+                        /*
+                         * Reset when leaving
+                         * the viewport.
+                         */
+
+                        entry.target.classList.remove(
+                            "visible"
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold:0.08,
+
+            rootMargin:
+                "0px 0px -30px 0px"
+        }
+
+    );
+
+
+revealElements.forEach(
+    element=>{
+        revealObserver.observe(
+            element
+        );
     }
+);
 
 
-    /* =====================================================
-       SCROLL REVEAL
-       Animations replay every time elements enter
-       the viewport.
-    ===================================================== */
+/* =====================================================
+   VIEWPORT ANIMATION CONTROLLER
+   Animations pause and reset when they leave
+   the viewport and restart when they return.
+===================================================== */
 
-    const revealElements = document.querySelectorAll(".reveal");
+const animationTargets=[];
 
-    const revealObserver = new IntersectionObserver(
-        entries => {
 
-            entries.forEach(entry => {
+document
+    .querySelectorAll("*")
+    .forEach(
+        element=>{
 
-                if (entry.isIntersecting) {
+            const styles=
+                window.getComputedStyle(
+                    element
+                );
 
-                    /*
-                     * Remove the class first so the animation
-                     * can be restarted from the beginning.
-                     */
+            if(
+                styles.animationName &&
+                styles.animationName!=="none"
+            ){
 
-                    entry.target.classList.remove("visible");
+                animationTargets.push(
+                    element
+                );
 
-                    /*
-                     * Force browser reflow.
-                     */
+            }
 
-                    void entry.target.offsetWidth;
-
-                    /*
-                     * Start animation.
-                     */
-
-                    entry.target.classList.add("visible");
-
-                } else {
-
-                    /*
-                     * Remove visible when leaving viewport.
-                     * This allows it to animate again later.
-                     */
-
-                    entry.target.classList.remove("visible");
-                }
-
-            });
-
-        },
-        {
-            threshold: 0.08,
-            rootMargin: "0px 0px -30px 0px"
         }
     );
 
 
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
-    });
+const animationObserver=
+    new IntersectionObserver(
+
+        entries=>{
+
+            entries.forEach(
+                entry=>{
+
+                    const element=
+                        entry.target;
 
 
-    /* =====================================================
-       VIEWPORT ANIMATION CONTROLLER
-       
-       CSS animations pause/reset when they leave the
-       viewport and restart when they return.
-    ===================================================== */
+                    if(
+                        entry.isIntersecting
+                    ){
 
-    const animationTargets = [];
+                        /*
+                         * Remove reset state.
+                         */
 
+                        element.classList.remove(
+                            "viewport-reset"
+                        );
 
-    /*
-     * Find elements that have CSS animations.
-     */
+                        /*
+                         * Force reflow.
+                         */
 
-    document.querySelectorAll("*").forEach(element => {
+                        void element.offsetWidth;
 
-        const styles = window.getComputedStyle(element);
+                        /*
+                         * Resume animation.
+                         */
 
-        if (
-            styles.animationName &&
-            styles.animationName !== "none"
-        ) {
-            animationTargets.push(element);
-        }
+                        element.classList.remove(
+                            "viewport-paused"
+                        );
 
-    });
+                    }else{
 
+                        /*
+                         * Pause animation first.
+                         */
 
-    /*
-     * Observe animated elements.
-     */
+                        element.classList.add(
+                            "viewport-paused"
+                        );
 
-    const animationObserver = new IntersectionObserver(
-        entries => {
+                        /*
+                         * Remove reset class
+                         * before reapplying it.
+                         */
 
-            entries.forEach(entry => {
+                        element.classList.remove(
+                            "viewport-reset"
+                        );
 
-                const element = entry.target;
+                        void element.offsetWidth;
 
+                        /*
+                         * Completely reset animation.
+                         */
 
-                if (entry.isIntersecting) {
+                        element.classList.add(
+                            "viewport-reset"
+                        );
 
-                    /*
-                     * Remove reset state.
-                     */
-
-                    element.classList.remove("viewport-reset");
-
-                    /*
-                     * Force a reflow so the browser knows
-                     * the animation should restart.
-                     */
-
-                    void element.offsetWidth;
-
-                    /*
-                     * Resume animation.
-                     */
-
-                    element.classList.remove("viewport-paused");
-
-                } else {
-
-                    /*
-                     * Pause the animation.
-                     */
-
-                    element.classList.add("viewport-paused");
-
-
-                    /*
-                     * Remove the reset class first.
-                     */
-
-                    element.classList.remove("viewport-reset");
-
-                    /*
-                     * Force reflow.
-                     */
-
-                    void element.offsetWidth;
-
-                    /*
-                     * Completely reset the animation.
-                     */
-
-                    element.classList.add("viewport-reset");
+                    }
 
                 }
-
-            });
+            );
 
         },
+
         {
-            threshold: 0.01,
-            rootMargin: "0px"
+            threshold:0.01,
+
+            rootMargin:"0px"
+        }
+
+    );
+
+
+animationTargets.forEach(
+    element=>{
+        animationObserver.observe(
+            element
+        );
+    }
+);
+
+
+/* =====================================================
+   ACTIVE NAVIGATION
+===================================================== */
+
+const sections=
+    document.querySelectorAll(
+        "main section[id]"
+    );
+
+
+const navigationLinks=
+    document.querySelectorAll(
+        "#mainNav a"
+    );
+
+
+const sectionObserver=
+    new IntersectionObserver(
+
+        entries=>{
+
+            entries.forEach(
+                entry=>{
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        const sectionId=
+                            entry.target.id;
+
+
+                        navigationLinks.forEach(
+                            link=>{
+
+                                link.classList.remove(
+                                    "active"
+                                );
+
+
+                                if(
+                                    link.getAttribute(
+                                        "href"
+                                    )===
+                                    `#${sectionId}`
+                                ){
+
+                                    link.classList.add(
+                                        "active"
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            rootMargin:
+                "-30% 0px -60% 0px"
+        }
+
+    );
+
+
+sections.forEach(
+    section=>{
+        sectionObserver.observe(
+            section
+        );
+    }
+);
+
+
+/* =====================================================
+   NEWSLETTER
+===================================================== */
+
+if(newsletterForm){
+
+    newsletterForm.addEventListener(
+        "submit",
+        event=>{
+
+            event.preventDefault();
+
+
+            const email=
+                emailInput.value.trim();
+
+
+            if(!email){
+                return;
+            }
+
+
+            /*
+             * This is currently a demo.
+             *
+             * Later this can be connected to:
+             * Google Forms
+             * Formspree
+             * EmailJS
+             * Your own backend
+             */
+
+            const button=
+                newsletterForm.querySelector(
+                    "button"
+                );
+
+
+            const originalText=
+                button.textContent;
+
+
+            button.textContent=
+                "Subscribed!";
+
+
+            button.disabled=true;
+
+
+            emailInput.value="";
+
+
+            setTimeout(
+                ()=>{
+
+                    button.textContent=
+                        originalText;
+
+                    button.disabled=false;
+
+                },
+                3000
+            );
+
         }
     );
 
-
-    animationTargets.forEach(element => {
-        animationObserver.observe(element);
-    });
+}
 
 
-    /* =====================================================
-       ACTIVE NAVIGATION
-       
-       Highlights the navigation item corresponding
-       to the section currently being viewed.
-    ===================================================== */
+/* =====================================================
+   SMOOTH ANCHOR HANDLING
+===================================================== */
 
-    const sections = document.querySelectorAll("section[id]");
-    const navLinks = document.querySelectorAll(
-        '.main-nav a[href^="#"]'
-    );
+document
+    .querySelectorAll(
+        'a[href^="#"]'
+    )
+    .forEach(
+        link=>{
+
+            link.addEventListener(
+                "click",
+                event=>{
+
+                    const targetId=
+                        link.getAttribute(
+                            "href"
+                        );
 
 
-    const sectionObserver = new IntersectionObserver(
-        entries => {
+                    if(
+                        !targetId||
+                        targetId==="#"
+                    ){
 
-            entries.forEach(entry => {
+                        return;
 
-                if (entry.isIntersecting) {
+                    }
 
-                    const id = entry.target.getAttribute("id");
 
-                    navLinks.forEach(link => {
+                    const target=
+                        document.querySelector(
+                            targetId
+                        );
 
-                        link.classList.remove("active");
 
-                        if (
-                            link.getAttribute("href") === `#${id}`
-                        ) {
-                            link.classList.add("active");
-                        }
+                    if(!target){
+
+                        return;
+
+                    }
+
+
+                    event.preventDefault();
+
+
+                    const header=
+                        document.querySelector(
+                            ".site-header"
+                        );
+
+
+                    const headerHeight=
+                        header
+                        ? header.offsetHeight
+                        : 0;
+
+
+                    const targetPosition=
+                        target
+                            .getBoundingClientRect()
+                            .top
+                        +
+                        window.scrollY
+                        -
+                        headerHeight
+                        -
+                        10;
+
+
+                    window.scrollTo({
+
+                        top:
+                            targetPosition,
+
+                        behavior:
+                            "smooth"
 
                     });
 
                 }
+            );
 
-            });
-
-        },
-        {
-            threshold: 0.25,
-            rootMargin: "-20% 0px -60% 0px"
         }
     );
 
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+/* =====================================================
+   CARD HOVER MICRO-EFFECT
+===================================================== */
+
+const cards=
+    document.querySelectorAll(
+        ".article-card, .sports-card, .staff-card"
+    );
 
 
-    /* =====================================================
-       NEWSLETTER FORM
-    ===================================================== */
+cards.forEach(
+    card=>{
 
-    if (newsletterForm) {
+        card.addEventListener(
+            "mouseenter",
+            ()=>{
 
-        newsletterForm.addEventListener("submit", event => {
+                card.style.willChange=
+                    "transform";
 
-            event.preventDefault();
-
-            const button = newsletterForm.querySelector(
-                'button[type="submit"]'
-            );
-
-
-            if (!button || !emailInput) {
-                return;
             }
+        );
 
 
-            const originalText = button.textContent;
+        card.addEventListener(
+            "mouseleave",
+            ()=>{
 
-            button.textContent = "SUBSCRIBED!";
-            button.disabled = true;
+                card.style.willChange=
+                    "auto";
 
-            emailInput.value = "";
+            }
+        );
+
+    }
+);
 
 
-            setTimeout(() => {
+/* =====================================================
+   PARALLAX DECORATION
+   Very subtle and lightweight.
+===================================================== */
 
-                button.textContent = originalText;
-                button.disabled = false;
+const hero=
+    document.querySelector(
+        ".hero"
+    );
 
-            }, 3000);
 
-        });
+const decorativePaws=
+    document.querySelectorAll(
+        ".hero-paw"
+    );
+
+
+let ticking=false;
+
+
+function updateParallax(){
+
+    if(!hero){
+
+        ticking=false;
+
+        return;
 
     }
 
 
-    /* =====================================================
-       SMOOTH SCROLLING
-    ===================================================== */
-
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-
-        link.addEventListener("click", event => {
-
-            const targetId = link.getAttribute("href");
+    const scrollY=
+        window.scrollY;
 
 
-            if (
-                !targetId ||
-                targetId === "#" ||
-                targetId.length <= 1
-            ) {
-                return;
-            }
+    /*
+     * Keep movement extremely small
+     * so the website stays smooth.
+     */
+
+    decorativePaws.forEach(
+        (paw,index)=>{
+
+            const amount=
+                scrollY*
+                (
+                    0.015+
+                    index*
+                    0.006
+                );
 
 
-            const target = document.querySelector(targetId);
+            paw.style.transform=
+                `translateY(${amount}px)`;
 
-
-            if (!target) {
-                return;
-            }
-
-
-            event.preventDefault();
-
-
-            /*
-             * Account for the sticky header.
-             */
-
-            const header = document.querySelector("header");
-
-            const headerHeight = header
-                ? header.offsetHeight
-                : 0;
-
-
-            const targetPosition =
-                target.getBoundingClientRect().top +
-                window.scrollY -
-                headerHeight;
-
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth"
-            });
-
-        });
-
-    });
-
-
-    /* =====================================================
-       HOVER PERFORMANCE
-       
-       Gives the browser a small hint before hover effects.
-    ===================================================== */
-
-    const hoverElements = document.querySelectorAll(
-        ".story-card, .sports-card, .staff-card, .btn, .nav-link"
+        }
     );
 
 
-    hoverElements.forEach(element => {
+    ticking=false;
 
-        element.addEventListener("mouseenter", () => {
-            element.style.willChange = "transform";
-        });
+}
 
 
-        element.addEventListener("mouseleave", () => {
-            element.style.willChange = "auto";
-        });
+window.addEventListener(
+    "scroll",
+    ()=>{
 
-    });
+        if(!ticking){
+
+            window.requestAnimationFrame(
+                updateParallax
+            );
+
+            ticking=true;
+
+        }
+
+    },
+    {
+        passive:true
+    }
+);
 
 
-    /* =====================================================
-       HERO PARALLAX
-    ===================================================== */
+/* =====================================================
+   ESCAPE KEY
+   Close mobile navigation.
+===================================================== */
 
-    const heroPaw = document.querySelector(".hero-paw");
+document.addEventListener(
+    "keydown",
+    event=>{
 
-    let ticking = false;
+        if(
+            event.key==="Escape" &&
+            mainNav &&
+            mainNav.classList.contains(
+                "open"
+            )
+        ){
+
+            mainNav.classList.remove(
+                "open"
+            );
 
 
-    function updateParallax() {
+            menuToggle.classList.remove(
+                "active"
+            );
 
-        if (!heroPaw) {
-            ticking = false;
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SUPABASE — LATEST PPW ARTICLES
+===================================================== */
+
+const PPW_SUPABASE_URL=
+    "https://qyipadinsphoyxotrceo.supabase.co";
+
+
+const PPW_SUPABASE_KEY=
+    "sb_publishable_S73dZKZ9ro03lWDbHFzZhw_5t5pDtGt";
+
+
+/*
+ * Only run the Supabase article system
+ * if Supabase has been loaded and the
+ * homepage has the article container.
+ */
+
+if(
+    typeof supabase!=="undefined" &&
+    document.getElementById(
+        "latestArticles"
+    )
+){
+
+    const ppwDatabase=
+        supabase.createClient(
+            PPW_SUPABASE_URL,
+            PPW_SUPABASE_KEY
+        );
+
+
+    const latestArticles=
+        document.getElementById(
+            "latestArticles"
+        );
+
+
+    /* =================================================
+       ESCAPE ARTICLE CONTENT
+    ================================================= */
+
+    function ppwEsc(v){
+
+        return String(v??"")
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+
+    /* =================================================
+       FORMAT DATE
+    ================================================= */
+
+    function ppwDate(v){
+
+        return v
+
+            ? new Date(
+                v
+            ).toLocaleDateString(
+                "en-US",
+                {
+                    month:"short",
+                    day:"numeric",
+                    year:"numeric"
+                }
+            ).toUpperCase()
+
+            : "";
+
+    }
+
+
+    /* =================================================
+       LOAD ARTICLES
+    ================================================= */
+
+    async function loadPPWArticles(){
+
+        const {data,error}=
+            await ppwDatabase
+                .from("articles")
+                .select(
+                    "id,title,slug,excerpt,category,author,image_url,published_at,featured"
+                )
+                .eq(
+                    "status",
+                    "published"
+                )
+                .order(
+                    "published_at",
+                    {
+                        ascending:false
+                    }
+                )
+                .limit(8);
+
+
+        /* Error */
+
+        if(error){
+
+            console.error(
+                "PPW article loading error:",
+                error
+            );
+
+
+            latestArticles.innerHTML=
+                `
+                <div class="dynamic-empty">
+                    Latest stories are temporarily unavailable.
+                </div>
+                `;
+
             return;
         }
 
 
-        const scrollPosition = window.scrollY;
+        /* No articles */
 
+        if(
+            !data||
+            !data.length
+        ){
 
-        /*
-         * Keep movement subtle so lower-end computers
-         * don't have to render a large amount of movement.
-         */
+            latestArticles.innerHTML=
+                `
+                <div class="dynamic-empty">
+                    No published stories yet.
+                    Check back soon.
+                </div>
+                `;
 
-        const movement = Math.min(
-            scrollPosition * 0.08,
-            35
-        );
-
-
-        heroPaw.style.transform =
-            `translate3d(0, ${movement}px, 0)`;
-
-
-        ticking = false;
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            if (!ticking) {
-
-                window.requestAnimationFrame(
-                    updateParallax
-                );
-
-                ticking = true;
-            }
-
-        },
-        {
-            passive: true
-        }
-    );
-
-
-    /* =====================================================
-       ESCAPE KEY
-       
-       Closes the mobile navigation.
-    ===================================================== */
-
-    document.addEventListener("keydown", event => {
-
-        if (event.key === "Escape") {
-
-            if (mainNav) {
-                mainNav.classList.remove("open");
-            }
-
-            if (menuToggle) {
-                menuToggle.classList.remove("active");
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-            }
-
+            return;
         }
 
-    });
+
+        /* =================================================
+           BUILD ARTICLE CARDS
+        ================================================= */
+
+        latestArticles.innerHTML=
+
+            data
+                .map(
+                    a=>{
+
+                        const image=
+                            a.image_url
+
+                            ? `
+                                <img
+                                    class="dynamic-article-image"
+                                    src="${ppwEsc(a.image_url)}"
+                                    alt="${ppwEsc(a.title)}"
+                                    loading="lazy"
+                                >
+                              `
+
+                            : `
+                                <div class="dynamic-article-placeholder">
+                                    ${ppwEsc(
+                                        a.category
+                                    ).toUpperCase()}
+                                </div>
+                              `;
 
 
-    /* =====================================================
-       REDUCED MOTION
-       
-       Respect users who have disabled animations
-       in their operating system.
-    ===================================================== */
+                        return `
+                            <article
+                                class="dynamic-article-card reveal"
+                            >
 
-    const reducedMotion = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-    );
+                                <a
+                                    class="dynamic-article-link"
+                                    href="article.html?slug=${encodeURIComponent(a.slug)}"
+                                >
+
+                                    ${image}
 
 
-    function handleReducedMotion() {
+                                    <div
+                                        class="dynamic-article-content"
+                                    >
 
-        if (reducedMotion.matches) {
+                                        <span
+                                            class="category"
+                                        >
+                                            ${ppwEsc(
+                                                a.category
+                                            ).toUpperCase()}
+                                        </span>
 
-            document.documentElement.classList.add(
-                "reduce-motion"
+
+                                        <h3>
+                                            ${ppwEsc(
+                                                a.title
+                                            )}
+                                        </h3>
+
+
+                                        <p>
+                                            ${ppwEsc(
+                                                a.excerpt||
+                                                "Read the latest story from Paw Prints Weekly."
+                                            )}
+                                        </p>
+
+
+                                        <div
+                                            class="dynamic-article-meta"
+                                        >
+
+                                            <span>
+                                                ${ppwEsc(
+                                                    (
+                                                        a.author||
+                                                        "PPW STAFF"
+                                                    ).toUpperCase()
+                                                )}
+                                            </span>
+
+
+                                            <span>
+                                                ${ppwDate(
+                                                    a.published_at
+                                                )}
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                </a>
+
+                            </article>
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+        /* =================================================
+           RECONNECT REVEAL ANIMATIONS
+        ================================================= */
+
+        latestArticles
+            .querySelectorAll(
+                ".reveal"
+            )
+            .forEach(
+                card=>{
+
+                    if(
+                        typeof revealObserver!=="undefined"
+                    ){
+
+                        revealObserver.observe(
+                            card
+                        );
+
+                    }
+
+                }
             );
-
-        } else {
-
-            document.documentElement.classList.remove(
-                "reduce-motion"
-            );
-
-        }
 
     }
 
 
-    handleReducedMotion();
+    /* =================================================
+       START ARTICLE LOADING
+    ================================================= */
 
+    loadPPWArticles();
 
-    if (reducedMotion.addEventListener) {
-
-        reducedMotion.addEventListener(
-            "change",
-            handleReducedMotion
-        );
-
-    } else if (reducedMotion.addListener) {
-
-        reducedMotion.addListener(
-            handleReducedMotion
-        );
-
-    }
-
-
-    /* =====================================================
-       IMAGE FALLBACK
-       
-       If tiger.png cannot load, prevent a broken-image
-       icon from ruining the layout.
-    ===================================================== */
-
-    const tigerImages = document.querySelectorAll(
-        'img[src="images/tiger.png"]'
-    );
-
-
-    tigerImages.forEach(image => {
-
-        image.addEventListener("error", () => {
-
-            image.classList.add("image-error");
-
-        });
-
-    });
-
-
-    /* =====================================================
-       INITIALIZATION
-    ===================================================== */
-
-    /*
-     * Make sure the page starts at the correct scroll
-     * position when loaded through a hash.
-     */
-
-    if (window.location.hash) {
-
-        setTimeout(() => {
-
-            const target = document.querySelector(
-                window.location.hash
-            );
-
-
-            if (target) {
-
-                const header =
-                    document.querySelector("header");
-
-                const headerHeight = header
-                    ? header.offsetHeight
-                    : 0;
-
-
-                window.scrollTo({
-                    top:
-                        target.getBoundingClientRect().top +
-                        window.scrollY -
-                        headerHeight,
-                    behavior: "auto"
-                });
-
-            }
-
-        }, 100);
-
-    }
-
-});
+}

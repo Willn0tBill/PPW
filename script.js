@@ -1,148 +1,103 @@
 /* =====================================================
-   PAW PRINTS WEEKLY
+   PAW PRINTS WEEKLY — SCRIPT.JS
    Glen A. Wilson High School
-   Main JavaScript
 ===================================================== */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
-const menuToggle =
-    document.getElementById("menuToggle");
-
-const mainNav =
-    document.getElementById("mainNav");
-
-const newsletterForm =
-    document.getElementById("newsletterForm");
-
-const emailInput =
-    document.getElementById("email");
-
-const currentDate =
-    document.getElementById("currentDate");
+    const menuToggle = document.getElementById("menuToggle");
+    const mainNav = document.getElementById("mainNav");
+    const newsletterForm = document.getElementById("newsletterForm");
+    const emailInput = document.getElementById("emailInput");
+    const currentDate = document.getElementById("currentDate");
 
 
-/* =====================================================
-   CURRENT DATE
-===================================================== */
+    /* =====================================================
+       CURRENT DATE
+    ===================================================== */
 
-function updateDate() {
+    if (currentDate) {
+        const now = new Date();
 
-    if (!currentDate) return;
-
-    const date = new Date();
-
-    const options = {
-        month: "long",
-        year: "numeric"
-    };
-
-    currentDate.textContent =
-        date.toLocaleDateString(
-            "en-US",
-            options
-        ).toUpperCase();
-
-}
-
-updateDate();
+        currentDate.textContent = now.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric"
+        }).toUpperCase();
+    }
 
 
-/* =====================================================
-   MOBILE NAVIGATION
-===================================================== */
+    /* =====================================================
+       MOBILE NAVIGATION
+    ===================================================== */
 
-if (menuToggle && mainNav) {
+    if (menuToggle && mainNav) {
 
-    menuToggle.addEventListener(
-        "click",
-        () => {
+        menuToggle.addEventListener("click", () => {
+            const isOpen = mainNav.classList.toggle("open");
 
-            const isOpen =
-                mainNav.classList.toggle("open");
-
-            menuToggle.classList.toggle(
-                "active",
-                isOpen
-            );
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                isOpen
-            );
-
-            document.body.classList.toggle(
-                "menu-open",
-                isOpen
-            );
-
-        }
-    );
+            menuToggle.classList.toggle("active", isOpen);
+            menuToggle.setAttribute("aria-expanded", isOpen);
+        });
 
 
-    /* Close menu when clicking a link */
+        /* Close menu when clicking a navigation link */
 
-    const navLinks =
-        mainNav.querySelectorAll("a");
-
-    navLinks.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            () => {
-
+        mainNav.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", () => {
                 mainNav.classList.remove("open");
-
-                menuToggle.classList.remove(
-                    "active"
-                );
-
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                document.body.classList.remove(
-                    "menu-open"
-                );
-
-            }
-        );
-
-    });
-
-}
+                menuToggle.classList.remove("active");
+                menuToggle.setAttribute("aria-expanded", "false");
+            });
+        });
+    }
 
 
-/* =====================================================
-   SCROLL REVEAL
-===================================================== */
+    /* =====================================================
+       SCROLL REVEAL
+       Animations replay every time elements enter
+       the viewport.
+    ===================================================== */
 
-const revealElements =
-    document.querySelectorAll(".reveal");
+    const revealElements = document.querySelectorAll(".reveal");
 
-
-const revealObserver =
-    new IntersectionObserver(
+    const revealObserver = new IntersectionObserver(
         entries => {
 
             entries.forEach(entry => {
 
-                if (
-                    entry.isIntersecting
-                ) {
+                if (entry.isIntersecting) {
 
-                    entry.target.classList.add(
-                        "visible"
-                    );
+                    /*
+                     * Remove the class first so the animation
+                     * can be restarted from the beginning.
+                     */
 
-                    revealObserver.unobserve(
-                        entry.target
-                    );
+                    entry.target.classList.remove("visible");
 
+                    /*
+                     * Force browser reflow.
+                     */
+
+                    void entry.target.offsetWidth;
+
+                    /*
+                     * Start animation.
+                     */
+
+                    entry.target.classList.add("visible");
+
+                } else {
+
+                    /*
+                     * Remove visible when leaving viewport.
+                     * This allows it to animate again later.
+                     */
+
+                    entry.target.classList.remove("visible");
                 }
 
             });
@@ -150,70 +105,103 @@ const revealObserver =
         },
         {
             threshold: 0.08,
-
-            rootMargin:
-                "0px 0px -30px 0px"
+            rootMargin: "0px 0px -30px 0px"
         }
     );
 
 
-revealElements.forEach(element => {
-
-    revealObserver.observe(element);
-
-});
+    revealElements.forEach(element => {
+        revealObserver.observe(element);
+    });
 
 
-/* =====================================================
-   ACTIVE NAVIGATION
-===================================================== */
+    /* =====================================================
+       VIEWPORT ANIMATION CONTROLLER
+       
+       CSS animations pause/reset when they leave the
+       viewport and restart when they return.
+    ===================================================== */
 
-const sections =
-    document.querySelectorAll(
-        "main section[id]"
-    );
-
-const navigationLinks =
-    document.querySelectorAll(
-        "#mainNav a"
-    );
+    const animationTargets = [];
 
 
-const sectionObserver =
-    new IntersectionObserver(
+    /*
+     * Find elements that have CSS animations.
+     */
+
+    document.querySelectorAll("*").forEach(element => {
+
+        const styles = window.getComputedStyle(element);
+
+        if (
+            styles.animationName &&
+            styles.animationName !== "none"
+        ) {
+            animationTargets.push(element);
+        }
+
+    });
+
+
+    /*
+     * Observe animated elements.
+     */
+
+    const animationObserver = new IntersectionObserver(
         entries => {
 
             entries.forEach(entry => {
 
-                if (
-                    entry.isIntersecting
-                ) {
+                const element = entry.target;
 
-                    const sectionId =
-                        entry.target.id;
 
-                    navigationLinks.forEach(
-                        link => {
+                if (entry.isIntersecting) {
 
-                            link.classList.remove(
-                                "active"
-                            );
+                    /*
+                     * Remove reset state.
+                     */
 
-                            if (
-                                link.getAttribute(
-                                    "href"
-                                ) ===
-                                `#${sectionId}`
-                            ) {
+                    element.classList.remove("viewport-reset");
 
-                                link.classList.add(
-                                    "active"
-                                );
+                    /*
+                     * Force a reflow so the browser knows
+                     * the animation should restart.
+                     */
 
-                            }
+                    void element.offsetWidth;
 
-                        }
-                    );
+                    /*
+                     * Resume animation.
+                     */
+
+                    element.classList.remove("viewport-paused");
+
+                } else {
+
+                    /*
+                     * Pause the animation.
+                     */
+
+                    element.classList.add("viewport-paused");
+
+
+                    /*
+                     * Remove the reset class first.
+                     */
+
+                    element.classList.remove("viewport-reset");
+
+                    /*
+                     * Force reflow.
+                     */
+
+                    void element.offsetWidth;
+
+                    /*
+                     * Completely reset the animation.
+                     */
+
+                    element.classList.add("viewport-reset");
 
                 }
 
@@ -221,304 +209,390 @@ const sectionObserver =
 
         },
         {
-            rootMargin:
-                "-30% 0px -60% 0px"
+            threshold: 0.01,
+            rootMargin: "0px"
         }
     );
 
 
-sections.forEach(section => {
-
-    sectionObserver.observe(section);
-
-});
+    animationTargets.forEach(element => {
+        animationObserver.observe(element);
+    });
 
 
-/* =====================================================
-   NEWSLETTER
-===================================================== */
+    /* =====================================================
+       ACTIVE NAVIGATION
+       
+       Highlights the navigation item corresponding
+       to the section currently being viewed.
+    ===================================================== */
 
-if (newsletterForm) {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(
+        '.main-nav a[href^="#"]'
+    );
 
-    newsletterForm.addEventListener(
-        "submit",
-        event => {
+
+    const sectionObserver = new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    const id = entry.target.getAttribute("id");
+
+                    navLinks.forEach(link => {
+
+                        link.classList.remove("active");
+
+                        if (
+                            link.getAttribute("href") === `#${id}`
+                        ) {
+                            link.classList.add("active");
+                        }
+
+                    });
+
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.25,
+            rootMargin: "-20% 0px -60% 0px"
+        }
+    );
+
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+
+    /* =====================================================
+       NEWSLETTER FORM
+    ===================================================== */
+
+    if (newsletterForm) {
+
+        newsletterForm.addEventListener("submit", event => {
 
             event.preventDefault();
 
-            const email =
-                emailInput.value.trim();
+            const button = newsletterForm.querySelector(
+                'button[type="submit"]'
+            );
 
-            if (!email) {
+
+            if (!button || !emailInput) {
                 return;
             }
 
 
-            /*
-                This is currently a demo.
+            const originalText = button.textContent;
 
-                Later you can connect this to:
-                - Google Forms
-                - Formspree
-                - EmailJS
-                - your own backend
-            */
-
-
-            const button =
-                newsletterForm.querySelector(
-                    "button"
-                );
-
-            const originalText =
-                button.textContent;
-
-
-            button.textContent =
-                "Subscribed!";
-
-
+            button.textContent = "SUBSCRIBED!";
             button.disabled = true;
-
 
             emailInput.value = "";
 
 
             setTimeout(() => {
 
-                button.textContent =
-                    originalText;
-
+                button.textContent = originalText;
                 button.disabled = false;
 
             }, 3000);
 
-        }
-    );
+        });
 
-}
-
-
-/* =====================================================
-   SMOOTH ANCHOR HANDLING
-===================================================== */
-
-document
-    .querySelectorAll('a[href^="#"]')
-    .forEach(link => {
-
-        link.addEventListener(
-            "click",
-            event => {
-
-                const targetId =
-                    link.getAttribute("href");
-
-                if (
-                    !targetId ||
-                    targetId === "#"
-                ) {
-
-                    return;
-
-                }
+    }
 
 
-                const target =
-                    document.querySelector(
-                        targetId
-                    );
+    /* =====================================================
+       SMOOTH SCROLLING
+    ===================================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", event => {
+
+            const targetId = link.getAttribute("href");
 
 
-                if (!target) {
-                    return;
-                }
-
-
-                event.preventDefault();
-
-
-                const header =
-                    document.querySelector(
-                        ".site-header"
-                    );
-
-
-                const headerHeight =
-                    header
-                        ? header.offsetHeight
-                        : 0;
-
-
-                const targetPosition =
-                    target.getBoundingClientRect()
-                        .top
-                    +
-                    window.scrollY
-                    -
-                    headerHeight
-                    -
-                    10;
-
-
-                window.scrollTo({
-
-                    top: targetPosition,
-
-                    behavior: "smooth"
-
-                });
-
+            if (
+                !targetId ||
+                targetId === "#" ||
+                targetId.length <= 1
+            ) {
+                return;
             }
-        );
+
+
+            const target = document.querySelector(targetId);
+
+
+            if (!target) {
+                return;
+            }
+
+
+            event.preventDefault();
+
+
+            /*
+             * Account for the sticky header.
+             */
+
+            const header = document.querySelector("header");
+
+            const headerHeight = header
+                ? header.offsetHeight
+                : 0;
+
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.scrollY -
+                headerHeight;
+
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
+
+        });
 
     });
 
 
-/* =====================================================
-   CARD HOVER MICRO-EFFECT
-===================================================== */
+    /* =====================================================
+       HOVER PERFORMANCE
+       
+       Gives the browser a small hint before hover effects.
+    ===================================================== */
 
-const cards =
-    document.querySelectorAll(
-        ".article-card, .sports-card, .staff-card"
+    const hoverElements = document.querySelectorAll(
+        ".story-card, .sports-card, .staff-card, .btn, .nav-link"
     );
 
 
-cards.forEach(card => {
+    hoverElements.forEach(element => {
 
-    card.addEventListener(
-        "mouseenter",
-        () => {
+        element.addEventListener("mouseenter", () => {
+            element.style.willChange = "transform";
+        });
 
-            card.style.willChange =
-                "transform";
 
+        element.addEventListener("mouseleave", () => {
+            element.style.willChange = "auto";
+        });
+
+    });
+
+
+    /* =====================================================
+       HERO PARALLAX
+    ===================================================== */
+
+    const heroPaw = document.querySelector(".hero-paw");
+
+    let ticking = false;
+
+
+    function updateParallax() {
+
+        if (!heroPaw) {
+            ticking = false;
+            return;
         }
-    );
 
 
-    card.addEventListener(
-        "mouseleave",
-        () => {
-
-            card.style.willChange =
-                "auto";
-
-        }
-    );
-
-});
+        const scrollPosition = window.scrollY;
 
 
-/* =====================================================
-   PARALLAX DECORATION
-   Very subtle and lightweight
-===================================================== */
+        /*
+         * Keep movement subtle so lower-end computers
+         * don't have to render a large amount of movement.
+         */
 
-const hero =
-    document.querySelector(".hero");
-
-const decorativePaws =
-    document.querySelectorAll(
-        ".hero-paw"
-    );
+        const movement = Math.min(
+            scrollPosition * 0.08,
+            35
+        );
 
 
-let ticking = false;
+        heroPaw.style.transform =
+            `translate3d(0, ${movement}px, 0)`;
 
 
-function updateParallax() {
-
-    if (!hero) {
         ticking = false;
-        return;
     }
 
 
-    const scrollY =
-        window.scrollY;
+    window.addEventListener(
+        "scroll",
+        () => {
 
+            if (!ticking) {
+
+                window.requestAnimationFrame(
+                    updateParallax
+                );
+
+                ticking = true;
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    /* =====================================================
+       ESCAPE KEY
+       
+       Closes the mobile navigation.
+    ===================================================== */
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+
+            if (mainNav) {
+                mainNav.classList.remove("open");
+            }
+
+            if (menuToggle) {
+                menuToggle.classList.remove("active");
+                menuToggle.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+            }
+
+        }
+
+    });
+
+
+    /* =====================================================
+       REDUCED MOTION
+       
+       Respect users who have disabled animations
+       in their operating system.
+    ===================================================== */
+
+    const reducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    );
+
+
+    function handleReducedMotion() {
+
+        if (reducedMotion.matches) {
+
+            document.documentElement.classList.add(
+                "reduce-motion"
+            );
+
+        } else {
+
+            document.documentElement.classList.remove(
+                "reduce-motion"
+            );
+
+        }
+
+    }
+
+
+    handleReducedMotion();
+
+
+    if (reducedMotion.addEventListener) {
+
+        reducedMotion.addEventListener(
+            "change",
+            handleReducedMotion
+        );
+
+    } else if (reducedMotion.addListener) {
+
+        reducedMotion.addListener(
+            handleReducedMotion
+        );
+
+    }
+
+
+    /* =====================================================
+       IMAGE FALLBACK
+       
+       If tiger.png cannot load, prevent a broken-image
+       icon from ruining the layout.
+    ===================================================== */
+
+    const tigerImages = document.querySelectorAll(
+        'img[src="images/tiger.png"]'
+    );
+
+
+    tigerImages.forEach(image => {
+
+        image.addEventListener("error", () => {
+
+            image.classList.add("image-error");
+
+        });
+
+    });
+
+
+    /* =====================================================
+       INITIALIZATION
+    ===================================================== */
 
     /*
-        Keep the movement extremely small
-        so the website stays smooth.
-    */
+     * Make sure the page starts at the correct scroll
+     * position when loaded through a hash.
+     */
 
-    decorativePaws.forEach(
-        (paw, index) => {
+    if (window.location.hash) {
 
-            const amount =
-                scrollY *
-                (0.015 + index * 0.006);
+        setTimeout(() => {
 
-
-            paw.style.transform =
-                `translateY(${amount}px)`;
-
-        }
-    );
-
-
-    ticking = false;
-
-}
-
-
-window.addEventListener(
-    "scroll",
-    () => {
-
-        if (!ticking) {
-
-            window.requestAnimationFrame(
-                updateParallax
+            const target = document.querySelector(
+                window.location.hash
             );
 
-            ticking = true;
 
-        }
+            if (target) {
 
-    },
-    {
-        passive: true
-    }
-);
+                const header =
+                    document.querySelector("header");
+
+                const headerHeight = header
+                    ? header.offsetHeight
+                    : 0;
 
 
-/* =====================================================
-   ESCAPE KEY
-   Close mobile navigation
-===================================================== */
+                window.scrollTo({
+                    top:
+                        target.getBoundingClientRect().top +
+                        window.scrollY -
+                        headerHeight,
+                    behavior: "auto"
+                });
 
-document.addEventListener(
-    "keydown",
-    event => {
+            }
 
-        if (
-            event.key === "Escape" &&
-            mainNav &&
-            mainNav.classList.contains("open")
-        ) {
-
-            mainNav.classList.remove(
-                "open"
-            );
-
-            menuToggle.classList.remove(
-                "active"
-            );
-
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            document.body.classList.remove(
-                "menu-open"
-            );
-
-        }
+        }, 100);
 
     }
-);
+
+});

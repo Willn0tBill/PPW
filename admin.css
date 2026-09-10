@@ -1,0 +1,355 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap');
+
+:root{--cardinal:#9d1b2e;--cardinal-dark:#721321;--gold:#f2a900;--paper:#f7f4ed;--white:#fff;--text:#171717;--muted:#6c6c6c;--border:#ddd8cf;--shadow:0 18px 45px rgba(0,0,0,.08)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);font-family:"DM Sans",Arial,sans-serif}
+button,input,textarea,select{font:inherit} button{cursor:pointer}.hidden{display:none!important}
+.auth-screen{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 20%,rgba(157,27,46,.12),transparent 30%),radial-gradient(circle at 85% 80%,rgba(242,169,0,.13),transparent 30%),var(--paper)}
+.auth-card{width:min(460px,100%);background:var(--white);border:1px solid var(--border);border-radius:22px;padding:42px;box-shadow:var(--shadow)}
+.auth-mark{width:62px;height:62px;display:grid;place-items:center;border-radius:16px;background:var(--cardinal);color:#fff;font-weight:800;letter-spacing:.08em;margin-bottom:22px}
+.eyebrow{margin:0 0 8px;color:var(--cardinal);font-size:.75rem;font-weight:800;letter-spacing:.16em}
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif} h1{font-size:clamp(2.2rem,5vw,3.5rem);margin:0} h2{font-size:2rem;margin:0} h3{margin:0;font-size:1.3rem}
+.muted,.help{color:var(--muted)}
+
+
+.back-to-ppw {
+    display: inline-flex;
+    align-items: center;
+    width: max-content;
+    margin-top: 8px;
+    padding: 9px 13px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--cardinal);
+    background: #fff;
+    font-size: .78rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+.back-to-ppw:hover {
+    background: var(--cardinal);
+    color: #fff;
+    border-color: var(--cardinal);
+    transform: translateY(-2px);
+}
+
+.auth-card form{display:grid;gap:16px;margin-top:20px}
+label{display:grid;gap:8px;font-weight:700;font-size:.9rem}
+input,textarea,select{width:100%;border:1px solid var(--border);border-radius:10px;background:#fff;padding:12px 13px;color:var(--text);outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--cardinal);box-shadow:0 0 0 3px rgba(157,27,46,.1)}
+textarea{resize:vertical;line-height:1.6}
+.admin-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px clamp(20px,5vw,70px);background:rgba(247,244,237,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(12px)}
+.header-actions,.form-actions{display:flex;gap:10px;flex-wrap:wrap}
+.admin-main{width:min(1400px,calc(100% - 40px));margin:36px auto 80px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(340px,.8fr);gap:24px;align-items:start}
+.editor-panel,.articles-panel{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.04)}
+.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.full{grid-column:1/-1}
+.options{display:flex;gap:20px;flex-wrap:wrap;padding:18px 0}.checkbox{display:flex;align-items:center;gap:9px;font-weight:600}.checkbox input{width:auto}
+.primary-btn,.secondary-btn,.text-btn{border:0;border-radius:10px;padding:11px 16px;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.primary-btn{background:var(--cardinal);color:#fff}.primary-btn:hover{background:var(--cardinal-dark)}
+.secondary-btn{background:#f1eee7;color:var(--text);border:1px solid var(--border)}.secondary-btn:hover{border-color:var(--cardinal)}
+.text-btn{background:transparent;color:var(--cardinal);padding:8px}.message{min-height:22px;margin:14px 0 0;font-weight:700}.message.success{color:#1d6b3b}.message.error{color:var(--cardinal)}
+.current-image{display:grid;gap:8px;margin:8px 0 18px;font-size:.8rem;font-weight:700}.current-image img{width:160px;height:100px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
+.article-list{display:grid;gap:14px;max-height:720px;overflow:auto;padding-right:4px}
+.article-item{border:1px solid var(--border);border-radius:14px;padding:16px;display:grid;grid-template-columns:74px 1fr;gap:14px}
+.article-thumb{width:74px;height:74px;object-fit:cover;border-radius:10px;background:#eee}
+.article-item-top{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.article-item p{margin:7px 0 0;color:var(--muted);font-size:.88rem}
+.badge{white-space:nowrap;border-radius:999px;padding:5px 8px;font-size:.68rem;font-weight:800;background:#f1eee7}.badge.published{color:#1d6b3b}.badge.draft{color:#8a5a00}
+.article-actions{display:flex;gap:7px;margin-top:12px}.small-btn{border:1px solid var(--border);background:#fff;border-radius:8px;padding:7px 10px;font-size:.78rem;font-weight:800;text-decoration:none;color:inherit}.small-btn:hover{border-color:var(--cardinal)}
+.empty-state{padding:35px 15px;text-align:center;color:var(--muted)}
+@media(max-width:950px){.admin-main{grid-template-columns:1fr}}
+@media(max-width:620px){.admin-header{align-items:flex-start;flex-direction:column}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.editor-panel,.articles-panel,.auth-card{padding:22px}.admin-main{width:min(100% - 24px,1400px);margin-top:18px}.header-actions{width:100%}.header-actions .secondary-btn{flex:1}.back-to-ppw{width:100%;justify-content:center}}
+
+
+/* =====================================================
+   PPW FULL-SCREEN OPENING OVERLAY
+   This is a true viewport overlay. It sits above the
+   entire website until its animation is finished.
+===================================================== */
+body.ppw-loading {
+    overflow: hidden !important;
+}
+
+.ppw-loader {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    z-index: 2147483647 !important;
+    display: grid !important;
+    place-items: center !important;
+    overflow: hidden !important;
+    isolation: isolate;
+    background: #f7f4ed !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all !important;
+    transition: opacity .7s cubic-bezier(.4,0,.2,1), visibility .7s linear;
+}
+
+/* A second layer makes it unmistakably an overlay, even if the page
+   underneath has unusual stacking contexts. */
+.ppw-loader::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 50% 42%, rgba(255,255,255,.72), rgba(247,244,237,.96) 52%, #f7f4ed 100%);
+}
+
+.ppw-loader::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(90deg, transparent 0%, rgba(157,27,46,.025) 50%, transparent 100%);
+}
+
+.ppw-loader.is-hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.ppw-loader-bg-ring {
+    position: absolute;
+    border: 1px solid rgba(157,27,46,.11);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1;
+    animation: ppwLoaderRingIn .9s ease forwards;
+}
+
+.ppw-loader-bg-ring::after {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(242,169,0,.14);
+    border-radius: 50%;
+}
+
+.ring-one {
+    width: 760px;
+    height: 760px;
+    right: -330px;
+    top: -350px;
+    animation-delay: .05s;
+}
+
+.ring-two {
+    width: 570px;
+    height: 570px;
+    left: -300px;
+    bottom: -310px;
+    animation-delay: .18s;
+}
+
+@keyframes ppwLoaderRingIn {
+    from { opacity: 0; transform: scale(.92); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.ppw-loader-inner {
+    position: relative;
+    z-index: 3;
+    width: min(90vw, 460px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* CSS-built paw prints */
+.ppw-loader-paw-trail {
+    position: relative;
+    width: 320px;
+    height: 96px;
+    margin-bottom: 2px;
+}
+
+.ppw-paw {
+    position: absolute;
+    width: 54px;
+    height: 58px;
+    opacity: 0;
+    transform-origin: center;
+    filter: drop-shadow(0 5px 8px rgba(0,0,0,.07));
+}
+
+.ppw-paw .toe,
+.ppw-paw .pad {
+    position: absolute;
+    display: block;
+    background: var(--cardinal);
+    border-radius: 50%;
+}
+
+.ppw-paw .toe { width: 12px; height: 17px; }
+.ppw-paw .t1 { left: 5px; top: 11px; transform: rotate(-28deg); }
+.ppw-paw .t2 { left: 17px; top: 4px; transform: rotate(-10deg); }
+.ppw-paw .t3 { left: 30px; top: 4px; transform: rotate(10deg); }
+.ppw-paw .t4 { left: 41px; top: 12px; transform: rotate(28deg); }
+.ppw-paw .pad {
+    width: 34px;
+    height: 28px;
+    left: 10px;
+    top: 27px;
+    border-radius: 48% 48% 55% 55%;
+}
+
+.ppw-paw.paw-one {
+    left: 0;
+    top: 29px;
+    transform: rotate(-17deg) translateY(20px) scale(.55);
+    animation: ppwPawIn .55s ease .15s forwards;
+}
+
+.ppw-paw.paw-two {
+    left: 133px;
+    top: 5px;
+    transform: rotate(-2deg) translateY(20px) scale(.55);
+    animation: ppwPawIn .55s ease .35s forwards;
+}
+
+.ppw-paw.paw-three {
+    right: 0;
+    top: 29px;
+    transform: rotate(17deg) translateY(20px) scale(.55);
+    animation: ppwPawIn .55s ease .55s forwards;
+}
+
+@keyframes ppwPawIn {
+    from { opacity: 0; transform: translateY(20px) scale(.55) rotate(-8deg); }
+    to { opacity: .92; transform: translateY(0) scale(1) rotate(0); }
+}
+
+.ppw-loader-logo-wrap {
+    position: relative;
+    width: 138px;
+    height: 138px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    background: rgba(255,255,255,.70);
+    box-shadow: 0 20px 55px rgba(0,0,0,.10), inset 0 0 0 8px rgba(242,169,0,.07);
+    opacity: 0;
+    transform: scale(.70);
+    animation: ppwLogoIn .75s cubic-bezier(.2,.8,.2,1) .72s forwards;
+}
+
+.ppw-loader-logo-ring {
+    position: absolute;
+    inset: -12px;
+    border: 1px solid rgba(157,27,46,.16);
+    border-radius: 50%;
+    opacity: 0;
+    animation: ppwLogoRing 1.1s ease 1.05s forwards;
+}
+
+.ppw-loader-logo {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+}
+
+@keyframes ppwLogoIn {
+    0% { opacity: 0; transform: scale(.70); }
+    65% { opacity: 1; transform: scale(1.07); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes ppwLogoRing {
+    0% { opacity: 0; transform: scale(.75); }
+    45% { opacity: 1; }
+    100% { opacity: .65; transform: scale(1); }
+}
+
+.ppw-loader-title {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: ppwTextIn .65s ease 1.25s forwards;
+}
+
+.ppw-loader-title strong {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(1.55rem, 5vw, 2.15rem);
+    font-weight: 900;
+    letter-spacing: .14em;
+}
+
+.ppw-loader-title span {
+    margin-top: 8px;
+    padding-left: .42em;
+    color: var(--cardinal);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .74rem;
+    font-weight: 900;
+    letter-spacing: .42em;
+}
+
+@keyframes ppwTextIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.ppw-loader-rule {
+    width: 170px;
+    height: 3px;
+    margin-top: 22px;
+    overflow: hidden;
+    background: rgba(157,27,46,.12);
+    opacity: 0;
+    animation: ppwRuleIn .35s ease 1.40s forwards;
+}
+
+.ppw-loader-rule span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--gold);
+    animation: ppwRuleFill 1.25s cubic-bezier(.4,0,.2,1) 1.45s forwards;
+}
+
+@keyframes ppwRuleIn { to { opacity: 1; } }
+@keyframes ppwRuleFill { from { width: 0; } to { width: 100%; } }
+
+.ppw-loader-school {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: .60rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    opacity: 0;
+    animation: ppwSchoolIn .5s ease 1.58s forwards;
+}
+
+@keyframes ppwSchoolIn { to { opacity: 1; } }
+
+@media (max-width: 600px) {
+    .ppw-loader-paw-trail { transform: scale(.82); margin-bottom: -7px; }
+    .ppw-loader-logo-wrap { width: 112px; height: 112px; }
+    .ppw-loader-logo { width: 77px; height: 77px; }
+    .ppw-loader-title { margin-top: 21px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ppw-loader * {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}

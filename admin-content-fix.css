@@ -1,0 +1,9 @@
+/* PPW admin article editor width fix */
+html,body{max-width:100%;overflow-x:hidden}
+.admin-main,.editor-panel,.editor-panel form,.form-grid,.form-grid .full{min-width:0}
+.editor-panel{width:100%;box-sizing:border-box}
+#articleForm .form-grid{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}
+#articleForm .form-grid>label.full{grid-column:1/-1!important;width:100%;min-width:0}
+#articleForm #content{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;resize:vertical!important;white-space:pre-wrap!important;overflow-wrap:break-word!important;word-break:normal!important}
+#articleForm #excerpt{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+@media(max-width:700px){#articleForm .form-grid{grid-template-columns:minmax(0,1fr)!important}#articleForm .form-grid>label.full{grid-column:auto!important}#articleForm #content{width:100%!important;min-height:320px!important}}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="description" content="Paw Prints Weekly recreational games — play the daily PawWord and PPW Mini Crossword.">
+<meta name="description" content="Paw Prints Weekly recreational games — PawWord, mini crossword, and Paw Match.">
 <title>PPW Games | Paw Prints Weekly</title>
 <link rel="stylesheet" href="homepage.css">
 <link rel="stylesheet" href="games.css">
@@ -21,7 +21,12 @@
   <section class="games-hero">
     <span class="eyebrow">TAKE A BREAK</span>
     <h1>PPW <em>Games</em></h1>
-    <p>Quick puzzles made for Wildcats. Play today's word game, then try the mini crossword.</p>
+    <p>Quick puzzles and little challenges made for Wildcats. Come back each day for a fresh PawWord and try to beat your personal best.</p>
+    <div class="game-stats" aria-label="Your game statistics">
+      <div><strong id="gamesStreak">0</strong><span>DAY STREAK</span></div>
+      <div><strong id="gamesPlayed">0</strong><span>GAMES PLAYED</span></div>
+      <div><strong id="gamesBest">—</strong><span>BEST MEMORY TIME</span></div>
+    </div>
   </section>
 
   <section class="game-panel word-panel" id="pawword">
@@ -51,10 +56,25 @@
     <div class="game-actions"><button class="small-button" id="checkCrossword">Check answers</button><button class="small-button secondary-button" id="clearCrossword">Clear</button></div>
   </section>
 
+  <section class="game-panel memory-panel" id="paw-match">
+    <div class="game-heading">
+      <div><span class="eyebrow">NEW • QUICK GAME</span><h2>Paw Match</h2><p>Flip cards, remember where everything is, and match all eight pairs. Your best time is saved on this device.</p></div>
+      <div class="game-date"><span id="memoryMoves">0</span> MOVES</div>
+    </div>
+    <div id="memoryGrid" class="memory-grid" aria-label="Paw Match memory board"></div>
+    <div id="memoryMessage" class="game-message" aria-live="polite">Find all eight pairs.</div>
+    <div class="game-actions"><button class="small-button" id="memoryRestart">New game</button></div>
+  </section>
+
+  <section class="weekly-challenge">
+    <div><span class="eyebrow">THIS WEEK'S CHALLENGE</span><h2>Can you keep your streak alive?</h2><p>Play at least one PPW game each day. Your streak is stored locally on your device, so no account is required.</p></div>
+    <div class="challenge-ring"><strong id="challengeDays">0</strong><span>/ 7 DAYS</span></div>
+  </section>
+
   <section class="games-note">
-    <strong>Want the official Wordle?</strong>
-    <span>PPW's PawWord is an original daily game rather than a copy of another site's puzzle. The official Wordle is available from The New York Times.</span>
-    <a href="https://www.nytimes.com/games/wordle/index.html" target="_blank" rel="noopener noreferrer">Open official Wordle →</a>
+    <strong>PPW Games</strong>
+    <span>These are original PPW games built for the newspaper. They are designed to work on phones, school Chromebooks, and larger computers without making the page heavy.</span>
+    <a href="index.html">Back to PPW →</a>
   </section>
 </main>
 

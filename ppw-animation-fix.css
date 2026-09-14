@@ -35,8 +35,8 @@ html body .ppw-loader-title strong{font-family:Arial,Helvetica,sans-serif;font-s
 html body .ppw-loader-title span{margin-top:8px;padding-left:.42em;color:#9d1b2e;font-family:Arial,Helvetica,sans-serif;font-size:.74rem;font-weight:900;letter-spacing:.42em}
 @keyframes ppwTextIn{to{opacity:1;transform:translateY(0)}}
 html body .ppw-loader-rule{width:170px;height:3px;margin-top:22px;overflow:hidden;background:rgba(157,27,46,.12);opacity:0;animation:ppwRuleIn .35s ease 1.40s forwards!important}
-html body .ppw-loader-rule span{display:block;width:0;height:100%;background:#f2a900;animation:ppwRuleFill 1.25s cubic-bezier(.4,0,.2,1) 1.45s forwards!important}
-@keyframes ppwRuleIn{to{opacity:1}}@keyframes ppwRuleFill{from{width:0}to{width:100%}}
+html body .ppw-loader-rule span{display:block;width:100%!important;height:100%;background:#f2a900;transform:scaleX(0);transform-origin:left center;animation:ppwRuleFill 1.25s cubic-bezier(.4,0,.2,1) 1.45s forwards!important}
+@keyframes ppwRuleIn{to{opacity:1}}@keyframes ppwRuleFill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 html body .ppw-loader-school{margin:14px 0 0;color:#6c6c6c;font-family:Arial,Helvetica,sans-serif;font-size:.60rem;font-weight:800;letter-spacing:.16em;opacity:0;animation:ppwSchoolIn .5s ease 1.58s forwards!important}
 @keyframes ppwSchoolIn{to{opacity:1}}
 html body .reveal{opacity:0!important;transform:translate3d(0,34px,0) scale(.985)!important;visibility:hidden!important}

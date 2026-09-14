@@ -1,16 +1,62 @@
 (()=>{
 'use strict';
-const U='https://qyipadinsphoyxotrceo.supabase.co',K='sb_publishable_S73dZ9ro03lWDbHFzZhw_5t5pDtGt',db=supabase.createClient(U,K,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}),$=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
-const loginView=$('loginView'),adminView=$('adminView'),loginForm=$('loginForm'),articleForm=$('articleForm'),articleList=$('articleList');let role=null,session=null,editing=null,busy=false;
+const U='https://qyipadinsphoyxotrceo.supabase.co',K='sb_publishable_S73dZKZ9ro03lWDbHFzZhw_5t5pDtGt',db=supabase.createClient(U,K,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}),$=id=>document.getElementById(id),esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const loginView=$('loginView'),adminView=$('adminView'),loginForm=$('loginForm'),articleForm=$('articleForm'),articleList=$('articleList');let role=null,session=null,editing=null,busy=false,authBusy=false;
 const msg=(id,text,type='')=>{const e=$(id);if(e){e.textContent=text;e.className='message '+type}};const slug=v=>v.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,'').replace(/\s+/g,'-').replace(/-+/g,'-').slice(0,90);const localDate=v=>{if(!v)return '';const d=new Date(v),x=new Date(d.getTime()-d.getTimezoneOffset()*60000);return x.toISOString().slice(0,16)};
 function setupFields(){const g=articleForm?.querySelector('.form-grid');if(!g)return;if(!$('ppwTags')){const a=document.createElement('label');a.className='full';a.innerHTML='Topics / Tags<input id="ppwTags" maxlength="250" placeholder="sports, student life, campus"><span class="help">Separate tags with commas.</span>';g.append(a)}if(!$('ppwSchedule')){const a=document.createElement('label');a.className='full';a.innerHTML='Schedule publication<input id="ppwSchedule" type="datetime-local"><span class="help">Leave blank for immediate publishing. Scheduled stories publish automatically.</span>';g.append(a)}if(!$('ppwEditorTools')){const x=document.createElement('div');x.id='ppwEditorTools';x.className='ppw-admin-tools';x.innerHTML='<button id="ppwPreview" class="secondary-btn" type="button">Preview</button><span>Autosave is on</span>';articleForm.querySelector('.form-actions')?.before(x);$('ppwPreview').onclick=preview}}
 function tags(){return String($('ppwTags')?.value||'').split(',').map(x=>x.trim().toLowerCase()).filter(Boolean).filter((x,i,a)=>a.indexOf(x)===i).slice(0,12)}
 function reset(){articleForm.reset();editing=null;$('articleId').value='';$('author').value='PPW Staff';$('publishNow').checked=true;$('editorHeading').textContent='Create Article';$('cancelEditBtn').classList.add('hidden');$('currentImageWrap').classList.add('hidden');$('currentGalleryWrap').classList.add('hidden');$('currentGallery').innerHTML='';$('imagePreviewGrid').innerHTML='';if($('ppwTags'))$('ppwTags').value='';if($('ppwSchedule'))$('ppwSchedule').value='';msg('articleMessage','')}
 async function getRole(s=session){if(!s?.user?.id)return null;const {data,error}=await db.from('admin_roles').select('role').eq('user_id',s.user.id).maybeSingle();if(error)throw error;return data?.role||null}
-async function show(s){session=s||null;role=null;if(!s){loginView.classList.remove('hidden');adminView.classList.add('hidden');return false}let verifiedRole;try{verifiedRole=await getRole(s)}catch(e){console.error('PPW role lookup failed:',e);loginView.classList.remove('hidden');adminView.classList.add('hidden');msg('loginMessage','Your login worked, but PPW could not verify your newsroom role.','error');return false}if(!verifiedRole){loginView.classList.remove('hidden');adminView.classList.add('hidden');msg('loginMessage','This account is not assigned to the PPW newsroom.','error');return false}role=verifiedRole;loginView.classList.add('hidden');adminView.classList.remove('hidden');$('roleBadge').innerHTML=`<span>${role==='owner'?'OWNER':'PUBLISHER'}</span><small>${esc(s.user.email||'')}</small>`;$('permissionNotice').textContent=role==='owner'?'Owner access: full newsroom control.':'Publisher access: you can create articles and edit only your own articles.';setupFields();try{await load()}catch(e){console.error('PPW article loading failed:',e);articleList.innerHTML='<div class="empty-state">You are signed in, but the article list could not be loaded. You can still use the editor.</div>';msg('articleMessage',e.message||'Article list could not be loaded.','error')}return true}
-async function check(){const {data,error}=await db.auth.getSession();if(error){console.error('PPW session check failed:',error);return show(null)}return show(data.session)}
-db.auth.onAuthStateChange((event,s)=>{if(event==='SIGNED_IN'||event==='TOKEN_REFRESHED'){setTimeout(()=>show(s),0)}else if(event==='SIGNED_OUT'){setTimeout(()=>show(null),0)}});
-loginForm?.addEventListener('submit',async e=>{e.preventDefault();e.stopPropagation();const b=e.submitter||loginForm.querySelector('button[type="submit"]');if(b)b.disabled=true;msg('loginMessage','Signing in...');try{const {data,error}=await db.auth.signInWithPassword({email:$('loginEmail').value.trim().toLowerCase(),password:$('loginPassword').value});if(error)throw error;if(!data.session)throw Error('Sign-in succeeded, but no session was returned. Please try again.');const ok=await show(data.session);if(ok)loginForm.reset()}catch(x){console.error('PPW sign-in failed:',x);msg('loginMessage',x.message||'Unable to sign in.','error')}finally{if(b)b.disabled=false}});
+async function resolveSession(){
+  const {data:{user},error:userError}=await db.auth.getUser();
+  if(userError||!user)return null;
+  const {data:{session:s},error:sessionError}=await db.auth.getSession();
+  if(sessionError||!s)return null;
+  return {...s,user};
+}
+async function show(s){
+  if(!s?.user?.id){session=null;role=null;loginView.classList.remove('hidden');adminView.classList.add('hidden');return false}
+  session=s;
+  let verifiedRole;
+  try{verifiedRole=await getRole(s)}catch(e){
+    console.error('PPW role lookup failed:',e);
+    role=null;loginView.classList.remove('hidden');adminView.classList.add('hidden');
+    msg('loginMessage','Supabase authentication worked, but PPW could not read your newsroom role.','error');
+    return false;
+  }
+  if(!verifiedRole){
+    role=null;loginView.classList.remove('hidden');adminView.classList.add('hidden');
+    msg('loginMessage','Your Supabase account is signed in, but it is not assigned to the PPW newsroom.','error');
+    return false;
+  }
+  role=verifiedRole;
+  loginView.classList.add('hidden');adminView.classList.remove('hidden');
+  $('roleBadge').innerHTML=`<span>${role==='owner'?'OWNER':'PUBLISHER'}</span><small>${esc(s.user.email||'')}</small>`;
+  $('permissionNotice').textContent=role==='owner'?'Owner access: full newsroom control.':'Publisher access: you can create articles and edit only your own articles.';
+  setupFields();
+  try{await load()}catch(e){console.error('PPW article loading failed:',e);articleList.innerHTML='<div class="empty-state">You are signed in, but the article list could not be loaded. You can still use the editor.</div>';msg('articleMessage',e.message||'Article list could not be loaded.','error')}
+  return true
+}
+async function check(){try{const s=await resolveSession();return show(s)}catch(e){console.error('PPW auth initialization failed:',e);msg('loginMessage',e.message||'Unable to initialize Supabase authentication.','error');return show(null)}}
+db.auth.onAuthStateChange((event,s)=>{
+  console.log('PPW auth event:',event,!!s);
+  if(event==='INITIAL_SESSION'||event==='SIGNED_IN'||event==='TOKEN_REFRESHED')setTimeout(()=>{if(!authBusy)check()},0);
+  else if(event==='SIGNED_OUT')setTimeout(()=>show(null),0);
+});
+loginForm?.addEventListener('submit',async e=>{
+  e.preventDefault();e.stopPropagation();
+  const b=e.submitter||loginForm.querySelector('button[type="submit"]');if(b)b.disabled=true;authBusy=true;msg('loginMessage','Signing in...');
+  try{
+    const email=$('loginEmail').value.trim().toLowerCase(),password=$('loginPassword').value;
+    const {data,error}=await db.auth.signInWithPassword({email,password});
+    if(error)throw error;
+    if(!data.session)throw Error('Supabase accepted the login but did not return a session.');
+    const fresh=await resolveSession();
+    const ok=await show(fresh||data.session);
+    if(ok)loginForm.reset();
+  }catch(x){console.error('PPW sign-in failed:',x);msg('loginMessage',x.message||'Unable to sign in.','error')}
+  finally{authBusy=false;if(b)b.disabled=false}
+});
 $('logoutBtn')?.addEventListener('click',async()=>{await db.auth.signOut();reset()});$('cancelEditBtn')?.addEventListener('click',reset);$('refreshBtn')?.addEventListener('click',load);
 $('imageFile')?.addEventListener('change',()=>{const files=[...$('imageFile').files];$('imagePreviewGrid').innerHTML=files.map((f,i)=>`<div class="image-preview-card"><img src="${URL.createObjectURL(f)}" alt="Selected photo ${i+1}"><span>${i?'Gallery photo '+(i+1):'Cover photo'}</span></div>`).join('');if(files.length)msg('articleMessage',`${files.length} photo${files.length===1?'':'s'} selected. The first is the cover.`)});
 async function upload(file){if(file.size>6*1024*1024)throw Error(`${file.name} is larger than 6 MB.`);if(!['image/jpeg','image/png','image/webp','image/gif'].includes(file.type))throw Error(`${file.name} is not a supported image type.`);const ext=(file.name.split('.').pop()||'jpg').toLowerCase(),path=`articles/${crypto.randomUUID?.()||Date.now()+Math.random().toString(36).slice(2)}.${['jpg','jpeg','png','webp','gif'].includes(ext)?ext:'jpg'}`,r=await db.storage.from('article-images').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(r.error)throw Error(r.error.message);return db.storage.from('article-images').getPublicUrl(r.data.path).data.publicUrl}

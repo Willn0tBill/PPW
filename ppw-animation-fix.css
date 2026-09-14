@@ -1,20 +1,17 @@
-/* PPW animation engine — isolated so animation rules cannot be overridden by the older stylesheets */
+/* PPW intro animation — restored to the original Paw Prints Weekly sequence. */
 
-/* Scroll reveal */
+/* Keep page reveals disabled until the intro is completely finished. */
 html body .reveal {
   opacity: 0 !important;
-  transform: translate3d(0, 34px, 0) scale(.985) !important;
+  transform: translate3d(0,34px,0) scale(.985) !important;
   visibility: hidden !important;
   transition: opacity .72s cubic-bezier(.22,1,.36,1), transform .72s cubic-bezier(.22,1,.36,1), visibility 0s linear .72s !important;
-  will-change: opacity, transform !important;
 }
 html body .reveal.visible {
   opacity: 1 !important;
   transform: translate3d(0,0,0) scale(1) !important;
   visibility: visible !important;
-  transition: opacity .72s cubic-bezier(.22,1,.36,1), transform .72s cubic-bezier(.22,1,.36,1), visibility 0s linear 0s !important;
 }
-/* Do not let page content reveal while the intro overlay is still running. */
 html body:not(.ppw-intro-done) .reveal,
 html body:not(.ppw-intro-done) .reveal.visible {
   opacity: 0 !important;
@@ -22,42 +19,10 @@ html body:not(.ppw-intro-done) .reveal.visible {
   visibility: hidden !important;
   transition:none !important;
 }
-html body .latest-grid .reveal:nth-child(2),
-html body .section-grid .reveal:nth-child(2),
-html body .school-list .reveal:nth-child(2),
-html body .life-grid .reveal:nth-child(2),
-html body .sports-grid .reveal:nth-child(2),
-html body .perspective-grid .reveal:nth-child(2),
-html body .world-grid .reveal:nth-child(2),
-html body .features-grid .reveal:nth-child(2),
-html body .media-grid .reveal:nth-child(2),
-html body .editorial-grid .reveal:nth-child(2),
-html body .staff-grid .reveal:nth-child(2) { transition-delay:.12s !important; }
-html body .latest-grid .reveal:nth-child(3),
-html body .section-grid .reveal:nth-child(3),
-html body .school-list .reveal:nth-child(3),
-html body .life-grid .reveal:nth-child(3),
-html body .sports-grid .reveal:nth-child(3),
-html body .perspective-grid .reveal:nth-child(3),
-html body .world-grid .reveal:nth-child(3),
-html body .features-grid .reveal:nth-child(3),
-html body .media-grid .reveal:nth-child(3),
-html body .editorial-grid .reveal:nth-child(3),
-html body .staff-grid .reveal:nth-child(3) { transition-delay:.24s !important; }
-html body .latest-grid .reveal:nth-child(4),
-html body .section-grid .reveal:nth-child(4),
-html body .school-list .reveal:nth-child(4),
-html body .life-grid .reveal:nth-child(4),
-html body .sports-grid .reveal:nth-child(4),
-html body .perspective-grid .reveal:nth-child(4),
-html body .world-grid .reveal:nth-child(4),
-html body .features-grid .reveal:nth-child(4),
-html body .media-grid .reveal:nth-child(4),
-html body .editorial-grid .reveal:nth-child(4),
-html body .staff-grid .reveal:nth-child(4) { transition-delay:.36s !important; }
 
-/* Intro/loading animation */
 html.ppw-loader-active body { overflow:hidden !important; }
+
+/* Original loader stays on screen while the complete sequence plays. */
 html body .ppw-loader {
   display:grid !important;
   opacity:1 !important;
@@ -69,8 +34,10 @@ html body .ppw-loader.is-hidden {
   opacity:0 !important;
   visibility:hidden !important;
   pointer-events:none !important;
-  transition:opacity .8s ease, visibility 0s linear .8s !important;
+  transition:opacity .65s ease, visibility 0s linear .65s !important;
 }
+
+/* Three paw prints enter one after another, like the original intro. */
 html body .ppw-loader-paw-trail {
   position:relative !important;
   display:block !important;
@@ -89,31 +56,94 @@ html body .ppw-loader .ppw-paw {
   will-change:transform,opacity !important;
 }
 html body .ppw-loader .paw-one {
-  left:0 !important; top:30px !important;
-  animation:ppwAnimationPawOne 1.15s cubic-bezier(.2,.8,.2,1) .15s forwards !important;
+  left:0 !important;
+  top:30px !important;
+  animation:ppwOriginalPawOne 1.05s cubic-bezier(.22,.8,.25,1) .20s forwards !important;
 }
 html body .ppw-loader .paw-two {
-  left:calc(50% - 27px) !important; top:4px !important;
-  animation:ppwAnimationPawTwo 1.15s cubic-bezier(.2,.8,.2,1) .62s forwards !important;
+  left:calc(50% - 27px) !important;
+  top:4px !important;
+  animation:ppwOriginalPawTwo 1.05s cubic-bezier(.22,.8,.25,1) .62s forwards !important;
 }
 html body .ppw-loader .paw-three {
-  right:0 !important; top:30px !important;
-  animation:ppwAnimationPawThree 1.15s cubic-bezier(.2,.8,.2,1) 1.09s forwards !important;
+  right:0 !important;
+  top:30px !important;
+  animation:ppwOriginalPawThree 1.05s cubic-bezier(.22,.8,.25,1) 1.04s forwards !important;
 }
 html body .ppw-loader .ppw-paw .toe,
-html body .ppw-loader .ppw-paw .pad {
-  opacity:1 !important;
+html body .ppw-loader .ppw-paw .pad { opacity:1 !important; }
+
+@keyframes ppwOriginalPawOne {
+  0% { opacity:0; transform:translate3d(14px,22px,0) rotate(-20deg) scale(.45); }
+  65% { opacity:1; transform:translate3d(0,-3px,0) rotate(-20deg) scale(1.07); }
+  100% { opacity:1; transform:translate3d(0,0,0) rotate(-20deg) scale(1); }
 }
-@keyframes ppwAnimationPawOne { 0%{opacity:0;transform:translate3d(12px,24px,0) rotate(-20deg) scale(.45)} 60%{opacity:1;transform:translate3d(0,-3px,0) rotate(-20deg) scale(1.08)} 100%{opacity:1;transform:translate3d(0,0,0) rotate(-20deg) scale(1)} }
-@keyframes ppwAnimationPawTwo { 0%{opacity:0;transform:translate3d(0,24px,0) rotate(0deg) scale(.45)} 60%{opacity:1;transform:translate3d(0,-3px,0) rotate(0deg) scale(1.08)} 100%{opacity:1;transform:translate3d(0,0,0) rotate(0deg) scale(1)} }
-@keyframes ppwAnimationPawThree { 0%{opacity:0;transform:translate3d(-12px,24px,0) rotate(20deg) scale(.45)} 60%{opacity:1;transform:translate3d(0,-3px,0) rotate(20deg) scale(1.08)} 100%{opacity:1;transform:translate3d(0,0,0) rotate(20deg) scale(1)} }
-html body .ppw-loader-logo { animation:ppwAnimationLogo 1.1s ease 1.65s both !important; }
-html body .ppw-loader-title { animation:ppwAnimationText .9s ease 2.00s both !important; }
-html body .ppw-loader-rule,html body .ppw-loader-school { animation:ppwAnimationText .9s ease 2.20s both !important; }
-@keyframes ppwAnimationLogo { from{opacity:0;transform:translateY(12px) scale(.82)} to{opacity:1;transform:translateY(0) scale(1)} }
-@keyframes ppwAnimationText { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+@keyframes ppwOriginalPawTwo {
+  0% { opacity:0; transform:translate3d(0,22px,0) rotate(0deg) scale(.45); }
+  65% { opacity:1; transform:translate3d(0,-3px,0) rotate(0deg) scale(1.07); }
+  100% { opacity:1; transform:translate3d(0,0,0) rotate(0deg) scale(1); }
+}
+@keyframes ppwOriginalPawThree {
+  0% { opacity:0; transform:translate3d(-14px,22px,0) rotate(20deg) scale(.45); }
+  65% { opacity:1; transform:translate3d(0,-3px,0) rotate(20deg) scale(1.07); }
+  100% { opacity:1; transform:translate3d(0,0,0) rotate(20deg) scale(1); }
+}
+
+/* Tiger/logo appears after the paw trail has completed. */
+html body .ppw-loader-logo-wrap {
+  opacity:0;
+  animation:ppwOriginalLogoWrap .95s ease 1.78s forwards !important;
+}
+html body .ppw-loader-logo {
+  animation:ppwOriginalLogo .95s ease 1.78s both !important;
+}
+@keyframes ppwOriginalLogoWrap {
+  from { opacity:0; transform:translateY(10px) scale(.88); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes ppwOriginalLogo {
+  from { opacity:0; transform:translateY(8px) scale(.88); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+
+/* Original title comes in after the tiger. */
+html body .ppw-loader-title {
+  opacity:0;
+  animation:ppwOriginalText .75s ease 2.28s forwards !important;
+}
+/* Gold rule fills immediately after the title. */
+html body .ppw-loader-rule {
+  opacity:0;
+  animation:ppwOriginalRule .75s ease 2.50s forwards !important;
+}
+html body .ppw-loader-school {
+  opacity:0;
+  animation:ppwOriginalText .75s ease 2.62s forwards !important;
+}
+@keyframes ppwOriginalText {
+  from { opacity:0; transform:translateY(9px); }
+  to { opacity:1; transform:translateY(0); }
+}
+@keyframes ppwOriginalRule {
+  from { opacity:0; transform:scaleX(0); transform-origin:center; }
+  to { opacity:1; transform:scaleX(1); transform-origin:center; }
+}
+
+/* Give the finished logo/title a short hold before the page appears. */
+html body .ppw-loader-bg-ring { animation:none !important; }
 
 @media (prefers-reduced-motion: reduce) {
-  html body .reveal,html body .reveal.visible { transition:none !important; transform:none !important; }
-  html body .ppw-loader .ppw-paw,html body .ppw-loader-logo,html body .ppw-loader-title,html body .ppw-loader-rule,html body .ppw-loader-school { animation:none !important; opacity:1 !important; }
+  html body .reveal, html body .reveal.visible {
+    transition:none !important;
+    transform:none !important;
+  }
+  html body .ppw-loader .ppw-paw,
+  html body .ppw-loader-logo-wrap,
+  html body .ppw-loader-logo,
+  html body .ppw-loader-title,
+  html body .ppw-loader-rule,
+  html body .ppw-loader-school {
+    animation:none !important;
+    opacity:1 !important;
+  }
 }

@@ -5,11 +5,7 @@ const KEY='sb_publishable_S73dZKZ9ro03lWDbHFzZhw_5t5pDtGt';
 const authDb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id);
 let working=false;
-
-function setLogin(text='',type=''){
-  const e=$('loginMessage');
-  if(e){e.textContent=text;e.className='message '+type;}
-}
+function setLogin(text='',type=''){const e=$('loginMessage');if(e){e.textContent=text;e.className='message '+type;}}
 function showAdmin(session,role){
   if(!session?.user)return false;
   $('loginView')?.classList.add('hidden');
@@ -22,28 +18,28 @@ function showAdmin(session,role){
 }
 async function openForSession(s){
   if(!s?.user){$('loginView')?.classList.remove('hidden');$('adminView')?.classList.add('hidden');return false;}
-  let role='publisher';
+  let role=null;
   try{
     const r=await authDb.from('admin_roles').select('role').eq('user_id',s.user.id).maybeSingle();
     if(r.error)throw r.error;
-    if(r.data?.role)role=r.data.role;
+    role=r.data?.role||null;
   }catch(e){
     console.error('PPW auth-role check:',e);
     setLogin('You signed in, but PPW could not verify your newsroom role.','error');
     $('loginView')?.classList.remove('hidden');$('adminView')?.classList.add('hidden');
     return false;
   }
+  if(!role){setLogin('Your account is signed in, but it is not assigned to the PPW newsroom.','error');$('loginView')?.classList.remove('hidden');$('adminView')?.classList.add('hidden');return false;}
   showAdmin(s,role);
   setLogin('');
-  try{ if(typeof window.setupFields==='function') window.setupFields(); }catch{}
+  // The isolated login handler intentionally bypasses admin.js's submit handler.
+  // Trigger its existing article renderer through the refresh control instead.
+  setTimeout(()=>{$('refreshBtn')?.click()},0);
   return true;
 }
-
 async function handleLogin(e){
   if(working)return;
-  e.preventDefault();
-  e.stopPropagation();
-  e.stopImmediatePropagation();
+  e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
   const form=$('loginForm'),button=e.submitter||form?.querySelector('button[type="submit"]');
   working=true;if(button)button.disabled=true;setLogin('Signing in...');
   try{
@@ -52,27 +48,27 @@ async function handleLogin(e){
     const {data,error}=await authDb.auth.signInWithPassword({email,password});
     if(error)throw error;
     if(!data?.session?.user)throw new Error('Supabase accepted the login but did not return a usable session.');
-    await openForSession(data.session);
-    form?.reset();
-  }catch(err){
-    console.error('PPW isolated sign-in failed:',err);
-    setLogin(err?.message||'Unable to sign in.','error');
-  }finally{working=false;if(button)button.disabled=false;}
+    const ok=await openForSession(data.session);
+    if(ok)form?.reset();
+  }catch(err){console.error('PPW isolated sign-in failed:',err);setLogin(err?.message||'Unable to sign in.','error');}
+  finally{working=false;if(button)button.disabled=false;}
 }
-
 const form=$('loginForm');
 form?.addEventListener('submit',handleLogin,true);
-
+const logout=$('logoutBtn');
+logout?.addEventListener('click',async e=>{
+  e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();
+  try{await authDb.auth.signOut();}catch(err){console.error('PPW logout failed:',err);}
+  $('loginView')?.classList.remove('hidden');
+  $('adminView')?.classList.add('hidden');
+  form?.reset();
+},true);
 authDb.auth.getSession().then(({data,error})=>{
   if(error){console.error('PPW isolated session check:',error);return;}
   if(data?.session)openForSession(data.session);
 });
-
 authDb.auth.onAuthStateChange((event,s)=>{
-  if(event==='SIGNED_IN'&&s) setTimeout(()=>openForSession(s),50);
-  if(event==='SIGNED_OUT'){
-    $('loginView')?.classList.remove('hidden');
-    $('adminView')?.classList.add('hidden');
-  }
+  if(event==='SIGNED_IN'&&s)setTimeout(()=>openForSession(s),50);
+  if(event==='SIGNED_OUT'){$('loginView')?.classList.remove('hidden');$('adminView')?.classList.add('hidden');}
 });
 })();

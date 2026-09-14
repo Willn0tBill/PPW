@@ -11,3 +11,24 @@ html,body{max-width:100%;overflow-x:hidden}
 @media(max-width:1100px){.admin-main{grid-template-columns:1fr!important}.article-list{max-height:none!important;min-height:0}.articles-panel{margin-top:0}}
 @media(max-width:620px){.admin-main{width:calc(100% - 16px)!important;margin-top:12px!important;margin-bottom:35px!important;gap:12px!important}.editor-panel,.articles-panel{padding:16px!important;border-radius:14px}.admin-header{padding:16px 12px!important}.panel-heading{align-items:flex-start}.article-item{grid-template-columns:58px minmax(0,1fr);gap:10px;padding:11px}.article-thumb{width:58px;height:58px}.article-item-top{display:block}.badges{margin-top:8px}.article-actions{flex-wrap:wrap}.article-actions .small-btn{flex:1 1 auto;text-align:center}.image-preview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.image-preview-card img{height:110px}}
 .ppw-loader.is-hidden{pointer-events:none!important}
+
+/* LOADER ANIMATION REPAIR v3 */
+.ppw-loader{opacity:1!important;visibility:visible!important;transition:opacity .6s ease,visibility 0s linear 0s!important}
+.ppw-loader:not(.is-hidden){display:grid!important}
+.ppw-loader.is-hidden{opacity:0!important;visibility:hidden!important;transition:opacity .6s ease,visibility 0s linear .6s!important}
+.ppw-loader-inner{width:min(92vw,520px)!important;text-align:center!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:0!important}
+.ppw-loader-paw-trail{width:min(360px,82vw)!important;height:92px!important;margin:0 auto 4px!important;overflow:visible!important;transform:none!important}
+.ppw-loader .ppw-loader-paw{width:54px!important;height:58px!important;opacity:0!important;will-change:transform,opacity!important}
+.ppw-loader .ppw-loader-paw-one{left:0!important;right:auto!important;top:28px!important;animation:ppwPawStep1 .7s cubic-bezier(.2,.8,.2,1) .05s forwards!important}
+.ppw-loader .ppw-loader-paw-two{left:calc(50% - 27px)!important;right:auto!important;top:4px!important;animation:ppwPawStep2 .7s cubic-bezier(.2,.8,.2,1) .32s forwards!important}
+.ppw-loader .ppw-loader-paw-three{right:0!important;left:auto!important;top:28px!important;animation:ppwPawStep3 .7s cubic-bezier(.2,.8,.2,1) .59s forwards!important}
+@keyframes ppwPawStep1{0%{opacity:0;transform:translate3d(8px,24px,0) rotate(-18deg) scale(.5)}65%{opacity:1;transform:translate3d(0,-2px,0) rotate(-18deg) scale(1.04)}100%{opacity:.92;transform:translate3d(0,0,0) rotate(-18deg) scale(1)}}
+@keyframes ppwPawStep2{0%{opacity:0;transform:translate3d(0,24px,0) rotate(-2deg) scale(.5)}65%{opacity:1;transform:translate3d(0,-2px,0) rotate(-2deg) scale(1.04)}100%{opacity:.92;transform:translate3d(0,0,0) rotate(-2deg) scale(1)}}
+@keyframes ppwPawStep3{0%{opacity:0;transform:translate3d(-8px,24px,0) rotate(18deg) scale(.5)}65%{opacity:1;transform:translate3d(0,-2px,0) rotate(18deg) scale(1.04)}100%{opacity:.92;transform:translate3d(0,0,0) rotate(18deg) scale(1)}}
+.ppw-loader-logo{width:90px!important;height:90px!important;object-fit:contain!important;margin:2px auto 8px!important;animation:ppwLoaderLogo .8s ease .75s both!important}
+.ppw-loader-title{animation:ppwLoaderTitle .65s ease .9s both!important}
+.ppw-loader-rule,.ppw-loader-inner>p{animation:ppwLoaderTitle .65s ease 1.02s both!important}
+@keyframes ppwLoaderLogo{from{opacity:0;transform:translateY(10px) scale(.85)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes ppwLoaderTitle{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:650px){.ppw-loader-paw-trail{width:300px!important;transform:none!important}.ppw-loader-logo{width:76px!important;height:76px!important}}
+@media(prefers-reduced-motion:reduce){.ppw-loader .ppw-loader-paw,.ppw-loader-logo,.ppw-loader-title,.ppw-loader-rule,.ppw-loader-inner>p{animation:none!important;opacity:1!important;transform:none!important}.ppw-loader{transition:none!important}}

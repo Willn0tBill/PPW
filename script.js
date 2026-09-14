@@ -1,3 +1,4 @@
+(()=>{const l=document.createElement("link");l.rel="stylesheet";l.href="ppw-fixes.css?v=2";document.head.appendChild(l)})();
 const SUPABASE_URL="https://qyipadinsphoyxotrceo.supabase.co";
 const SUPABASE_KEY="sb_publishable_S73dZKZ9ro03lWDbHFzZhw_5t5pDtGt";
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);

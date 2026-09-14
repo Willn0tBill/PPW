@@ -1,4 +1,4 @@
-(()=>{const l=document.createElement('link');l.rel='stylesheet';l.href='ppw-fixes.css?v=12';document.head.appendChild(l);const i=document.createElement('link');i.rel='stylesheet';i.href='ppw-interactive.css?v=6';document.head.appendChild(i)})();
+(()=>{const l=document.createElement('link');l.rel='stylesheet';l.href='ppw-fixes.css?v=12';document.head.appendChild(l);const i=document.createElement('link');i.rel='stylesheet';i.href='ppw-interactive.css?v=6';document.head.appendChild(i);const h=document.createElement('link');h.rel='stylesheet';h.href='ppw-loader-hotfix.css?v=1';document.head.appendChild(h)})();
 const SUPABASE_URL='https://qyipadinsphoyxotrceo.supabase.co';
 const SUPABASE_KEY='sb_publishable_S73dZ9ro03lWDbHFzZhw_5t5pDtGt';
 const db=window.supabase?.createClient?.(SUPABASE_URL,SUPABASE_KEY);

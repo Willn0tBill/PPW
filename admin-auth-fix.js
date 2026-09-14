@@ -1,7 +1,9 @@
 (()=>{
 'use strict';
 const URL='https://qyipadinsphoyxotrceo.supabase.co',KEY='sb_publishable_S73dZKZ9ro03lWDbHFzZhw_5t5pDtGt';
-const authDb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}),$=id=>document.getElementById(id);let working=false;
+const authDb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+window.PPW_AUTH_DB=authDb;
+const $=id=>document.getElementById(id);let working=false;
 function setLogin(text='',type=''){const e=$('loginMessage');if(e){e.textContent=text;e.className='message '+type}}
 function bridge(session,role){window.dispatchEvent(new CustomEvent('ppw-auth-sync',{detail:{session,role}}))}
 function showAdmin(session,role){if(!session?.user)return false;$('loginView')?.classList.add('hidden');$('adminView')?.classList.remove('hidden');const badge=$('roleBadge');if(badge)badge.innerHTML=`<span>${role==='owner'?'OWNER':'PUBLISHER'}</span><small>${String(session.user.email||'').replace(/[&<>\"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[m]))}</small>`;const notice=$('permissionNotice');if(notice)notice.textContent=role==='owner'?'Owner access: full newsroom control.':'Publisher access: you can create articles and edit only your own articles.';bridge(session,role);return true}

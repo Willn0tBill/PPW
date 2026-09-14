@@ -1,9 +1,10 @@
 /* PPW loader — shared by homepage and admin portal. Fast 1.3s version. */
 html.ppw-loader-active,html.ppw-loader-active body{overflow:hidden!important}
-html body .ppw-loader{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;overflow:hidden!important;isolation:isolate;background:#f7f4ed!important;opacity:1;visibility:visible;pointer-events:all!important;transition:opacity .18s ease,visibility .18s linear}
+html body .ppw-loader{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;overflow:hidden!important;isolation:isolate;background:#f7f4ed!important;opacity:1;visibility:visible;pointer-events:all!important;transition:opacity .18s ease,visibility .18s linear;animation:ppwLoaderAutoHide 1.3s linear forwards!important}
 html body .ppw-loader::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.72),rgba(247,244,237,.96) 52%,#f7f4ed 100%)}
 html body .ppw-loader::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(157,27,46,.025) 50%,transparent 100%)}
 html body .ppw-loader.is-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+@keyframes ppwLoaderAutoHide{0%,84%{opacity:1;visibility:visible;pointer-events:all}100%{opacity:0;visibility:hidden;pointer-events:none}}
 html body .ppw-loader-bg-ring{position:absolute;border:1px solid rgba(157,27,46,.11);border-radius:50%;pointer-events:none;opacity:0;z-index:1;animation:ppwLoaderRingIn .4s ease forwards!important}
 html body .ppw-loader-bg-ring::after{content:"";position:absolute;inset:10px;border:1px solid rgba(242,169,0,.14);border-radius:50%}
 html body .ring-one{width:760px;height:760px;right:-330px;top:-350px;animation-delay:0s!important}

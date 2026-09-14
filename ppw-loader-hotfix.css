@@ -1,0 +1,11 @@
+/* Final loader hotfix. Loaded dynamically after all older PPW CSS so it cannot be overridden by stale cached styles. */
+html body .ppw-loader{animation:ppwLoaderAutoHideFinal 1.4s linear forwards!important}
+@keyframes ppwLoaderAutoHideFinal{0%,84%{opacity:1!important;visibility:visible!important;pointer-events:all!important}100%{opacity:0!important;visibility:hidden!important;pointer-events:none!important}}
+html body .ppw-loader .ppw-paw{display:block!important;visibility:visible!important;opacity:0;z-index:20!important}
+html body .ppw-loader .ppw-paw .toe,html body .ppw-loader .ppw-paw .pad{display:block!important;visibility:visible!important;opacity:1!important;background:#9d1b2e!important}
+html body .ppw-loader .ppw-paw.paw-one{animation:ppwPawOneFinal .30s ease .05s forwards!important}
+html body .ppw-loader .ppw-paw.paw-two{animation:ppwPawTwoFinal .30s ease .22s forwards!important}
+html body .ppw-loader .ppw-paw.paw-three{animation:ppwPawThreeFinal .30s ease .39s forwards!important}
+@keyframes ppwPawOneFinal{from{opacity:0;transform:translateY(20px) rotate(-17deg) scale(.55)}to{opacity:.92;transform:translateY(0) rotate(-17deg) scale(1)}}
+@keyframes ppwPawTwoFinal{from{opacity:0;transform:translateY(20px) rotate(-2deg) scale(.55)}to{opacity:.92;transform:translateY(0) rotate(-2deg) scale(1)}}
+@keyframes ppwPawThreeFinal{from{opacity:0;transform:translateY(20px) rotate(17deg) scale(.55)}to{opacity:.92;transform:translateY(0) rotate(17deg) scale(1)}}

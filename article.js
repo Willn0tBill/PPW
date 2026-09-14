@@ -1,7 +1,7 @@
 (()=>{
 'use strict';
-const addCss=href=>{const l=document.createElement('link');l.rel='stylesheet';l.href=href;document.head.appendChild(l)};addCss('ppw-fixes.css?v=6');addCss('friendly.css?v=2');addCss('ppw-v2.css?v=1');
-const U='https://qyipadinsphoyxotrceo.supabase.co',K='sb_publishable_S73dZK9ro03lWDbHFzZhw_5t5pDtGt';const db=supabase.createClient(U,K,{auth:{persistSession:true,autoRefreshToken:true}}),container=document.getElementById('articleContent'),slug=new URLSearchParams(location.search).get('slug');
+const addCss=href=>{const l=document.createElement('link');l.rel='stylesheet';l.href=href;document.head.appendChild(l)};addCss('ppw-fixes.css?v=7');addCss('friendly.css?v=3');addCss('ppw-v2.css?v=2');
+const U='https://qyipadinsphoyxotrceo.supabase.co',K='sb_publishable_S73dZ9ro03lWDbHFzZhw_5t5pDtGt';const db=supabase.createClient(U,K,{auth:{persistSession:false,autoRefreshToken:false}}),container=document.getElementById('articleContent'),slug=new URLSearchParams(location.search).get('slug');
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));const bodyHtml=v=>String(v||'').split(/\n\s*\n/).map(p=>p.trim()).filter(Boolean).map(p=>`<p>${esc(p).replace(/\n/g,'<br>')}</p>`).join('');
 function visitorKey(){let k=localStorage.getItem('ppw-visitor-key');if(!k){k=crypto.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`;localStorage.setItem('ppw-visitor-key',k)}return k}
 function error(title,text){if(container)container.innerHTML=`<div class="article-error"><h1>${esc(title)}</h1><p>${esc(text)}</p><p><a class="article-back" href="index.html">Return to Paw Prints Weekly</a></p></div>`}

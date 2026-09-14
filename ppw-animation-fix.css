@@ -1,14 +1,13 @@
-/* PPW intro animation — exact original loader behavior, with page reveals held until the intro ends. */
-
+/* PPW intro animation — original sequence compressed to 50% of the current on-screen timing. */
 html.ppw-loader-active,html.ppw-loader-active body{overflow:hidden!important}
-html body .ppw-loader{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;overflow:hidden!important;isolation:isolate;background:#f7f4ed!important;opacity:1;visibility:visible;pointer-events:all!important;transition:opacity .7s cubic-bezier(.4,0,.2,1),visibility .7s linear}
+html body .ppw-loader{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;overflow:hidden!important;isolation:isolate;background:#f7f4ed!important;opacity:1;visibility:visible;pointer-events:all!important;transition:opacity .35s cubic-bezier(.4,0,.2,1),visibility .35s linear}
 html body .ppw-loader::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.72),rgba(247,244,237,.96) 52%,#f7f4ed 100%)}
 html body .ppw-loader::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(90deg,transparent 0%,rgba(157,27,46,.025) 50%,transparent 100%)}
 html body .ppw-loader.is-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
-html body .ppw-loader-bg-ring{position:absolute;border:1px solid rgba(157,27,46,.11);border-radius:50%;pointer-events:none;opacity:0;z-index:1;animation:ppwLoaderRingIn .9s ease forwards!important}
+html body .ppw-loader-bg-ring{position:absolute;border:1px solid rgba(157,27,46,.11);border-radius:50%;pointer-events:none;opacity:0;z-index:1;animation:ppwLoaderRingIn .45s ease forwards!important}
 html body .ppw-loader-bg-ring::after{content:"";position:absolute;inset:14px;border:1px solid rgba(242,169,0,.14);border-radius:50%}
-html body .ring-one{width:760px;height:760px;right:-330px;top:-350px;animation-delay:.05s!important}
-html body .ring-two{width:570px;height:570px;left:-300px;bottom:-310px;animation-delay:.18s!important}
+html body .ring-one{width:760px;height:760px;right:-330px;top:-350px;animation-delay:.025s!important}
+html body .ring-two{width:570px;height:570px;left:-300px;bottom:-310px;animation-delay:.09s!important}
 @keyframes ppwLoaderRingIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 html body .ppw-loader-inner{position:relative;z-index:3;width:min(90vw,460px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
 html body .ppw-loader-paw-trail{position:relative;width:320px;height:96px;margin-bottom:2px;overflow:visible!important}
@@ -20,30 +19,27 @@ html body .ppw-loader .ppw-paw .t2{left:17px;top:4px;transform:rotate(-10deg)}
 html body .ppw-loader .ppw-paw .t3{left:30px;top:4px;transform:rotate(10deg)}
 html body .ppw-loader .ppw-paw .t4{left:41px;top:12px;transform:rotate(28deg)}
 html body .ppw-loader .ppw-paw .pad{width:34px;height:28px;left:10px;top:27px;border-radius:48% 48% 55% 55%}
-html body .ppw-loader .ppw-paw.paw-one{left:0;top:29px;transform:rotate(-17deg) translateY(20px) scale(.55);animation:ppwPawIn .55s ease .15s forwards!important}
-html body .ppw-loader .ppw-paw.paw-two{left:133px;top:5px;transform:rotate(-2deg) translateY(20px) scale(.55);animation:ppwPawIn .55s ease .35s forwards!important}
-html body .ppw-loader .ppw-paw.paw-three{right:0;top:29px;transform:rotate(17deg) translateY(20px) scale(.55);animation:ppwPawIn .55s ease .55s forwards!important}
+html body .ppw-loader .ppw-paw.paw-one{left:0;top:29px;transform:rotate(-17deg) translateY(20px) scale(.55);animation:ppwPawIn .275s ease .075s forwards!important}
+html body .ppw-loader .ppw-paw.paw-two{left:133px;top:5px;transform:rotate(-2deg) translateY(20px) scale(.55);animation:ppwPawIn .275s ease .175s forwards!important}
+html body .ppw-loader .ppw-paw.paw-three{right:0;top:29px;transform:rotate(17deg) translateY(20px) scale(.55);animation:ppwPawIn .275s ease .275s forwards!important}
 @keyframes ppwPawIn{from{opacity:0;transform:translateY(20px) scale(.55) rotate(-8deg)}to{opacity:.92;transform:translateY(0) scale(1) rotate(0)}}
-html body .ppw-loader-logo-wrap{position:relative;width:138px;height:138px;display:grid;place-items:center;border:2px solid #f2a900;border-radius:50%;background:rgba(255,255,255,.70);box-shadow:0 20px 55px rgba(0,0,0,.10),inset 0 0 0 8px rgba(242,169,0,.07);opacity:0;transform:scale(.70);animation:ppwLogoIn .75s cubic-bezier(.2,.8,.2,1) .72s forwards!important}
-html body .ppw-loader-logo-ring{position:absolute;inset:-12px;border:1px solid rgba(157,27,46,.16);border-radius:50%;opacity:0;animation:ppwLogoRing 1.1s ease 1.05s forwards!important}
+html body .ppw-loader-logo-wrap{position:relative;width:138px;height:138px;display:grid;place-items:center;border:2px solid #f2a900;border-radius:50%;background:rgba(255,255,255,.70);box-shadow:0 20px 55px rgba(0,0,0,.10),inset 0 0 0 8px rgba(242,169,0,.07);opacity:0;transform:scale(.70);animation:ppwLogoIn .375s cubic-bezier(.2,.8,.2,1) .36s forwards!important}
+html body .ppw-loader-logo-ring{position:absolute;inset:-12px;border:1px solid rgba(157,27,46,.16);border-radius:50%;opacity:0;animation:ppwLogoRing .55s ease .525s forwards!important}
 html body .ppw-loader-logo{width:96px;height:96px;object-fit:contain}
 @keyframes ppwLogoIn{0%{opacity:0;transform:scale(.70)}65%{opacity:1;transform:scale(1.07)}100%{opacity:1;transform:scale(1)}}
 @keyframes ppwLogoRing{0%{opacity:0;transform:scale(.75)}45%{opacity:1}100%{opacity:.65;transform:scale(1)}}
-html body .ppw-loader-title{margin-top:25px;display:flex;flex-direction:column;line-height:1;opacity:0;transform:translateY(14px);animation:ppwTextIn .65s ease 1.25s forwards!important}
+html body .ppw-loader-title{margin-top:25px;display:flex;flex-direction:column;line-height:1;opacity:0;transform:translateY(14px);animation:ppwTextIn .325s ease .625s forwards!important}
 html body .ppw-loader-title strong{font-family:Arial,Helvetica,sans-serif;font-size:clamp(1.55rem,5vw,2.15rem);font-weight:900;letter-spacing:.14em}
 html body .ppw-loader-title span{margin-top:8px;padding-left:.42em;color:#9d1b2e;font-family:Arial,Helvetica,sans-serif;font-size:.74rem;font-weight:900;letter-spacing:.42em}
 @keyframes ppwTextIn{to{opacity:1;transform:translateY(0)}}
-html body .ppw-loader-rule{width:170px;height:3px;margin-top:22px;overflow:hidden;background:rgba(157,27,46,.12);opacity:0;animation:ppwRuleIn .35s ease 1.40s forwards!important}
-html body .ppw-loader-rule span{display:block;width:0;height:100%;background:#f2a900;animation:ppwRuleFill 1.25s cubic-bezier(.4,0,.2,1) 1.45s forwards!important}
+html body .ppw-loader-rule{width:170px;height:3px;margin-top:22px;overflow:hidden;background:rgba(157,27,46,.12);opacity:0;animation:ppwRuleIn .175s ease .70s forwards!important}
+html body .ppw-loader-rule span{display:block;width:0;height:100%;background:#f2a900;animation:ppwRuleFill .625s cubic-bezier(.4,0,.2,1) .725s forwards!important}
 @keyframes ppwRuleIn{to{opacity:1}}@keyframes ppwRuleFill{from{width:0}to{width:100%}}
-html body .ppw-loader-school{margin:14px 0 0;color:#6c6c6c;font-family:Arial,Helvetica,sans-serif;font-size:.60rem;font-weight:800;letter-spacing:.16em;opacity:0;animation:ppwSchoolIn .5s ease 1.58s forwards!important}
+html body .ppw-loader-school{margin:14px 0 0;color:#6c6c6c;font-family:Arial,Helvetica,sans-serif;font-size:.60rem;font-weight:800;letter-spacing:.16em;opacity:0;animation:ppwSchoolIn .25s ease .79s forwards!important}
 @keyframes ppwSchoolIn{to{opacity:1}}
-
-/* Do not allow the homepage reveal system to start underneath the loader. */
 html body .reveal{opacity:0!important;transform:translate3d(0,34px,0) scale(.985)!important;visibility:hidden!important}
 html body:not(.ppw-intro-done) .reveal,html body:not(.ppw-intro-done) .reveal.visible{opacity:0!important;transform:translate3d(0,34px,0) scale(.985)!important;visibility:hidden!important;transition:none!important}
-html body.ppw-intro-done .reveal{transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1),visibility 0s linear .72s!important}
+html body.ppw-intro-done .reveal{transition:opacity .36s cubic-bezier(.22,1,.36,1),transform .36s cubic-bezier(.22,1,.36,1),visibility 0s linear .36s!important}
 html body.ppw-intro-done .reveal.visible{opacity:1!important;transform:translate3d(0,0,0) scale(1)!important;visibility:visible!important}
-
 @media(max-width:600px){html body .ppw-loader-paw-trail{transform:scale(.82);margin-bottom:-7px}html body .ppw-loader-logo-wrap{width:112px;height:112px}html body .ppw-loader-logo{width:77px;height:77px}}
 @media(prefers-reduced-motion:reduce){html body .ppw-loader *{animation:none!important;transition:none!important;opacity:1!important;transform:none!important}}

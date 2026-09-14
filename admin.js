@@ -1,81 +1,27 @@
 const SUPABASE_URL="https://qyipadinsphoyxotrceo.supabase.co";
 const SUPABASE_KEY="sb_publishable_S73dZKZ9ro03lWDbHFzZhw_5t5pDtGt";
 const {createClient}=supabase;const db=createClient(SUPABASE_URL,SUPABASE_KEY);
-const loginView=document.getElementById("loginView"),adminView=document.getElementById("adminView");
-const loginForm=document.getElementById("loginForm"),loginMessage=document.getElementById("loginMessage");
-const articleForm=document.getElementById("articleForm"),articleId=document.getElementById("articleId");
-const title=document.getElementById("title"),category=document.getElementById("category"),author=document.getElementById("author");
-const excerpt=document.getElementById("excerpt"),content=document.getElementById("content"),publishedAt=document.getElementById("publishedAt");
-const imageFile=document.getElementById("imageFile"),imagePreviewGrid=document.getElementById("imagePreviewGrid");
-const featured=document.getElementById("featured"),publishNow=document.getElementById("publishNow");
-const articleMessage=document.getElementById("articleMessage"),articleList=document.getElementById("articleList");
-const editorHeading=document.getElementById("editorHeading"),cancelEditBtn=document.getElementById("cancelEditBtn");
-const currentImageWrap=document.getElementById("currentImageWrap"),currentImage=document.getElementById("currentImage");
-const currentGalleryWrap=document.getElementById("currentGalleryWrap"),currentGallery=document.getElementById("currentGallery");
+const loginView=document.getElementById("loginView"),adminView=document.getElementById("adminView"),loginForm=document.getElementById("loginForm"),loginMessage=document.getElementById("loginMessage"),articleForm=document.getElementById("articleForm"),articleId=document.getElementById("articleId"),title=document.getElementById("title"),category=document.getElementById("category"),author=document.getElementById("author"),excerpt=document.getElementById("excerpt"),content=document.getElementById("content"),publishedAt=document.getElementById("publishedAt"),imageFile=document.getElementById("imageFile"),imagePreviewGrid=document.getElementById("imagePreviewGrid"),publishNow=document.getElementById("publishNow"),articleMessage=document.getElementById("articleMessage"),articleList=document.getElementById("articleList"),editorHeading=document.getElementById("editorHeading"),cancelEditBtn=document.getElementById("cancelEditBtn"),currentImageWrap=document.getElementById("currentImageWrap"),currentImage=document.getElementById("currentImage"),currentGalleryWrap=document.getElementById("currentGalleryWrap"),currentGallery=document.getElementById("currentGallery");
 let editingArticle=null;
-
-function escapeHtml(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;")}
+function escapeHtml(v){return String(v??"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;").replace(/'/g,"&#039;")}
 function slugify(v){return v.toLowerCase().trim().replace(/[^a-z0-9\s-]/g,"").replace(/\s+/g,"-").replace(/-+/g,"-").slice(0,90)}
 function message(el,text,type=""){el.textContent=text;el.className=`message ${type}`}
 function formatDate(v){return v?new Date(v).toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"No date"}
-
-function resetForm(){
-    articleForm.reset();articleId.value="";author.value="PPW Staff";publishNow.checked=true;featured.checked=false;
-    editingArticle=null;editorHeading.textContent="Create Article";cancelEditBtn.classList.add("hidden");
-    currentImageWrap.classList.add("hidden");currentImage.removeAttribute("src");currentGalleryWrap.classList.add("hidden");currentGallery.innerHTML="";imagePreviewGrid.innerHTML="";message(articleMessage,"");
-}
-
+function resetForm(){articleForm.reset();articleId.value="";author.value="PPW Staff";publishNow.checked=true;editingArticle=null;editorHeading.textContent="Create Article";cancelEditBtn.classList.add("hidden");currentImageWrap.classList.add("hidden");currentImage.removeAttribute("src");currentGalleryWrap.classList.add("hidden");currentGallery.innerHTML="";imagePreviewGrid.innerHTML="";message(articleMessage,"")}
 async function checkSession(){const {data}=await db.auth.getSession();if(data.session){loginView.classList.add("hidden");adminView.classList.remove("hidden");loadArticles()}else{adminView.classList.add("hidden");loginView.classList.remove("hidden")}}
 loginForm.addEventListener("submit",async e=>{e.preventDefault();message(loginMessage,"Signing in...");const email=document.getElementById("loginEmail").value.trim(),password=document.getElementById("loginPassword").value;const {error}=await db.auth.signInWithPassword({email,password});if(error){message(loginMessage,error.message,"error");return}loginForm.reset();message(loginMessage,"");checkSession()});
-document.getElementById("logoutBtn").addEventListener("click",async()=>{await db.auth.signOut();resetForm();checkSession()});
-document.getElementById("refreshBtn").addEventListener("click",loadArticles);cancelEditBtn.addEventListener("click",resetForm);
-
-function renderSelectedImages(){
-    const files=[...imageFile.files];
-    imagePreviewGrid.innerHTML=files.map((file,i)=>{const url=URL.createObjectURL(file);return `<div class="image-preview-card"><img src="${url}" alt="Selected photo ${i+1}"><span>${i===0?"Cover photo":"Gallery photo "+(i+1)}</span></div>`}).join("");
-}
+document.getElementById("logoutBtn").addEventListener("click",async()=>{await db.auth.signOut();resetForm();checkSession()});document.getElementById("refreshBtn").addEventListener("click",loadArticles);cancelEditBtn.addEventListener("click",resetForm);
+function renderSelectedImages(){const files=[...imageFile.files];imagePreviewGrid.innerHTML=files.map((file,i)=>{const url=URL.createObjectURL(file);return `<div class="image-preview-card"><img src="${url}" alt="Selected photo ${i+1}"><span>${i===0?"Cover photo":"Gallery photo "+(i+1)}</span></div>`}).join("")}
 imageFile.addEventListener("change",renderSelectedImages);
-
-async function uploadImage(file){
-    if(!file)return null;const ext=(file.name.split(".").pop()||"jpg").toLowerCase();const safe=["jpg","jpeg","png","webp","gif"].includes(ext)?ext:"jpg";const path=`articles/${crypto.randomUUID()}.${safe}`;const {error}=await db.storage.from("article-images").upload(path,file,{cacheControl:"3600",upsert:false});if(error)throw error;return db.storage.from("article-images").getPublicUrl(path).data.publicUrl;
-}
-
-async function getGallery(articleId){const {data,error}=await db.from("article_images").select("*").eq("article_id",articleId).order("sort_order",{ascending:true});if(error&&error.code!=="42P01")throw error;return data||[]}
-async function saveGallery(articleId,files){
-    if(!files.length)return;
-    const rows=[];for(let i=0;i<files.length;i++){const url=await uploadImage(files[i]);rows.push({article_id:articleId,image_url:url,sort_order:i,alt_text:title.value.trim()})}
-    const {error}=await db.from("article_images").insert(rows);if(error)throw error;
-}
-
-async function saveArticle(status){
-    const session=(await db.auth.getSession()).data.session;if(!session)throw new Error("Your session expired. Please sign in again.");
-    const headline=title.value.trim(),body=content.value.trim();if(!headline||!body)throw new Error("Please enter both a headline and the article text.");
-    const files=[...imageFile.files];let imageUrl=editingArticle?.image_url||null;
-    if(files[0])imageUrl=await uploadImage(files[0]);
-    const dateValue=publishedAt.value?new Date(publishedAt.value).toISOString():new Date().toISOString();
-    const data={title:headline,slug:(editingArticle&&editingArticle.title===headline)?editingArticle.slug:slugify(headline),excerpt:excerpt.value.trim(),content:body,category:category.value,author:author.value.trim()||"PPW Staff",image_url:imageUrl,published_at:status==="published"?dateValue:null,status,featured:featured.checked,updated_at:new Date().toISOString()};
-    const result=editingArticle?await db.from("articles").update(data).eq("id",editingArticle.id):await db.from("articles").insert(data).select("id").single();
-    if(result.error){if(result.error.code==="23505")throw new Error("A similar article headline already exists. Change the headline slightly.");throw result.error}
-    const savedId=editingArticle?editingArticle.id:result.data.id;
-    if(files.length>0){
-        const remaining=files.slice(1);if(remaining.length)await saveGallery(savedId,remaining);
-    }
-    resetForm();await loadArticles();return status;
-}
-
-articleForm.addEventListener("submit",async e=>{e.preventDefault();try{message(articleMessage,"Publishing...");await saveArticle("published");message(articleMessage,"Article published successfully.","success")}catch(err){message(articleMessage,err.message||"Something went wrong.","error")}});
+async function uploadImage(file){if(!file)return null;const ext=(file.name.split(".").pop()||"jpg").toLowerCase(),safe=["jpg","jpeg","png","webp","gif"].includes(ext)?ext:"jpg",path=`articles/${crypto.randomUUID()}.${safe}`;const {error}=await db.storage.from("article-images").upload(path,file,{cacheControl:"3600",upsert:false});if(error)throw error;return db.storage.from("article-images").getPublicUrl(path).data.publicUrl}
+async function getGallery(id){const {data,error}=await db.from("article_images").select("*").eq("article_id",id).order("sort_order",{ascending:true});if(error&&error.code!=="42P01")throw error;return data||[]}
+async function saveGallery(id,files){if(!files.length)return;const rows=[];for(let i=0;i<files.length;i++){const url=await uploadImage(files[i]);rows.push({article_id:id,image_url:url,sort_order:i,alt_text:title.value.trim()})}const {error}=await db.from("article_images").insert(rows);if(error)throw error}
+async function makeLeadStory(id){const {error:clearError}=await db.from("articles").update({featured:false}).neq("id",id);if(clearError)throw clearError;const {error}=await db.from("articles").update({featured:true}).eq("id",id);if(error)throw error}
+async function saveArticle(status){const session=(await db.auth.getSession()).data.session;if(!session)throw new Error("Your session expired. Please sign in again.");const headline=title.value.trim(),body=content.value.trim();if(!headline||!body)throw new Error("Please enter both a headline and the article text.");const files=[...imageFile.files];let imageUrl=editingArticle?.image_url||null;if(files[0])imageUrl=await uploadImage(files[0]);const dateValue=publishedAt.value?new Date(publishedAt.value).toISOString():new Date().toISOString();const data={title:headline,slug:(editingArticle&&editingArticle.title===headline)?editingArticle.slug:slugify(headline),excerpt:excerpt.value.trim(),content:body,category:category.value,author:author.value.trim()||"PPW Staff",image_url:imageUrl,published_at:status==="published"?dateValue:null,status,updated_at:new Date().toISOString()};const result=editingArticle?await db.from("articles").update(data).eq("id",editingArticle.id):await db.from("articles").insert(data).select("id").single();if(result.error){if(result.error.code==="23505")throw new Error("A similar article headline already exists. Change the headline slightly.");throw result.error}const savedId=editingArticle?editingArticle.id:result.data.id;if(files.length>1)await saveGallery(savedId,files.slice(1));if(status==="published")await makeLeadStory(savedId);resetForm();await loadArticles();return status}
+articleForm.addEventListener("submit",async e=>{e.preventDefault();try{message(articleMessage,"Publishing...");await saveArticle("published");message(articleMessage,"Article published successfully and set as the lead story.","success")}catch(err){message(articleMessage,err.message||"Something went wrong.","error")}});
 document.getElementById("saveDraftBtn").addEventListener("click",async()=>{try{message(articleMessage,"Saving draft...");await saveArticle("draft");message(articleMessage,"Draft saved successfully.","success")}catch(err){message(articleMessage,err.message||"Something went wrong.","error")}});
-
-async function loadArticles(){articleList.innerHTML='<div class="empty-state">Loading articles...</div>';const {data,error}=await db.from("articles").select("*").order("created_at",{ascending:false});if(error){articleList.innerHTML=`<div class="empty-state">Could not load articles: ${escapeHtml(error.message)}</div>`;return}if(!data.length){articleList.innerHTML='<div class="empty-state">No articles yet. Create your first story.</div>';return}articleList.innerHTML=data.map(a=>{const image=a.image_url?`<img class="article-thumb" src="${escapeHtml(a.image_url)}" alt="">`:'<div class="article-thumb"></div>';return `<article class="article-item">${image}<div><div class="article-item-top"><div><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.category)} · ${escapeHtml(a.author)} · ${formatDate(a.published_at||a.created_at)}</p></div><span class="badge ${a.status}">${a.status.toUpperCase()}</span></div><div class="article-actions"><button class="small-btn" data-action="edit" data-id="${a.id}">Edit</button><button class="small-btn" data-action="delete" data-id="${a.id}">Delete</button>${a.status==="published"?`<a class="small-btn" href="article.html?slug=${encodeURIComponent(a.slug)}" target="_blank">View</a>`:""}</div></div></article>`}).join("")}
+async function loadArticles(){articleList.innerHTML='<div class="empty-state">Loading articles...</div>';const {data,error}=await db.from("articles").select("*").order("created_at",{ascending:false});if(error){articleList.innerHTML=`<div class="empty-state">Could not load articles: ${escapeHtml(error.message)}</div>`;return}if(!data.length){articleList.innerHTML='<div class="empty-state">No articles yet. Create your first story.</div>';return}articleList.innerHTML=data.map(a=>{const image=a.image_url?`<img class="article-thumb" src="${escapeHtml(a.image_url)}" alt="">`:'<div class="article-thumb"></div>';const lead=a.featured?`<span class="badge published">LEAD</span>`:"";return `<article class="article-item">${image}<div><div class="article-item-top"><div><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.category)} · ${escapeHtml(a.author)} · ${formatDate(a.published_at||a.created_at)}</p></div><div class="badges"><span class="badge ${a.status}">${a.status.toUpperCase()}</span>${lead}</div></div><div class="article-actions"><button class="small-btn" data-action="edit" data-id="${a.id}">Edit</button><button class="small-btn" data-action="delete" data-id="${a.id}">Delete</button>${a.status==="published"?`<a class="small-btn" href="article.html?slug=${encodeURIComponent(a.slug)}" target="_blank">View</a>`:""}</div></div></article>`}).join("")}
 articleList.addEventListener("click",async e=>{const b=e.target.closest("[data-action]");if(!b)return;const id=Number(b.dataset.id);if(b.dataset.action==="edit")await editArticle(id);if(b.dataset.action==="delete")await deleteArticle(id)});
-
-async function editArticle(id){
-    const {data,error}=await db.from("articles").select("*").eq("id",id).single();if(error){message(articleMessage,error.message,"error");return}
-    editingArticle=data;articleId.value=data.id;title.value=data.title||"";category.value=data.category||"School News";author.value=data.author||"PPW Staff";excerpt.value=data.excerpt||"";content.value=data.content||"";featured.checked=Boolean(data.featured);publishNow.checked=data.status==="published";
-    if(data.published_at){const d=new Date(data.published_at),adjusted=new Date(d.getTime()-d.getTimezoneOffset()*60000);publishedAt.value=adjusted.toISOString().slice(0,16)}else publishedAt.value="";
-    if(data.image_url){currentImage.src=data.image_url;currentImageWrap.classList.remove("hidden")}else currentImageWrap.classList.add("hidden");
-    try{const gallery=await getGallery(data.id);if(gallery.length){currentGallery.innerHTML=gallery.map((g,i)=>`<div class="image-preview-card"><img src="${escapeHtml(g.image_url)}" alt="${escapeHtml(g.alt_text||data.title)}"><span>Gallery photo ${i+1}</span></div>`).join("");currentGalleryWrap.classList.remove("hidden")}else currentGalleryWrap.classList.add("hidden")}catch(err){currentGalleryWrap.classList.add("hidden")}
-    editorHeading.textContent="Edit Article";cancelEditBtn.classList.remove("hidden");message(articleMessage,"Editing selected article. New photos will be added to the article gallery.");window.scrollTo({top:0,behavior:"smooth"});
-}
+async function editArticle(id){const {data,error}=await db.from("articles").select("*").eq("id",id).single();if(error){message(articleMessage,error.message,"error");return}editingArticle=data;articleId.value=data.id;title.value=data.title||"";category.value=data.category||"School News";author.value=data.author||"PPW Staff";excerpt.value=data.excerpt||"";content.value=data.content||"";publishNow.checked=data.status==="published";if(data.published_at){const d=new Date(data.published_at),adjusted=new Date(d.getTime()-d.getTimezoneOffset()*60000);publishedAt.value=adjusted.toISOString().slice(0,16)}else publishedAt.value="";if(data.image_url){currentImage.src=data.image_url;currentImageWrap.classList.remove("hidden")}else currentImageWrap.classList.add("hidden");try{const gallery=await getGallery(data.id);if(gallery.length){currentGallery.innerHTML=gallery.map((g,i)=>`<div class="image-preview-card"><img src="${escapeHtml(g.image_url)}" alt="${escapeHtml(g.alt_text||data.title)}"><span>Gallery photo ${i+1}</span></div>`).join("");currentGalleryWrap.classList.remove("hidden")}else currentGalleryWrap.classList.add("hidden")}catch(err){currentGalleryWrap.classList.add("hidden")}editorHeading.textContent="Edit Article";cancelEditBtn.classList.remove("hidden");message(articleMessage,"Editing selected article. New photos will be added to the article gallery.");window.scrollTo({top:0,behavior:"smooth"})}
 async function deleteArticle(id){if(!window.confirm("Delete this article? This cannot be undone."))return;const {error}=await db.from("articles").delete().eq("id",id);if(error){message(articleMessage,error.message,"error");return}await loadArticles();message(articleMessage,"Article deleted.","success")}
 db.auth.onAuthStateChange(()=>checkSession());checkSession();

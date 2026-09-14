@@ -1,0 +1,22 @@
+/* PPW site repair: loading states, mobile layout, and full dark mode */
+
+.loading-card,.empty-card{min-height:100px;display:grid;place-items:center;padding:28px;border:1px solid #ddd8cf;border-radius:16px;background:#fff;color:#686868;text-align:center}
+.error-card{border-style:solid}
+.ppw-games-card{display:flex;align-items:center;justify-content:space-between;gap:30px;padding:32px;border:1px solid #ddd8cf;border-radius:22px;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.06)}
+.ppw-games-card h3{margin:8px 0}.ppw-games-card p{margin:0;color:#686868}.ppw-games-label{color:#9d1b2e;font-size:.72rem;font-weight:900;letter-spacing:.14em}.ppw-games-actions{display:flex;gap:10px;flex-wrap:wrap;flex-shrink:0}
+.ppw-list-grid{display:grid;gap:10px}.ppw-list-card{display:grid;grid-template-columns:38px 1fr;gap:14px;align-items:center;padding:16px;border:1px solid #ddd8cf;border-radius:14px;background:#fff;color:inherit;text-decoration:none;transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}.ppw-list-card:hover{transform:translateY(-2px);border-color:#9d1b2e;box-shadow:0 10px 25px rgba(0,0,0,.07)}.ppw-list-card>span{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#9d1b2e;color:#fff;font-weight:900}.ppw-list-card strong{display:block}.ppw-list-card small{display:block;margin-top:4px;color:#686868}
+
+/* Full-site dark mode. Uses classes instead of filter so images are not inverted. */
+html.dark-mode,body.dark-mode{background:#101114!important;color:#f3f3f3!important}
+html.dark-mode header,body.dark-mode header,html.dark-mode nav,body.dark-mode nav{background:rgba(16,17,20,.96)!important;color:#f3f3f3!important;border-color:#30333a!important}
+html.dark-mode .section,body.dark-mode .section,html.dark-mode .story-card,body.dark-mode .story-card,html.dark-mode .featured-card,body.dark-mode .featured-card,html.dark-mode .staff-card,body.dark-mode .staff-card,html.dark-mode .ppw-games-card,body.dark-mode .ppw-games-card,html.dark-mode .ppw-list-card,body.dark-mode .ppw-list-card,html.dark-mode .empty-card,body.dark-mode .empty-card,html.dark-mode .loading-card,body.dark-mode .loading-card{background:#181a1f!important;color:#f3f3f3!important;border-color:#30333a!important}
+html.dark-mode p,body.dark-mode p,html.dark-mode .muted,body.dark-mode .muted,html.dark-mode .head-note,body.dark-mode .head-note,html.dark-mode small,body.dark-mode small{color:#b9bcc4!important}
+html.dark-mode nav a,body.dark-mode nav a,html.dark-mode a,body.dark-mode a{color:inherit}
+html.dark-mode input,html.dark-mode textarea,html.dark-mode select,body.dark-mode input,body.dark-mode textarea,body.dark-mode select{background:#111318!important;color:#f3f3f3!important;border-color:#3a3d45!important}
+html.dark-mode .category-pill,body.dark-mode .category-pill{background:#2b1b20!important;color:#ffb4c0!important}
+html.dark-mode .button.secondary,body.dark-mode .button.secondary{background:#24272d!important;color:#f3f3f3!important;border-color:#3a3d45!important}
+html.dark-mode footer,body.dark-mode footer{background:#0b0c0f!important;color:#f3f3f3!important;border-color:#30333a!important}
+html.dark-mode .ppw-announcement,body.dark-mode .ppw-announcement{background:#181a1f!important;color:#f3f3f3!important;border-color:#30333a!important}
+
+@media(max-width:700px){.ppw-games-card{flex-direction:column;align-items:flex-start;padding:24px}.ppw-games-actions{width:100%}.ppw-games-actions .button{flex:1;text-align:center}}
+@media(max-width:480px){.ppw-games-actions{flex-direction:column}.ppw-games-actions .button{width:100%}}

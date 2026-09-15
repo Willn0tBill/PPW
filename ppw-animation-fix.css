@@ -1,23 +1,26 @@
-/* PPW HOMEPAGE LOADER — stable paw animation */
+/* PPW HOMEPAGE LOADER — paw trail restored */
 html.ppw-loader-active,html.ppw-loader-active body{overflow:hidden!important}
 html body .ppw-loader{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;overflow:hidden!important;isolation:isolate;background:#f7f4ed!important;opacity:1!important;visibility:visible!important;pointer-events:all!important}
 html body .ppw-loader.is-hidden{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
 html body .ppw-loader-inner{position:relative;z-index:3;width:min(90vw,460px);display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important}
 html body .ppw-loader-paw-trail{position:relative!important;width:320px!important;height:96px!important;margin:0 auto 2px!important;overflow:visible!important;display:block!important;opacity:1!important;visibility:visible!important;z-index:20!important}
-html body .ppw-loader .ppw-paw{position:absolute!important;display:block!important;visibility:visible!important;width:54px!important;height:58px!important;z-index:30!important;opacity:1!important;will-change:transform!important;filter:drop-shadow(0 5px 8px rgba(0,0,0,.07))!important}
-html body .ppw-loader .ppw-paw .toe,html body .ppw-loader .ppw-paw .pad{position:absolute!important;display:block!important;visibility:visible!important;background:#9d1b2e!important;border-radius:50%!important;opacity:1!important}
+html body .ppw-loader .ppw-paw{position:absolute!important;display:block!important;visibility:visible!important;width:54px!important;height:58px!important;z-index:30!important;will-change:transform!important;filter:drop-shadow(0 5px 8px rgba(0,0,0,.07))!important}
+html body .ppw-loader .ppw-paw .toe,html body .ppw-loader .ppw-paw .pad{position:absolute!important;display:block!important;background:#9d1b2e!important;border-radius:50%!important}
 html body .ppw-loader .ppw-paw .toe{width:12px!important;height:17px!important}
 html body .ppw-loader .ppw-paw .t1{left:5px!important;top:11px!important;transform:rotate(-28deg)!important}
 html body .ppw-loader .ppw-paw .t2{left:17px!important;top:4px!important;transform:rotate(-10deg)!important}
 html body .ppw-loader .ppw-paw .t3{left:30px!important;top:4px!important;transform:rotate(10deg)!important}
 html body .ppw-loader .ppw-paw .t4{left:41px!important;top:12px!important;transform:rotate(28deg)!important}
 html body .ppw-loader .ppw-paw .pad{width:34px!important;height:28px!important;left:10px!important;top:27px!important;border-radius:48% 48% 55% 55%!important}
-html body .ppw-loader .ppw-paw.paw-one{left:0!important;top:29px!important;animation:ppwPawMove1 .55s cubic-bezier(.2,.8,.2,1) .08s both!important}
-html body .ppw-loader .ppw-paw.paw-two{left:133px!important;top:5px!important;animation:ppwPawMove2 .55s cubic-bezier(.2,.8,.2,1) .28s both!important}
-html body .ppw-loader .ppw-paw.paw-three{right:0!important;top:29px!important;animation:ppwPawMove3 .55s cubic-bezier(.2,.8,.2,1) .48s both!important}
-@keyframes ppwPawMove1{from{transform:translate3d(10px,24px,0) rotate(-17deg) scale(.55)}to{transform:translate3d(0,0,0) rotate(-17deg) scale(1)}}
-@keyframes ppwPawMove2{from{transform:translate3d(0,24px,0) rotate(-2deg) scale(.55)}to{transform:translate3d(0,0,0) rotate(-2deg) scale(1)}}
-@keyframes ppwPawMove3{from{transform:translate3d(-10px,24px,0) rotate(17deg) scale(.55)}to{transform:translate3d(0,0,0) rotate(17deg) scale(1)}}
+
+/* Each print starts tiny and below its final position, so it appears from nowhere. */
+html body .ppw-loader .ppw-paw.paw-one{left:0!important;top:29px!important;transform:translate3d(14px,28px,0) rotate(17deg) scale(.08)!important;animation:ppwPawAppear1 .55s cubic-bezier(.2,.8,.2,1) .08s both!important}
+html body .ppw-loader .ppw-paw.paw-two{left:133px!important;top:5px!important;transform:translate3d(0,28px,0) rotate(0deg) scale(.08)!important;animation:ppwPawAppear2 .55s cubic-bezier(.2,.8,.2,1) .28s both!important}
+html body .ppw-loader .ppw-paw.paw-three{right:0!important;top:29px!important;transform:translate3d(-14px,28px,0) rotate(-17deg) scale(.08)!important;animation:ppwPawAppear3 .55s cubic-bezier(.2,.8,.2,1) .48s both!important}
+@keyframes ppwPawAppear1{0%{transform:translate3d(14px,28px,0) rotate(17deg) scale(.08)}70%{transform:translate3d(0,-2px,0) rotate(17deg) scale(1.06)}100%{transform:translate3d(0,0,0) rotate(17deg) scale(1)}}
+@keyframes ppwPawAppear2{0%{transform:translate3d(0,28px,0) rotate(0deg) scale(.08)}70%{transform:translate3d(0,-2px,0) rotate(0deg) scale(1.06)}100%{transform:translate3d(0,0,0) rotate(0deg) scale(1)}}
+@keyframes ppwPawAppear3{0%{transform:translate3d(-14px,28px,0) rotate(-17deg) scale(.08)}70%{transform:translate3d(0,-2px,0) rotate(-17deg) scale(1.06)}100%{transform:translate3d(0,0,0) rotate(-17deg) scale(1)}}
+
 html body .ppw-loader-logo-wrap{position:relative;width:138px;height:138px;display:grid;place-items:center;border:2px solid #f2a900;border-radius:50%;background:rgba(255,255,255,.70);box-shadow:0 20px 55px rgba(0,0,0,.10),inset 0 0 0 8px rgba(242,169,0,.07);opacity:0;transform:scale(.7);animation:ppwLogoIn .55s cubic-bezier(.2,.8,.2,1) .42s forwards!important}
 html body .ppw-loader-logo-ring{position:absolute;inset:-12px;border:1px solid rgba(157,27,46,.16);border-radius:50%;opacity:0;transform:scale(.75);animation:ppwLogoRing 1s ease .48s forwards!important}
 html body .ppw-loader-logo{width:96px;height:96px;object-fit:contain!important}

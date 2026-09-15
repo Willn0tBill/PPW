@@ -1,47 +1,161 @@
-/* PPW SHARED DARK MODE / THEME LAYER */
-html.dark-mode body,body.dark-mode{background:#07080a!important;color:#f5f5f5!important}
-html.theme-transition-dark::after,html.theme-transition-light::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:0;transform:scale(.05);transform-origin:var(--theme-x,50%) var(--theme-y,50%);background:radial-gradient(circle at var(--theme-x,50%) var(--theme-y,50%),rgba(0,0,0,.98) 0%,rgba(0,0,0,.98) 55%,rgba(0,0,0,0) 72%);animation:ppwThemeVeil .7s cubic-bezier(.2,.75,.2,1) forwards}
-html.theme-transition-light::after{background:radial-gradient(circle at var(--theme-x,50%) var(--theme-y,50%),rgba(255,255,255,.99) 0%,rgba(255,255,255,.99) 55%,rgba(255,255,255,0) 72%)}
-@keyframes ppwThemeVeil{0%{opacity:.95;transform:scale(.05)}45%{opacity:.78}75%{opacity:.35}100%{opacity:0;transform:scale(2.35)}}
+/* PPW SHARED THEME — rebuilt from scratch */
 
-/* Shared theme button */
-.ppw-page-theme-toggle{position:fixed!important;right:22px!important;bottom:22px!important;z-index:2147482999!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:132px!important;height:42px!important;padding:0 16px!important;border:1px solid #21181a!important;border-radius:999px!important;background:#21181a!important;color:#fff!important;font:700 13px/1 Arial,Helvetica,sans-serif!important;letter-spacing:.02em!important;cursor:pointer!important;box-shadow:0 8px 24px rgba(0,0,0,.18)!important;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease!important}
+/* The page is LIGHT by default. We do not recolor the normal page here. */
+html.light-mode body, body.light-mode{background:initial;color:initial}
+
+/* ---------- THEME TRANSITION ---------- */
+html.ppw-theme-going-dark::after,
+html.ppw-theme-going-light::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:2147483000;
+  pointer-events:none;
+  transform-origin:var(--ppw-theme-x,50%) var(--ppw-theme-y,50%);
+  transform:scale(.02);
+  opacity:.98;
+  animation:ppwThemeReveal .7s cubic-bezier(.2,.75,.2,1) forwards;
+}
+html.ppw-theme-going-dark::after{
+  background:radial-gradient(circle at var(--ppw-theme-x,50%) var(--ppw-theme-y,50%),#07080a 0%,#07080a 55%,transparent 73%);
+}
+html.ppw-theme-going-light::after{
+  background:radial-gradient(circle at var(--ppw-theme-x,50%) var(--ppw-theme-y,50%),#fff 0%,#fff 55%,transparent 73%);
+}
+@keyframes ppwThemeReveal{
+  0%{opacity:.98;transform:scale(.02)}
+  45%{opacity:.92;transform:scale(1.15)}
+  78%{opacity:.55;transform:scale(1.85)}
+  100%{opacity:0;transform:scale(2.4)}
+}
+
+/* ---------- SHARED TOGGLE ---------- */
+.ppw-page-theme-toggle{
+  position:fixed!important;
+  right:22px!important;
+  bottom:22px!important;
+  z-index:2147482999!important;
+  min-width:132px!important;
+  height:42px!important;
+  padding:0 16px!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  border:1px solid #21181a!important;
+  border-radius:999px!important;
+  background:#21181a!important;
+  color:#fff!important;
+  font:700 13px/1 Arial,Helvetica,sans-serif!important;
+  cursor:pointer!important;
+  box-shadow:0 8px 24px rgba(0,0,0,.18)!important;
+  transition:transform .2s ease,background .2s ease,color .2s ease,box-shadow .2s ease!important;
+}
 .ppw-page-theme-toggle:hover{transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(0,0,0,.24)!important}
 .ppw-page-theme-toggle:active{transform:translateY(0)!important}
-.ppw-page-theme-toggle:focus-visible{outline:3px solid #f2a900!important;outline-offset:3px!important}
 html.dark-mode .ppw-page-theme-toggle{background:#f5f5f5!important;color:#111!important;border-color:#fff!important}
-html.light-mode .ppw-page-theme-toggle{background:#21181a!important;color:#fff!important;border-color:#21181a!important}
 
-/* HOMEPAGE */
-html.dark-mode .category-section,body.dark-mode .category-section,html.dark-mode .school-layout,body.dark-mode .school-layout,html.dark-mode .life-layout,body.dark-mode .life-layout,html.dark-mode .sports-layout,body.dark-mode .sports-layout,html.dark-mode .perspective-layout,body.dark-mode .perspective-layout,html.dark-mode .world-layout,body.dark-mode .world-layout,html.dark-mode .features-layout,body.dark-mode .features-layout,html.dark-mode .media-layout,body.dark-mode .media-layout,html.dark-mode .editorial-layout,body.dark-mode .editorial-layout,html.dark-mode .more-sections,body.dark-mode .more-sections,html.dark-mode .about-section,body.dark-mode .about-section{background:#0b0d10!important;color:#f5f5f5!important}
-html.dark-mode .story-card,body.dark-mode .story-card,html.dark-mode .featured-card,body.dark-mode .featured-card,html.dark-mode .life-card,body.dark-mode .life-card,html.dark-mode .sports-card,body.dark-mode .sports-card,html.dark-mode .feature-card,body.dark-mode .feature-card,html.dark-mode .media-card,body.dark-mode .media-card,html.dark-mode .editorial-card,body.dark-mode .editorial-card,html.dark-mode .staff-card,body.dark-mode .staff-card,html.dark-mode .loading-card,body.dark-mode .loading-card,html.dark-mode .empty-card,body.dark-mode .empty-card{background:#171a1f!important;color:#f5f5f5!important;border-color:#30343b!important}
-html.dark-mode .category-section h1,html.dark-mode .category-section h2,html.dark-mode .category-section h3,html.dark-mode .category-section h4,html.dark-mode .category-section p,body.dark-mode .category-section h1,body.dark-mode .category-section h2,body.dark-mode .category-section h3,body.dark-mode .category-section h4,body.dark-mode .category-section p{color:#f5f5f5!important}
-html.dark-mode .section-links a,html.dark-mode .section-links a span,body.dark-mode .section-links a,body.dark-mode .section-links a span{color:#fff!important;background:#171a1f!important}
-html.dark-mode .head-note,body.dark-mode .head-note,html.dark-mode .meta,body.dark-mode .meta,html.dark-mode .story-body p,body.dark-mode .story-body p{color:#b8bec7!important}
-html.dark-mode input,html.dark-mode textarea,html.dark-mode select,body.dark-mode input,body.dark-mode textarea,body.dark-mode select{background:#0d1014!important;color:#fff!important;border-color:#3a4049!important}
-html.dark-mode input::placeholder,html.dark-mode textarea::placeholder,body.dark-mode input::placeholder,body.dark-mode textarea::placeholder{color:#858c96!important}
-html.dark-mode #mainNav,body.dark-mode #mainNav{background:#0f1216!important;border-color:#30343b!important}html.dark-mode #mainNav a,body.dark-mode #mainNav a{color:#fff!important}
-html.dark-mode .site-header,body.dark-mode .site-header{background:rgba(7,8,10,.97)!important;border-color:#30343b!important}html.dark-mode .site-footer,body.dark-mode .site-footer{background:#030405!important;color:#fff!important}
-html.dark-mode .welcome-strip,body.dark-mode .welcome-strip{background:#5c101d!important;color:#fff!important}html.dark-mode .feature-band,body.dark-mode .feature-band{background:#050608!important;color:#fff!important}
+/* ---------- ACTUAL DARK MODE ---------- */
+html.dark-mode body,
+body.dark-mode{
+  background:#07080a!important;
+  color:#f5f5f5!important;
+}
 
-/* ADMIN PORTAL */
-html.dark-mode .auth-screen,body.dark-mode .auth-screen{background:#07080a!important;color:#f5f5f5!important}html.dark-mode .auth-card,body.dark-mode .auth-card,html.dark-mode .editor-panel,body.dark-mode .editor-panel,html.dark-mode .articles-panel,body.dark-mode .articles-panel{background:#121519!important;color:#f5f5f5!important;border-color:#30343b!important;box-shadow:0 18px 45px rgba(0,0,0,.35)!important}
-html.dark-mode .admin-header,body.dark-mode .admin-header{background:rgba(7,8,10,.96)!important;color:#fff!important;border-color:#30343b!important}html.dark-mode .muted,html.dark-mode .help,body.dark-mode .muted,body.dark-mode .help,html.dark-mode .article-item p,body.dark-mode .article-item p{color:#aeb5bf!important}
-html.dark-mode .article-item,body.dark-mode .article-item{background:#171a1f!important;border-color:#30343b!important;color:#fff!important}html.dark-mode .article-thumb,body.dark-mode .article-thumb{background:#0d1014!important}
-html.dark-mode .small-btn,body.dark-mode .small-btn,html.dark-mode .secondary-btn,body.dark-mode .secondary-btn{background:#1c2026!important;color:#fff!important;border-color:#3a4049!important}html.dark-mode .back-to-ppw,body.dark-mode .back-to-ppw{background:#171a1f!important;color:#fff!important;border-color:#3a4049!important}
-html.dark-mode .badge,body.dark-mode .badge{background:#22272e!important}html.dark-mode .empty-state,body.dark-mode .empty-state{color:#aeb5bf!important}html.dark-mode .ppw-spacer-btn,body.dark-mode .ppw-spacer-btn{background:#1c2026!important;color:#ffbdc7!important;border-color:#5a3038!important}
+/* Generic page surfaces. This catches the hard-coded white/paper sections
+   used by the older PPW stylesheets, so dark mode actually changes the page. */
+html.dark-mode body :where(
+  main,section,article,aside,form,
+  .section,.category-section,.school-layout,.life-layout,.sports-layout,
+  .perspective-layout,.world-layout,.features-layout,.media-layout,
+  .editorial-layout,.more-sections,.about-section,
+  .story-card,.featured-card,.featured-card a,.life-card,.sports-card,
+  .feature-card,.media-card,.editorial-card,.staff-card,.loading-card,.empty-card,
+  .ppw-search-wrap,.ppw-week-card,.ppw-related-card,.ppw-list-card,.ppw-poll-card,
+  .poll-card,.content-card,.article-card,.article-container,.article-header,
+  .article-body,.article-content,.article-gallery,.related-card,
+  .game-panel,.game-stats div,.weekly-challenge,.games-note,
+  .auth-screen,.auth-card,.editor-panel,.articles-panel,
+  .article-item,.permission-notice,.modal-content,.dropdown-menu
+){
+  background-color:#121519!important;
+  color:#f5f5f5!important;
+  border-color:#30343b!important;
+}
 
-/* GAMES */
-html.dark-mode .games-header,body.dark-mode .games-header{background:rgba(7,8,10,.97)!important;border-color:#30343b!important}html.dark-mode .games-nav nav a,body.dark-mode .games-nav nav a{color:#fff!important}html.dark-mode .games-nav nav a:hover,html.dark-mode .games-nav nav .games-active,body.dark-mode .games-nav nav a:hover,body.dark-mode .games-nav nav .games-active{color:#ffbdc7!important}
-html.dark-mode .games-page,body.dark-mode .games-page{color:#f5f5f5!important}html.dark-mode .games-hero p,body.dark-mode .games-hero p,html.dark-mode .game-heading p,body.dark-mode .game-heading p{color:#b8bec7!important}
-html.dark-mode .game-stats div,body.dark-mode .game-stats div,html.dark-mode .game-panel,body.dark-mode .game-panel{background:#121519!important;color:#f5f5f5!important;border-color:#30343b!important;box-shadow:0 16px 45px rgba(0,0,0,.3)!important}
-html.dark-mode .game-stats span,body.dark-mode .game-stats span,html.dark-mode .game-message,body.dark-mode .game-message{color:#aeb5bf!important}html.dark-mode .word-cell,body.dark-mode .word-cell{background:#171a1f!important;border-color:#454b55!important;color:#fff!important}html.dark-mode .key,body.dark-mode .key{background:#30353d!important;color:#fff!important}
-html.dark-mode .cw-cell,body.dark-mode .cw-cell{background:#171a1f!important;border-color:#30343b!important;color:#fff!important}html.dark-mode .cw-input,body.dark-mode .cw-input{color:#fff!important}html.dark-mode .cw-input:focus,body.dark-mode .cw-input:focus{background:#20252c!important}
-html.dark-mode .memory-card.flipped,html.dark-mode .memory-card.matched,body.dark-mode .memory-card.flipped,body.dark-mode .memory-card.matched{background:#342817!important}html.dark-mode .weekly-challenge,body.dark-mode .weekly-challenge,html.dark-mode .games-note,body.dark-mode .games-note{background:#08090b!important;color:#fff!important}html.dark-mode .games-note span,body.dark-mode .games-note span{color:#b8bec7!important}
+/* Inner cards stay visibly separated from the page background. */
+html.dark-mode body :where(
+  .story-card,.featured-card a,.life-card,.sports-card,.feature-card,
+  .media-card,.editorial-card,.staff-card,.loading-card,.empty-card,
+  .ppw-search-wrap,.ppw-week-card,.ppw-related-card,.ppw-list-card,
+  .ppw-poll-card,.poll-card,.content-card,.article-card,.article-container,
+  .article-item,.game-panel,.game-stats div,.auth-card,.editor-panel,
+  .articles-panel
+){background-color:#171a1f!important}
 
-/* Shared controls / labels */
-html.dark-mode label,body.dark-mode label{color:#f5f5f5!important}
-html.dark-mode .panel-heading h2,body.dark-mode .panel-heading h2,html.dark-mode .auth-card h1,body.dark-mode .auth-card h1{color:#fff!important}
+/* Text */
+html.dark-mode body :where(h1,h2,h3,h4,h5,h6,strong,b,label,li,p,span,small){color:#f5f5f5}
+html.dark-mode body :where(.head-note,.meta,.muted,.help,.hero-description,
+  .story-body p,.article-item p,.game-message,.games-hero p,.game-heading p,
+  .ppw-search-wrap p,.ppw-week-card small,.ppw-related-card small,
+  .games-note span){color:#b8bec7!important}
 
-@media(max-width:600px){.ppw-page-theme-toggle{right:14px!important;bottom:14px!important;min-width:118px!important;height:40px!important;padding:0 13px!important;font-size:12px!important}}
-@media(prefers-reduced-motion:reduce){html.theme-transition-dark::after,html.theme-transition-light::after{animation:none!important;opacity:0!important}.ppw-page-theme-toggle{transition:none!important}}
+/* Navigation / headers / footers */
+html.dark-mode body :where(.site-header,#mainNav,.games-header,.admin-header){
+  background:#0d1014!important;
+  color:#fff!important;
+  border-color:#30343b!important;
+}
+html.dark-mode body :where(#mainNav a,.games-nav nav a,nav a,.brand, .games-brand){color:#fff!important}
+html.dark-mode body :where(.site-footer,footer){background:#030405!important;color:#fff!important;border-color:#30343b!important}
+
+/* Hero and accent bands keep their identity, but use dark versions. */
+html.dark-mode body .welcome-strip{background:#5c101d!important;color:#fff!important}
+html.dark-mode body .feature-band{background:#050608!important;color:#fff!important}
+html.dark-mode body .ppw-games-card{background:#21181a!important;color:#fff!important}
+html.dark-mode body .ppw-games-card p{color:#d9d0d0!important}
+html.dark-mode body .ppw-week-strip{background:#b77d00!important;color:#111!important}
+
+/* Inputs */
+html.dark-mode body :where(input,textarea,select){
+  background:#0d1014!important;
+  color:#fff!important;
+  border-color:#3a4049!important;
+}
+html.dark-mode body :where(input,textarea)::placeholder{color:#858c96!important}
+
+/* Buttons and controls */
+html.dark-mode body :where(.secondary-btn,.small-btn,.secondary-button,.small-button){
+  background:#1c2026!important;color:#fff!important;border-color:#3a4049!important
+}
+html.dark-mode body :where(.back-to-ppw){background:#171a1f!important;color:#fff!important;border-color:#3a4049!important}
+html.dark-mode body :where(.key){background:#30353d!important;color:#fff!important}
+html.dark-mode body :where(.word-cell,.cw-cell){background:#171a1f!important;color:#fff!important;border-color:#454b55!important}
+html.dark-mode body :where(.cw-input){color:#fff!important;background:#171a1f!important}
+
+/* Homepage links/cards */
+html.dark-mode body :where(.section-links a,.section-links a span){background:#171a1f!important;color:#fff!important}
+html.dark-mode body :where(.ppw-article-tags a){background:#171a1f!important;color:#fff!important;border-color:#30343b!important}
+html.dark-mode body :where(.ppw-reading-time,.ppw-article-nav a,.ppw-newsroom-stats>div){background:#20252c!important;color:#fff!important}
+html.dark-mode body .story-placeholder{background:#20252c!important;color:#fff!important}
+
+/* Admin badges / notices */
+html.dark-mode body :where(.badge){background:#22272e!important;color:#fff!important}
+html.dark-mode body :where(.empty-state){color:#aeb5bf!important}
+html.dark-mode body :where(.ppw-spacer-btn){background:#1c2026!important;color:#ffbdc7!important;border-color:#5a3038!important}
+
+/* Games */
+html.dark-mode body :where(.games-page){color:#f5f5f5!important}
+html.dark-mode body :where(.game-date){color:#b8bec7!important}
+html.dark-mode body :where(.memory-card.flipped,.memory-card.matched){background:#342817!important}
+html.dark-mode body :where(.games-note){background:#08090b!important}
+
+/* Keep images, logos, and the opening loader themselves normal. */
+html.dark-mode body img{filter:none!important}
+
+@media(max-width:600px){
+  .ppw-page-theme-toggle{right:14px!important;bottom:14px!important;min-width:118px!important;height:40px!important;padding:0 13px!important;font-size:12px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html.ppw-theme-going-dark::after,html.ppw-theme-going-light::after{animation:none!important;opacity:0!important}
+  .ppw-page-theme-toggle{transition:none!important}
+}

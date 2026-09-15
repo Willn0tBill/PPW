@@ -1,0 +1,71 @@
+/* PPW dark mode for staff portal + games */
+html.dark-mode, body.dark-mode{background:#0b0d10!important;color:#f5f5f5!important}
+
+/* Theme toggle */
+.ppw-page-theme-toggle{position:fixed;right:18px;bottom:18px;z-index:1000;border:1px solid #3b4048;border-radius:999px;background:#171a1f;color:#fff;padding:10px 14px;font:800 .72rem Arial,sans-serif;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:transform .2s,background .2s,border-color .2s}
+.ppw-page-theme-toggle:hover{transform:translateY(-2px);background:#22262d;border-color:#9d1b2e}
+
+/* Admin portal */
+body.dark-mode{--paper:#0b0d10!important;--white:#171a1f!important;--text:#f5f5f5!important;--muted:#a9afb8!important;--border:#343a43!important}
+body.dark-mode .auth-screen{background:radial-gradient(circle at 15% 20%,rgba(157,27,46,.2),transparent 30%),radial-gradient(circle at 85% 80%,rgba(242,169,0,.12),transparent 30%),#0b0d10!important}
+body.dark-mode .auth-card,
+body.dark-mode .editor-panel,
+body.dark-mode .articles-panel{background:#171a1f!important;border-color:#343a43!important;box-shadow:0 18px 45px rgba(0,0,0,.3)!important}
+body.dark-mode .admin-header{background:rgba(11,13,16,.94)!important;border-color:#343a43!important}
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select{background:#0f1216!important;color:#f5f5f5!important;border-color:#3a4049!important;color-scheme:dark}
+body.dark-mode input::placeholder,body.dark-mode textarea::placeholder{color:#7f8792!important}
+body.dark-mode .back-to-ppw,
+body.dark-mode .secondary-btn,
+body.dark-mode .small-btn{background:#22262d!important;color:#f5f5f5!important;border-color:#3a4049!important}
+body.dark-mode .back-to-ppw:hover,body.dark-mode .secondary-btn:hover,body.dark-mode .small-btn:hover{border-color:#9d1b2e!important}
+body.dark-mode .article-item{background:#111419!important;border-color:#343a43!important}
+body.dark-mode .article-thumb{background:#242932!important}
+body.dark-mode .badge{background:#292e36!important;color:#f5f5f5!important}
+body.dark-mode .empty-state{color:#a9afb8!important}
+body.dark-mode .ppw-spacer-btn{background:#22262d!important;color:#ffbf4a!important;border-color:#4a3a2b!important}
+body.dark-mode .ppw-spacer-help{color:#9da4ae!important}
+body.dark-mode .help,body.dark-mode .muted{color:#a9afb8!important}
+body.dark-mode .message.success{color:#6fd08f!important}
+body.dark-mode .message.error{color:#ff7f92!important}
+body.dark-mode .ppw-loader{background:#0b0d10!important}
+body.dark-mode .ppw-loader::before{background:radial-gradient(circle at 50% 42%,rgba(45,48,54,.8),rgba(11,13,16,.96) 52%,#0b0d10 100%)!important}
+body.dark-mode .ppw-loader::after{background:linear-gradient(90deg,transparent 0%,rgba(157,27,46,.08) 50%,transparent 100%)!important}
+body.dark-mode .ppw-loader-logo-wrap{background:rgba(23,26,31,.8)!important}
+
+/* Games */
+body.dark-mode .games-header{background:rgba(15,18,22,.97)!important;border-color:#343a43!important}
+body.dark-mode .games-brand{color:#f5f5f5!important}
+body.dark-mode .games-nav nav a{color:#f5f5f5!important}
+body.dark-mode .games-nav nav a:hover,body.dark-mode .games-nav nav .games-active{color:#ffbf4a!important}
+body.dark-mode .games-page{color:#f5f5f5!important}
+body.dark-mode .games-hero p,
+body.dark-mode .game-heading p,
+body.dark-mode .game-message,
+body.dark-mode .game-stats span{color:#a9afb8!important}
+body.dark-mode .game-stats div,
+body.dark-mode .game-panel{background:#171a1f!important;border-color:#343a43!important;box-shadow:0 16px 45px rgba(0,0,0,.28)!important}
+body.dark-mode .word-cell{background:#0f1216!important;border-color:#454c57!important;color:#fff!important}
+body.dark-mode .word-cell.filled{border-color:#707987!important}
+body.dark-mode .keyboard .key{background:#343a43!important;color:#f5f5f5!important}
+body.dark-mode .keyboard .key.correct{background:#4f8f4b!important;color:#fff!important}
+body.dark-mode .keyboard .key.present{background:#a18f3f!important;color:#fff!important}
+body.dark-mode .keyboard .key.absent{background:#5b6065!important;color:#fff!important}
+body.dark-mode .secondary-button{background:#30353d!important;color:#fff!important}
+body.dark-mode .crossword-grid{background:#0a0c0f!important;border-color:#0a0c0f!important}
+body.dark-mode .cw-cell{background:#0f1216!important;border-color:#343a43!important;color:#fff!important}
+body.dark-mode .cw-input{color:#fff!important;background:transparent!important}
+body.dark-mode .cw-input:focus{background:#24221a!important}
+body.dark-mode .cw-input.correct{background:#28452d!important}
+body.dark-mode .cw-input.wrong{background:#4a252b!important}
+body.dark-mode .crossword-clues li{color:#e5e7eb!important}
+body.dark-mode .memory-card{background:#0f1216!important}
+body.dark-mode .memory-card.flipped,body.dark-mode .memory-card.matched{background:#3a2e1d!important}
+body.dark-mode .weekly-challenge,body.dark-mode .games-note{background:#111419!important;border:1px solid #343a43!important}
+body.dark-mode .weekly-challenge p,body.dark-mode .games-note span{color:#b0b6bf!important}
+body.dark-mode .games-note a{color:#ffbf4a!important}
+body.dark-mode .site-footer{background:#080a0d!important;color:#f5f5f5!important}
+body.dark-mode .site-footer a{color:#ffbf4a!important}
+
+@media(max-width:620px){.ppw-page-theme-toggle{right:10px;bottom:10px;padding:9px 12px;font-size:.66rem}}

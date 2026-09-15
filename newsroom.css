@@ -1,0 +1,26 @@
+/* PPW Newsroom — organized staff directory */
+.staff-section{position:relative;padding-top:84px;padding-bottom:84px}
+.staff-section>.section-head{margin-bottom:34px}
+.staff-section>.section-head h2{max-width:760px}
+.staff-section .head-note{max-width:330px}
+.staff-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.staff-grid .loading-card,.staff-grid .empty-card{grid-column:1/-1}
+.staff-card{position:relative;display:flex;align-items:flex-start;gap:18px;min-height:190px;padding:26px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 10px 28px rgba(70,45,20,.06);overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.staff-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--gold)}
+.staff-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(157,27,46,.22)}
+.staff-initial{width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:16px;background:linear-gradient(135deg,#fff1c9,#f5e7e9);color:var(--cardinal);font:900 1.35rem/1 Arial,sans-serif}
+.staff-role{display:inline-block;margin:1px 0 8px;color:var(--cardinal);font:900 .62rem/1.2 Arial,sans-serif;letter-spacing:.13em;text-transform:uppercase}
+.staff-card h3{margin:0;font-size:1.45rem;line-height:1.05;letter-spacing:-.025em}
+.staff-card p{margin:10px 0 0;color:var(--muted);font-size:.9rem;line-height:1.55}
+.newsroom-about-divider{width:min(100%,920px);height:1px;margin:4px auto 0;background:var(--line)}
+.staff-section .about-grid{margin-top:70px;padding:34px 0 4px;display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:start}
+.staff-section .about-grid h2{margin:10px 0 0;font-size:clamp(2.4rem,5vw,4.4rem);letter-spacing:-.06em;line-height:.95}
+.staff-section .about-copy>p{max-width:650px;margin:0;color:var(--muted);font-size:1.06rem}
+/* The old personal credit is intentionally removed from the public newsroom. */
+.staff-section .credit-card{display:none!important}
+.dark-mode .staff-card{background:#181416;border-color:#3b2c2f;color:#fff;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.dark-mode .staff-card p,.dark-mode .staff-section .about-copy>p{color:#c9bec0}
+.dark-mode .staff-initial{background:linear-gradient(135deg,rgba(242,169,0,.18),rgba(157,27,46,.22));color:#ffd56b}
+.dark-mode .newsroom-about-divider{background:#3b2c2f}
+@media(max-width:900px){.staff-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.staff-section .about-grid{grid-template-columns:1fr;gap:24px}}
+@media(max-width:600px){.staff-section{padding-top:62px;padding-bottom:62px}.staff-grid{grid-template-columns:1fr}.staff-card{min-height:0;padding:22px}.staff-section .about-grid{margin-top:48px;padding-top:28px}}

@@ -1,7 +1,10 @@
-/* PPW Featured section — keep the surrounding background consistent with the page. */
+/* PPW Featured section — make the entire band match the normal page paper. */
 #featuredSection.feature-band{
-  background:var(--paper);
+  background:var(--paper) !important;
   color:var(--ink);
+}
+#featuredSection.feature-band::before{
+  border-color:rgba(242,169,0,.16);
 }
 #featuredSection .section-head.light{
   color:var(--ink);
@@ -12,14 +15,13 @@
 #featuredSection .section-head.light .eyebrow{
   color:var(--cardinal);
 }
-#featuredSection.feature-band:before{
-  border-color:rgba(242,169,0,.16);
+#featuredSection .featured-card{
+  background:#fff;
+  color:var(--ink);
 }
-
-/* Dark mode keeps the Featured area dark, matching the site's dark theme. */
 html.dark-mode #featuredSection.feature-band,
 body.dark-mode #featuredSection.feature-band{
-  background:#21181a;
+  background:#21181a !important;
   color:#fff;
 }
 html.dark-mode #featuredSection .section-head.light,

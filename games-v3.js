@@ -49,5 +49,51 @@ if(grid){
 
 /* ---------- PAW MATCH ---------- */
 const memory=$('memoryGrid'),movesEl=$('memoryMoves'),memoryMsg=$('memoryMessage'),restart=$('memoryRestart');
-if(memory){const symbols=['🐯','★','✦','●','◆','▲','✿','☀'];let cards=[],open=[],matches=0,moves=0,locked=false,start=0;function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}function setup(){memory.innerHTML='';open=[];matches=0;moves=0;locked=false;start=performance.now();movesEl&&(movesEl.textContent='0');memoryMsg&&(memoryMsg.textContent='Find all eight pairs.',memoryMsg.className='game-message');cards=shuffle([...symbols,...symbols]);cards.forEach((symbol)=>{const b=document.createElement('button');b.type='button';b.className='memory-card';b.innerHTML=`<span class="memory-back">?</span><span class="memory-face" aria-hidden="true">${symbol}</span>`;b.setAttribute('aria-label','Hidden card');b.addEventListener('click',()=>flip(b,symbol));memory.appendChild(b)})}function flip(card,symbol){if(locked||card.classList.contains('flipped')||card.classList.contains('matched'))return;card.classList.add('flipped');open.push({card,symbol});if(open.length<2)return;moves++;movesEl&&(movesEl.textContent=moves);if(open[0].symbol===open[1].symbol){open.forEach(x=>x.card.classList.add('matched'));matches+=2;open=[];if(matches===cards.length){const time=performance.now()-start;if(!stats.best||time<stats.best){stats.best=time;put(statsKey,JSON.stringify(stats));renderStats()}played('memory');memoryMsg.textContent=`Perfect! ${moves} moves in ${(time/1000).toFixed(1)} seconds.`;memoryMsg.className='game-message win';celebrate(memory)}}else{locked=true;memory.classList.add('memory-miss');setTimeout(()=>{open.forEach(x=>x.card.classList.remove('flipped'));open=[];locked=false;memory.classList.remove('memory-miss')},650)}}restart?.addEventListener('click',setup);setup()}
+if(memory){
+ const symbols=[
+  ['Paw','images/memory/paw.svg'],['Star','images/memory/star.svg'],['Book','images/memory/book.svg'],['Pencil','images/memory/pencil.svg'],
+  ['Globe','images/memory/globe.svg'],['Camera','images/memory/camera.svg'],['School','images/memory/school.svg'],['Trophy','images/memory/trophy.svg']
+ ];
+ let cards=[],open=[],matches=0,moves=0,locked=false,start=0;
+ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+ function setup(){memory.innerHTML='';open=[];matches=0;moves=0;locked=false;start=performance.now();movesEl&&(movesEl.textContent='0');memoryMsg&&(memoryMsg.textContent='Find all eight pairs.',memoryMsg.className='game-message');cards=shuffle([...symbols,...symbols]);cards.forEach((item,index)=>{const b=document.createElement('button');b.type='button';b.className='memory-card';b.innerHTML=`<span class="memory-back">?</span><span class="memory-face" aria-hidden="true"><img src="${item[1]}" alt="${item[0]}"></span>`;b.setAttribute('aria-label','Hidden card');b.addEventListener('click',()=>flip(b,item,index));memory.appendChild(b)})}
+ function flip(card,item,index){if(locked||card.classList.contains('flipped')||card.classList.contains('matched'))return;card.classList.add('flipped');open.push({card,item,index});if(open.length<2)return;moves++;movesEl&&(movesEl.textContent=moves);if(open[0].item[0]===open[1].item[0]){open.forEach(x=>x.card.classList.add('matched'));matches+=2;open=[];if(matches===cards.length){const time=performance.now()-start;if(!stats.best||time<stats.best){stats.best=time;put(statsKey,JSON.stringify(stats));renderStats()}played('memory');memoryMsg.textContent=`Perfect! ${moves} moves in ${(time/1000).toFixed(1)} seconds.`;memoryMsg.className='game-message win';celebrate(memory)}}else{locked=true;memory.classList.add('memory-miss');setTimeout(()=>{open.forEach(x=>x.card.classList.remove('flipped'));open=[];locked=false;memory.classList.remove('memory-miss')},1200)}}
+ restart?.addEventListener('click',setup);setup()
+}
+
+/* ---------- MOBILE GAME POLISH ---------- */
+const mobileStyle=document.createElement('style');
+mobileStyle.textContent=`
+@media(max-width:760px){
+  .games-page{width:100%!important;padding:12px 8px 42px!important}
+  .game-panel{padding:18px 9px!important;border-radius:18px!important}
+  .game-heading{margin-bottom:14px!important}
+  .game-heading h2{font-size:clamp(1.7rem,9vw,2.5rem)!important}
+  .game-heading p{font-size:.86rem!important;line-height:1.45!important}
+  .word-board{width:min(330px,90vw)!important;gap:5px!important}
+  .word-cell{font-size:clamp(1.15rem,7vw,1.65rem)!important;font-weight:900!important}
+  .keyboard{width:100%!important;max-width:390px!important;gap:5px!important}
+  .key-row{gap:3px!important}
+  .key{height:48px!important;min-width:0!important;width:0!important;padding:0 2px!important;font-size:clamp(.58rem,2.8vw,.72rem)!important;border-radius:7px!important}
+  .key.wide{flex:1.35!important}
+  .crossword-wrap{grid-template-columns:1fr!important;gap:18px!important}
+  .crossword-grid{width:min(370px,94vw)!important;margin:auto!important}
+  .crossword-clues{grid-template-columns:1fr!important;gap:13px!important}
+  .memory-grid{width:min(430px,94vw)!important;grid-template-columns:repeat(4,1fr)!important;gap:6px!important}
+  .memory-card{border-radius:11px!important}
+  .memory-back,.memory-face{border-radius:9px!important}
+  .memory-back{font-size:1.25rem!important}
+  .memory-face{font-size:0!important}
+  .memory-face img{width:70%!important;height:70%!important;object-fit:contain!important;display:block!important}
+}
+@media(max-width:380px){
+  .games-page{padding-left:5px!important;padding-right:5px!important}
+  .game-panel{padding-left:7px!important;padding-right:7px!important}
+  .word-board{width:282px!important;gap:4px!important}
+  .word-cell{font-size:1.15rem!important}
+  .key{height:44px!important;font-size:.56rem!important}
+  .memory-grid{gap:4px!important}
+  .memory-face img{width:68%!important;height:68%!important}
+}`;
+document.head.appendChild(mobileStyle);
 })();

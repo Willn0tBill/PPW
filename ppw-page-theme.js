@@ -1,73 +1,107 @@
 (function(){
   'use strict';
-  const KEY='ppw-theme';
-  const TRANSITION_MS=700;
-  const TOGGLE_SELECTORS='[data-theme-toggle],#darkModeToggle,.dark-mode-toggle,#ppwPageThemeToggle';
 
-  function getTheme(){
-    try{return localStorage.getItem(KEY)==='dark'?'dark':'light'}catch(e){return 'light'}
+  const STORAGE_KEY = 'ppw-theme';
+  const TRANSITION_TIME = 700;
+  const BUTTON_SELECTOR = '[data-theme-toggle], #darkModeToggle, .dark-mode-toggle, .ppw-dark-toggle, #ppwPageThemeToggle';
+
+  function readTheme(){
+    try {
+      return localStorage.getItem(STORAGE_KEY) === 'dark' ? 'dark' : 'light';
+    } catch(e) {
+      return 'light';
+    }
   }
 
-  function setTheme(theme,animate,event){
-    const dark=theme==='dark';
-    const root=document.documentElement;
-    const body=document.body;
-    if(!root)return;
+  function writeTheme(theme){
+    try { localStorage.setItem(STORAGE_KEY, theme); } catch(e) {}
+  }
 
-    if(animate){
-      let x='50%',y='50%';
-      if(event && typeof event.clientX==='number' && typeof event.clientY==='number'){
-        x=event.clientX+'px'; y=event.clientY+'px';
-      }else if(event && event.currentTarget && event.currentTarget.getBoundingClientRect){
-        const r=event.currentTarget.getBoundingClientRect();
-        x=(r.left+r.width/2)+'px'; y=(r.top+r.height/2)+'px';
-      }
-      root.style.setProperty('--theme-x',x);
-      root.style.setProperty('--theme-y',y);
-      root.classList.remove('theme-transition-dark','theme-transition-light');
-      void root.offsetWidth;
-      root.classList.add(dark?'theme-transition-dark':'theme-transition-light');
-      window.setTimeout(function(){root.classList.remove('theme-transition-dark','theme-transition-light')},TRANSITION_MS);
-    }
-
-    root.classList.toggle('dark-mode',dark);
-    root.classList.toggle('light-mode',!dark);
-    if(body){body.classList.toggle('dark-mode',dark);body.classList.toggle('light-mode',!dark)}
-
-    document.querySelectorAll(TOGGLE_SELECTORS).forEach(function(btn){
-      btn.textContent=dark?'☀ Light Mode':'☾ Dark Mode';
-      btn.setAttribute('aria-pressed',dark?'true':'false');
-      btn.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
-      btn.title=dark?'Switch to light mode':'Switch to dark mode';
+  function updateButtons(theme){
+    const dark = theme === 'dark';
+    document.querySelectorAll(BUTTON_SELECTOR).forEach(function(button){
+      button.textContent = dark ? '☀ Light Mode' : '☾ Dark Mode';
+      button.setAttribute('aria-pressed', dark ? 'true' : 'false');
+      button.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+      button.title = dark ? 'Switch to light mode' : 'Switch to dark mode';
+      button.dataset.ppwThemeBound = '1';
     });
   }
 
-  function bind(btn){
-    if(!btn || btn.dataset.ppwThemeBound==='1')return;
-    btn.dataset.ppwThemeBound='1';
-    btn.addEventListener('click',function(event){
-      const next=document.documentElement.classList.contains('dark-mode')?'light':'dark';
-      try{localStorage.setItem(KEY,next)}catch(e){}
-      setTheme(next,true,event);
+  function applyTheme(theme, animate, event){
+    const root = document.documentElement;
+    const body = document.body;
+    const dark = theme === 'dark';
+
+    if(!root) return;
+
+    if(animate && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){
+      let x = '50%';
+      let y = '50%';
+
+      if(event && typeof event.clientX === 'number'){
+        x = event.clientX + 'px';
+        y = event.clientY + 'px';
+      } else if(event && event.currentTarget?.getBoundingClientRect){
+        const rect = event.currentTarget.getBoundingClientRect();
+        x = (rect.left + rect.width / 2) + 'px';
+        y = (rect.top + rect.height / 2) + 'px';
+      }
+
+      root.style.setProperty('--ppw-theme-x', x);
+      root.style.setProperty('--ppw-theme-y', y);
+      root.classList.remove('ppw-theme-going-dark', 'ppw-theme-going-light');
+      void root.offsetWidth;
+      root.classList.add(dark ? 'ppw-theme-going-dark' : 'ppw-theme-going-light');
+
+      window.clearTimeout(window.__ppwThemeTimer);
+      window.__ppwThemeTimer = window.setTimeout(function(){
+        root.classList.remove('ppw-theme-going-dark', 'ppw-theme-going-light');
+      }, TRANSITION_TIME + 50);
+    }
+
+    // This is the actual theme switch. The animation is only the visual transition.
+    root.classList.toggle('dark-mode', dark);
+    root.classList.toggle('light-mode', !dark);
+    if(body){
+      body.classList.toggle('dark-mode', dark);
+      body.classList.toggle('light-mode', !dark);
+    }
+
+    updateButtons(theme);
+  }
+
+  function createButton(){
+    if(document.querySelector(BUTTON_SELECTOR)) return;
+    const button = document.createElement('button');
+    button.id = 'ppwPageThemeToggle';
+    button.className = 'ppw-page-theme-toggle';
+    button.type = 'button';
+    document.body.appendChild(button);
+  }
+
+  function bindButtons(){
+    document.querySelectorAll(BUTTON_SELECTOR).forEach(function(button){
+      if(button.dataset.ppwThemeClickBound === '1') return;
+      button.dataset.ppwThemeClickBound = '1';
+      button.addEventListener('click', function(event){
+        const next = document.documentElement.classList.contains('dark-mode') ? 'light' : 'dark';
+        writeTheme(next);
+        applyTheme(next, true, event);
+      });
     });
   }
 
   function init(){
-    setTheme(getTheme(),false);
-    let buttons=[...document.querySelectorAll(TOGGLE_SELECTORS)];
-    if(!buttons.length){
-      const btn=document.createElement('button');
-      btn.id='ppwPageThemeToggle';
-      btn.className='ppw-page-theme-toggle';
-      btn.type='button';
-      btn.setAttribute('aria-pressed','false');
-      document.body.appendChild(btn);
-      buttons=[btn];
-    }
-    buttons.forEach(bind);
-    setTheme(getTheme(),false);
+    applyTheme(readTheme(), false);
+    createButton();
+    bindButtons();
+    updateButtons(readTheme());
   }
 
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
-  else init();
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init, {once:true});
+  } else {
+    init();
+  }
 })();

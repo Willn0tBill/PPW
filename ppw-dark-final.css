@@ -1,8 +1,16 @@
 /* PPW SHARED DARK MODE / THEME LAYER */
 html.dark-mode body,body.dark-mode{background:#07080a!important;color:#f5f5f5!important}
-html.theme-transition-dark::after,html.theme-transition-light::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:0;background:radial-gradient(circle at var(--theme-x,50%) var(--theme-y,50%),rgba(0,0,0,.96) 0%,rgba(0,0,0,.92) 45%,rgba(0,0,0,0) 72%);animation:ppwThemeVeil .65s ease-out forwards}
-html.theme-transition-light::after{background:radial-gradient(circle at var(--theme-x,50%) var(--theme-y,50%),rgba(255,255,255,.98) 0%,rgba(255,255,255,.94) 45%,rgba(255,255,255,0) 72%)}
-@keyframes ppwThemeVeil{0%{opacity:.82;transform:scale(.05)}55%{opacity:.55}100%{opacity:0;transform:scale(2.2)}}
+html.theme-transition-dark::after,html.theme-transition-light::after{content:"";position:fixed;inset:0;z-index:2147483000;pointer-events:none;opacity:0;transform:scale(.05);transform-origin:var(--theme-x,50%) var(--theme-y,50%);background:radial-gradient(circle at var(--theme-x,50%) var(--theme-y,50%),rgba(0,0,0,.98) 0%,rgba(0,0,0,.98) 55%,rgba(0,0,0,0) 72%);animation:ppwThemeVeil .7s cubic-bezier(.2,.75,.2,1) forwards}
+html.theme-transition-light::after{background:radial-gradient(circle at var(--theme-x,50%) var(--theme-y,50%),rgba(255,255,255,.99) 0%,rgba(255,255,255,.99) 55%,rgba(255,255,255,0) 72%)}
+@keyframes ppwThemeVeil{0%{opacity:.95;transform:scale(.05)}45%{opacity:.78}75%{opacity:.35}100%{opacity:0;transform:scale(2.35)}}
+
+/* Shared theme button */
+.ppw-page-theme-toggle{position:fixed!important;right:22px!important;bottom:22px!important;z-index:2147482999!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:132px!important;height:42px!important;padding:0 16px!important;border:1px solid #21181a!important;border-radius:999px!important;background:#21181a!important;color:#fff!important;font:700 13px/1 Arial,Helvetica,sans-serif!important;letter-spacing:.02em!important;cursor:pointer!important;box-shadow:0 8px 24px rgba(0,0,0,.18)!important;transition:transform .2s ease,box-shadow .2s ease,background .2s ease,color .2s ease!important}
+.ppw-page-theme-toggle:hover{transform:translateY(-2px)!important;box-shadow:0 12px 28px rgba(0,0,0,.24)!important}
+.ppw-page-theme-toggle:active{transform:translateY(0)!important}
+.ppw-page-theme-toggle:focus-visible{outline:3px solid #f2a900!important;outline-offset:3px!important}
+html.dark-mode .ppw-page-theme-toggle{background:#f5f5f5!important;color:#111!important;border-color:#fff!important}
+html.light-mode .ppw-page-theme-toggle{background:#21181a!important;color:#fff!important;border-color:#21181a!important}
 
 /* HOMEPAGE */
 html.dark-mode .category-section,body.dark-mode .category-section,html.dark-mode .school-layout,body.dark-mode .school-layout,html.dark-mode .life-layout,body.dark-mode .life-layout,html.dark-mode .sports-layout,body.dark-mode .sports-layout,html.dark-mode .perspective-layout,body.dark-mode .perspective-layout,html.dark-mode .world-layout,body.dark-mode .world-layout,html.dark-mode .features-layout,body.dark-mode .features-layout,html.dark-mode .media-layout,body.dark-mode .media-layout,html.dark-mode .editorial-layout,body.dark-mode .editorial-layout,html.dark-mode .more-sections,body.dark-mode .more-sections,html.dark-mode .about-section,body.dark-mode .about-section{background:#0b0d10!important;color:#f5f5f5!important}
@@ -31,4 +39,9 @@ html.dark-mode .game-stats span,body.dark-mode .game-stats span,html.dark-mode .
 html.dark-mode .cw-cell,body.dark-mode .cw-cell{background:#171a1f!important;border-color:#30343b!important;color:#fff!important}html.dark-mode .cw-input,body.dark-mode .cw-input{color:#fff!important}html.dark-mode .cw-input:focus,body.dark-mode .cw-input:focus{background:#20252c!important}
 html.dark-mode .memory-card.flipped,html.dark-mode .memory-card.matched,body.dark-mode .memory-card.flipped,body.dark-mode .memory-card.matched{background:#342817!important}html.dark-mode .weekly-challenge,body.dark-mode .weekly-challenge,html.dark-mode .games-note,body.dark-mode .games-note{background:#08090b!important;color:#fff!important}html.dark-mode .games-note span,body.dark-mode .games-note span{color:#b8bec7!important}
 
-html.dark-mode .ppw-page-theme-toggle{background:#f5f5f5!important;color:#111!important;border-color:#fff!important}html.light-mode .ppw-page-theme-toggle{background:#21181a!important;color:#fff!important;border-color:#21181a!important}
+/* Shared controls / labels */
+html.dark-mode label,body.dark-mode label{color:#f5f5f5!important}
+html.dark-mode .panel-heading h2,body.dark-mode .panel-heading h2,html.dark-mode .auth-card h1,body.dark-mode .auth-card h1{color:#fff!important}
+
+@media(max-width:600px){.ppw-page-theme-toggle{right:14px!important;bottom:14px!important;min-width:118px!important;height:40px!important;padding:0 13px!important;font-size:12px!important}}
+@media(prefers-reduced-motion:reduce){html.theme-transition-dark::after,html.theme-transition-light::after{animation:none!important;opacity:0!important}.ppw-page-theme-toggle{transition:none!important}}

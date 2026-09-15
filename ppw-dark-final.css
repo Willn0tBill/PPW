@@ -1,0 +1,62 @@
+/* PPW FINAL DARK MODE LAYER */
+html.dark-mode body,body.dark-mode,html.ppw-dark body,body.ppw-dark{background:#07080a!important;color:#f5f5f5!important}
+
+/* Full-width homepage sections that were still white */
+html.dark-mode .category-section,body.dark-mode .category-section,html.ppw-dark .category-section,body.ppw-dark .category-section,
+html.dark-mode .school-layout,body.dark-mode .school-layout,html.ppw-dark .school-layout,body.ppw-dark .school-layout,
+html.dark-mode .life-layout,body.dark-mode .life-layout,html.ppw-dark .life-layout,body.ppw-dark .life-layout,
+html.dark-mode .sports-layout,body.dark-mode .sports-layout,html.ppw-dark .sports-layout,body.ppw-dark .sports-layout,
+html.dark-mode .perspective-layout,body.dark-mode .perspective-layout,html.ppw-dark .perspective-layout,body.ppw-dark .perspective-layout,
+html.dark-mode .world-layout,body.dark-mode .world-layout,html.ppw-dark .world-layout,body.ppw-dark .world-layout,
+html.dark-mode .features-layout,body.dark-mode .features-layout,html.ppw-dark .features-layout,body.ppw-dark .features-layout,
+html.dark-mode .media-layout,body.dark-mode .media-layout,html.ppw-dark .media-layout,body.ppw-dark .media-layout,
+html.dark-mode .editorial-layout,body.dark-mode .editorial-layout,html.ppw-dark .editorial-layout,body.ppw-dark .editorial-layout,
+html.dark-mode .more-sections,body.dark-mode .more-sections,html.ppw-dark .more-sections,body.ppw-dark .more-sections,
+html.dark-mode .about-section,body.dark-mode .about-section,html.ppw-dark .about-section,body.ppw-dark .about-section{background:#0b0d10!important;color:#f5f5f5!important}
+
+/* Darken every common white card/surface */
+html.dark-mode .story-card,body.dark-mode .story-card,html.ppw-dark .story-card,body.ppw-dark .story-card,
+html.dark-mode .featured-card,body.dark-mode .featured-card,html.ppw-dark .featured-card,body.ppw-dark .featured-card,
+html.dark-mode .life-card,body.dark-mode .life-card,html.ppw-dark .life-card,body.ppw-dark .life-card,
+html.dark-mode .sports-card,body.dark-mode .sports-card,html.ppw-dark .sports-card,body.ppw-dark .sports-card,
+html.dark-mode .feature-card,body.dark-mode .feature-card,html.ppw-dark .feature-card,body.ppw-dark .feature-card,
+html.dark-mode .media-card,body.dark-mode .media-card,html.ppw-dark .media-card,body.ppw-dark .media-card,
+html.dark-mode .editorial-card,body.dark-mode .editorial-card,html.ppw-dark .editorial-card,body.ppw-dark .editorial-card,
+html.dark-mode .section-links a,body.dark-mode .section-links a,html.ppw-dark .section-links a,body.ppw-dark .section-links a,
+html.dark-mode .staff-card,body.dark-mode .staff-card,html.ppw-dark .staff-card,body.ppw-dark .staff-card,
+html.dark-mode .loading-card,body.dark-mode .loading-card,html.ppw-dark .loading-card,body.ppw-dark .loading-card,
+html.dark-mode .empty-card,body.dark-mode .empty-card,html.ppw-dark .empty-card,body.ppw-dark .empty-card{background:#171a1f!important;color:#f5f5f5!important;border-color:#30343b!important}
+
+/* Make black/dark text inside those areas white */
+html.dark-mode .category-section h1,html.dark-mode .category-section h2,html.dark-mode .category-section h3,html.dark-mode .category-section h4,html.dark-mode .category-section p,
+body.dark-mode .category-section h1,body.dark-mode .category-section h2,body.dark-mode .category-section h3,body.dark-mode .category-section h4,body.dark-mode .category-section p,
+html.ppw-dark .category-section h1,html.ppw-dark .category-section h2,html.ppw-dark .category-section h3,html.ppw-dark .category-section h4,html.ppw-dark .category-section p,
+body.ppw-dark .category-section h1,body.ppw-dark .category-section h2,body.ppw-dark .category-section h3,body.ppw-dark .category-section h4,body.ppw-dark .category-section p{color:#f5f5f5!important}
+
+/* Specific requested links */
+html.dark-mode .section-links a,body.dark-mode .section-links a,html.ppw-dark .section-links a,body.ppw-dark .section-links a,
+html.dark-mode .section-links a span,body.dark-mode .section-links a span,html.ppw-dark .section-links a span,body.ppw-dark .section-links a span{color:#fff!important;background:#171a1f!important}
+
+/* Secondary/muted copy remains readable instead of gray-on-gray */
+html.dark-mode .head-note,body.dark-mode .head-note,html.ppw-dark .head-note,body.ppw-dark .head-note,
+html.dark-mode .meta,body.dark-mode .meta,html.ppw-dark .meta,body.ppw-dark .meta,
+html.dark-mode .story-body p,body.dark-mode .story-body p,html.ppw-dark .story-body p,body.ppw-dark .story-body p{color:#b8bec7!important}
+
+/* Forms and text boxes */
+html.dark-mode input,html.dark-mode textarea,html.dark-mode select,body.dark-mode input,body.dark-mode textarea,body.dark-mode select,
+html.ppw-dark input,html.ppw-dark textarea,html.ppw-dark select,body.ppw-dark input,body.ppw-dark textarea,body.ppw-dark select{background:#0d1014!important;color:#fff!important;border-color:#3a4049!important}
+html.dark-mode input::placeholder,html.dark-mode textarea::placeholder,body.dark-mode input::placeholder,body.dark-mode textarea::placeholder,
+html.ppw-dark input::placeholder,html.ppw-dark textarea::placeholder,body.ppw-dark input::placeholder,body.ppw-dark textarea::placeholder{color:#858c96!important}
+
+/* Navigation/footer/dropdowns */
+html.dark-mode #mainNav,body.dark-mode #mainNav,html.ppw-dark #mainNav,body.ppw-dark #mainNav{background:#0f1216!important;border-color:#30343b!important}
+html.dark-mode #mainNav a,body.dark-mode #mainNav a,html.ppw-dark #mainNav a,body.ppw-dark #mainNav a{color:#fff!important}
+html.dark-mode .site-header,body.dark-mode .site-header,html.ppw-dark .site-header,body.ppw-dark .site-header{background:rgba(7,8,10,.97)!important;border-color:#30343b!important}
+html.dark-mode .site-footer,body.dark-mode .site-footer,html.ppw-dark .site-footer,body.ppw-dark .site-footer{background:#030405!important;color:#fff!important}
+
+/* Don't leave cream/white pseudo backgrounds behind */
+html.dark-mode .category-section:before,body.dark-mode .category-section:before,html.ppw-dark .category-section:before,body.ppw-dark .category-section:before{background:#0b0d10!important}
+
+/* Intentionally colored homepage strips are darkened too */
+html.dark-mode .welcome-strip,body.dark-mode .welcome-strip,html.ppw-dark .welcome-strip,body.ppw-dark .welcome-strip{background:#5c101d!important;color:#fff!important}
+html.dark-mode .feature-band,body.dark-mode .feature-band,html.ppw-dark .feature-band,body.ppw-dark .feature-band{background:#050608!important;color:#fff!important}

@@ -23,3 +23,5 @@ function finishLoader(){const loader=document.getElementById('ppwLoader');if(!lo
 async function start(){favicon();setupNav();setTimeout(finishLoader,2600);try{await Promise.all([loadArticles(),loadStaff()])}catch(e){console.error('PPW startup failed:',e)}}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
 const enhancement=document.createElement('script');enhancement.src='ppw-enhancements.js?v=8';document.body.appendChild(enhancement);const interactive=document.createElement('script');interactive.src='ppw-interactive.js?v=7';document.body.appendChild(interactive);
+const categoryCss=document.createElement('link');categoryCss.rel='stylesheet';categoryCss.href='category-layouts.css?v=1';document.head.appendChild(categoryCss);
+const categoryLayouts=document.createElement('script');categoryLayouts.src='category-layouts.js?v=1';document.body.appendChild(categoryLayouts);

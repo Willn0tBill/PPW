@@ -10,6 +10,17 @@
 .crossword-clues{align-content:start}
 .crossword-clues h3{color:#8f1d2c!important}
 .game-panel:focus-within{border-color:rgba(242,169,0,.55)!important}
+
+/* PAWWORD FEEDBACK — submitted rows light up after Enter */
+.word-panel .word-cell.correct{background:#5cae62!important;color:#fff!important;border-color:#78c77d!important;box-shadow:0 0 16px rgba(92,174,98,.28)!important;animation:pawwordCorrect .42s ease both!important}
+.word-panel .word-cell.present{background:#d4ad3a!important;color:#fff!important;border-color:#e5c65c!important;box-shadow:0 0 16px rgba(212,173,58,.25)!important;animation:pawwordPresent .42s ease both!important}
+.word-panel .word-cell.absent{background:#555b63!important;color:#fff!important;border-color:#6d737c!important;animation:pawwordAbsent .32s ease both!important}
+.word-panel .word-cell.filled{color:#fff!important}
+
+@keyframes pawwordCorrect{0%{transform:rotateX(0);filter:brightness(1)}45%{transform:rotateX(90deg);filter:brightness(1.3)}100%{transform:rotateX(0);filter:brightness(1)}}
+@keyframes pawwordPresent{0%{transform:rotateX(0);filter:brightness(1)}45%{transform:rotateX(90deg);filter:brightness(1.25)}100%{transform:rotateX(0);filter:brightness(1)}}
+@keyframes pawwordAbsent{0%{transform:scale(.92);opacity:.65}100%{transform:scale(1);opacity:1}}
+
 .word-panel .key.correct{background:#8f1d2c!important}.word-panel .key.present{background:#b77d00!important}.word-panel .key.absent{background:#555b63!important}
 .memory-card{background:linear-gradient(145deg,#681421,#8f1d2c)!important;border:2px solid rgba(242,169,0,.35)!important}
 .memory-card.flipped,.memory-card.matched{background:#fff0d5!important}

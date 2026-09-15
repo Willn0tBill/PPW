@@ -1,0 +1,36 @@
+/* PPW Featured section — keep the surrounding background consistent with the page. */
+#featuredSection.feature-band{
+  background:var(--paper);
+  color:var(--ink);
+}
+#featuredSection .section-head.light{
+  color:var(--ink);
+}
+#featuredSection .section-head.light .head-note{
+  color:var(--muted);
+}
+#featuredSection .section-head.light .eyebrow{
+  color:var(--cardinal);
+}
+#featuredSection.feature-band:before{
+  border-color:rgba(242,169,0,.16);
+}
+
+/* Dark mode keeps the Featured area dark, matching the site's dark theme. */
+html.dark-mode #featuredSection.feature-band,
+body.dark-mode #featuredSection.feature-band{
+  background:#21181a;
+  color:#fff;
+}
+html.dark-mode #featuredSection .section-head.light,
+body.dark-mode #featuredSection .section-head.light{
+  color:#fff;
+}
+html.dark-mode #featuredSection .section-head.light .head-note,
+body.dark-mode #featuredSection .section-head.light .head-note{
+  color:#d8cfd0;
+}
+html.dark-mode #featuredSection .section-head.light .eyebrow,
+body.dark-mode #featuredSection .section-head.light .eyebrow{
+  color:var(--gold-light);
+}

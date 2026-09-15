@@ -2,7 +2,33 @@
 'use strict';
 const $=s=>document.querySelector(s);
 function favicon(){for(const [rel,href] of [['icon','images/tiger.png'],['apple-touch-icon','images/tiger.png']])if(!document.querySelector(`link[rel="${rel}"]`)){const l=document.createElement('link');l.rel=rel;l.href=href;if(rel==='icon')l.type='image/png';document.head.appendChild(l)}}
-function styles(){['ppw-v5.css?v=5','ppw-v2.css?v=6','ppw-repair.css?v=4','ppw-dark-final.css?v=6','ppw-feature-fix.css?v=1','newsroom.css?v=1'].forEach(h=>{const f=h.split('?')[0];if(!document.querySelector(`link[href^="${f}"]`)){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l)}})}
+function styles(){['ppw-v5.css?v=5','ppw-v2.css?v=6','ppw-repair.css?v=4','ppw-dark-final.css?v=6','ppw-feature-fix.css?v=2','newsroom.css?v=1'].forEach(h=>{const f=h.split('?')[0];if(!document.querySelector(`link[href^="${f}"]`)){const l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l)}});if(!document.getElementById('ppw-mobile-home-css')){const s=document.createElement('style');s.id='ppw-mobile-home-css';s.textContent=`
+@media(max-width:760px){
+  .nav-wrap{width:calc(100% - 20px)!important;min-height:62px!important;gap:10px!important}
+  .brand-logo{width:43px!important;height:43px!important}.brand strong{font-size:.76rem!important}.brand small{font-size:.5rem!important;letter-spacing:.24em!important}
+  .menu-toggle{display:block!important;flex:0 0 42px!important}.site-header nav{display:none!important}
+  .hero{width:calc(100% - 20px)!important;min-height:0!important;display:flex!important;flex-direction:column!important;gap:8px!important;text-align:center!important;padding:30px 0 24px!important}
+  .hero-copy{padding:20px 0 4px!important;order:1}.hero-art{min-height:0!important;order:2;width:100%!important;padding:12px 0 4px!important}
+  .hero h1{font-size:clamp(3.1rem,16vw,5rem)!important;line-height:.86!important;margin:17px 0!important}.hero-copy>p{font-size:.94rem!important;line-height:1.5!important;margin:0 auto 20px!important;max-width:560px!important}
+  .hero-actions{justify-content:center!important}.button{min-height:45px!important;padding:11px 16px!important;font-size:.68rem!important}
+  .hero-circle{width:min(330px,78vw)!important}.float-paw,.float-star{display:none!important}
+  .welcome-strip{display:block!important;text-align:center!important;padding:15px 14px!important;font-size:.9rem!important}.welcome-strip strong,.welcome-strip span,.welcome-strip a{display:block!important}.welcome-strip strong{margin-bottom:5px}.welcome-strip a{margin-top:8px}
+  .section{width:calc(100% - 20px)!important;padding:48px 0!important}.section-head{display:block!important;margin-bottom:20px!important}.section-head h2{font-size:clamp(2rem,10vw,3rem)!important}.head-note{margin-top:9px!important;max-width:none!important}
+  .latest-grid,.section-grid,.life-grid,.features-grid,.editorial-grid,.sports-grid{grid-template-columns:1fr!important;gap:13px!important}.section-grid .story-card:first-child{grid-column:auto!important}
+  .story-image,.story-placeholder{height:190px!important}.section-grid .story-card:first-child .story-image,.section-grid .story-card:first-child .story-placeholder{height:220px!important}
+  .story-body{padding:17px!important}.story-body h3{font-size:1.3rem!important}.story-body p{font-size:.9rem!important}
+  .featured-card{grid-template-columns:1fr!important}.featured-card .story-image,.featured-card .story-placeholder{height:230px!important}.featured-card .story-body{padding:24px 19px!important}.featured-card h3{font-size:clamp(1.8rem,9vw,2.7rem)!important}
+  .school-row{grid-template-columns:44px 1fr!important;gap:12px!important;padding:18px 4px!important}.school-row>img{grid-column:1/-1;width:100%!important;height:150px!important}.school-row p{font-size:.84rem!important}
+  .sports-card{grid-template-columns:70px 1fr auto!important;gap:12px!important;padding:12px!important}.sports-thumb{width:70px!important;height:70px!important}
+  .perspective-grid{grid-template-columns:1fr!important}.perspective-card{min-height:210px!important;padding:22px!important}
+  .world-grid{columns:1!important}.world-card img{height:180px!important}.media-grid{grid-template-columns:repeat(2,1fr)!important;gap:10px!important}.media-card img,.media-img{height:145px!important}
+  .section-links{grid-template-columns:1fr 1fr!important}.section-links a{padding:16px!important}
+  .about-grid{grid-template-columns:1fr!important;gap:22px!important}.about-grid h2{font-size:clamp(2.2rem,11vw,3.5rem)!important}.about-copy>p{font-size:.95rem!important}
+  .footer-inner{width:calc(100% - 20px)!important;min-height:120px!important;display:block!important;padding:24px 0!important}.footer-inner a{margin-top:15px!important}
+  .staff-grid{grid-template-columns:1fr!important;gap:13px!important}
+}
+@media(max-width:380px){.hero{width:calc(100% - 14px)!important}.section{width:calc(100% - 14px)!important}.media-grid,.section-links{grid-template-columns:1fr!important}.hero-circle{width:250px!important}.button{width:100%!important}.hero-actions{width:100%!important}.story-image,.story-placeholder{height:170px!important}}
+`;document.head.appendChild(s)}}
 function reveal(){document.querySelectorAll('.reveal').forEach(e=>{if(e.dataset.ppwReveal)return;e.dataset.ppwReveal='1';if(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){e.classList.add('visible');return}if(!window.PPWRevealObserver)window.PPWRevealObserver=new IntersectionObserver(es=>es.forEach(x=>x.target.classList.toggle('visible',x.isIntersecting)),{threshold:.08});window.PPWRevealObserver.observe(e)})}
 function addGamesNav(){const nav=document.querySelector('#mainNav');if(!nav||nav.querySelector('a[href*="games.html"]'))return;const more=[...nav.querySelectorAll('a')].find(a=>a.textContent.trim().toLowerCase()==='more');const a=document.createElement('a');a.href='games.html';a.textContent='Games';if(more)more.after(a);else nav.appendChild(a)}
 function sharedTheme(){if(document.querySelector('script[data-ppw-shared-theme]'))return;const s=document.createElement('script');s.src='ppw-page-theme.js?v=6';s.dataset.ppwSharedTheme='1';s.onload=()=>window.dispatchEvent(new Event('ppw-theme-ready'));document.body.appendChild(s)}

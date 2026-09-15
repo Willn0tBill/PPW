@@ -1,1 +1,46 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="Paw Prints Weekly article"><meta property="og:type" content="article"><meta property="og:site_name" content="Paw Prints Weekly"><link rel="icon" type="image/png" href="images/tiger.png"><link rel="apple-touch-icon" href="images/tiger.png"><title>Article | Paw Prints Weekly</title><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="ppw-interactive.css?v=4"><link rel="stylesheet" href="ppw-v5.css?v=2"><link rel="stylesheet" href="ppw-v3.css?v=3"><link rel="stylesheet" href="ppw-fixes.css?v=7"><style>.article-site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,250,240,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(157,27,46,.12)}.article-site-nav .inner{width:min(1180px,calc(100% - 28px));min-height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}.article-site-nav .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font-weight:900}.article-site-nav .brand img{width:42px;height:42px;object-fit:contain}.article-site-nav nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.article-site-nav nav a{padding:9px 11px;border-radius:10px;text-decoration:none;color:inherit;font:800 .72rem Arial,sans-serif}.article-site-nav nav a:hover,.article-site-nav nav a:focus-visible{background:rgba(157,27,46,.08)}.article-page{width:min(900px,calc(100% - 40px));margin:130px auto 90px}.article-page h1{font-size:clamp(2.5rem,7vw,5rem);line-height:1.03}.article-body{font-size:1.12rem;line-height:1.9}.article-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:25px 0}.article-gallery figure{margin:0}.article-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;cursor:zoom-in}@media(max-width:760px){.article-site-nav .inner{min-height:60px}.article-site-nav nav{gap:2px}.article-site-nav nav a{padding:8px 7px;font-size:.65rem}.article-page{width:calc(100% - 28px);margin-top:92px}}@media(max-width:600px){.article-site-nav nav a:nth-child(2),.article-site-nav nav a:nth-child(3){display:none}.article-page{margin-top:82px}.article-body{font-size:1.03rem}}</style></head><body><header class="article-site-nav"><div class="inner"><a class="brand" href="index.html"><img src="images/tiger.png" alt="Wilson Wildcats"><span>Paw Prints Weekly</span></a><nav aria-label="Article navigation"><a href="index.html">Home</a><a href="index.html#latest">Latest</a><a href="index.html#school-news">School News</a><a href="games.html" data-nav-games>Games</a><a href="admin/">Staff Portal</a></nav></div></header><main class="article-page"><a class="article-back" href="index.html">← Back to Paw Prints Weekly</a><div id="articleContent">Loading article...</div></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="article.js?v=4"></script><script src="ppw-interactive.js?v=4"></script><script src="ppw-enhancements.js?v=6"></script><script src="ppw-final.js?v=2"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Paw Prints Weekly article">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Paw Prints Weekly">
+<link rel="icon" type="image/png" href="images/tiger.png">
+<link rel="apple-touch-icon" href="images/tiger.png">
+<title>Article | Paw Prints Weekly</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="ppw-interactive.css?v=4">
+<link rel="stylesheet" href="ppw-v5.css?v=2">
+<link rel="stylesheet" href="ppw-v3.css?v=3">
+<link rel="stylesheet" href="ppw-fixes.css?v=7">
+<style>
+.article-site-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,250,240,.96);backdrop-filter:blur(12px);border-bottom:1px solid rgba(157,27,46,.12)}
+.article-site-nav .inner{width:min(1180px,calc(100% - 28px));min-height:68px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.article-site-nav .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font-weight:900}
+.article-site-nav .brand img{width:42px;height:42px;object-fit:contain}
+.article-site-nav nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.article-site-nav nav a{padding:9px 11px;border-radius:10px;text-decoration:none;color:inherit;font:800 .72rem Arial,sans-serif}
+.article-site-nav nav a:hover,.article-site-nav nav a:focus-visible{background:rgba(157,27,46,.08)}
+.article-page{width:min(900px,calc(100% - 40px));margin:130px auto 90px}
+.article-page h1{font-size:clamp(2.5rem,7vw,5rem);line-height:1.03}
+.article-body{font-size:1.12rem;line-height:1.9}
+.article-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:25px 0}
+.article-gallery figure{margin:0}
+.article-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;cursor:zoom-in}
+.article-error{padding:30px 0}
+.article-error h1{font-size:clamp(2rem,5vw,3.5rem);margin-bottom:12px}
+.article-back{display:inline-block;margin-bottom:24px}
+.ppw-article-nav{display:flex;justify-content:space-between;gap:12px;margin-top:45px;padding-top:20px;border-top:1px solid rgba(0,0,0,.12)}
+.ppw-article-nav a{text-decoration:none;font-weight:800}
+@media(max-width:760px){.article-site-nav .inner{min-height:60px}.article-site-nav nav{gap:2px}.article-site-nav nav a{padding:8px 7px;font-size:.65rem}.article-page{width:calc(100% - 28px);margin-top:92px}}
+@media(max-width:600px){.article-site-nav nav a:nth-child(2),.article-site-nav nav a:nth-child(3){display:none}.article-page{margin-top:82px}.article-body{font-size:1.03rem}.ppw-article-nav{flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="article-site-nav"><div class="inner"><a class="brand" href="index.html"><img src="images/tiger.png" alt="Wilson Wildcats"><span>Paw Prints Weekly</span></a><nav aria-label="Article navigation"><a href="index.html">Home</a><a href="index.html#latest">Latest</a><a href="index.html#school-news">School News</a><a href="games.html" data-nav-games>Games</a><a href="admin/">Staff Portal</a></nav></div></header>
+<main class="article-page"><a class="article-back" href="index.html">← Back to Paw Prints Weekly</a><div id="articleContent">Loading article...</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="article-loader-v2.js?v=1"></script>
+</body>
+</html>

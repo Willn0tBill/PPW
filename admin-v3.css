@@ -1,0 +1,10 @@
+/* Clean layout fixes for the rebuilt PPW admin portal */
+.article-list{width:100%;min-width:0}
+.article-item{display:block!important;width:100%;min-width:0}
+.article-item-content{width:100%;min-width:0}
+.article-item-top{width:100%;min-width:0}
+.article-item-top>div:first-child{min-width:0;flex:1}
+.article-item h3{overflow-wrap:anywhere;word-break:normal}
+.article-item p{overflow-wrap:anywhere;word-break:normal}
+.article-actions{display:flex;align-items:center;flex-wrap:wrap}
+@media(max-width:620px){.article-item{padding:14px}.article-item-top{display:block}.badges{margin-top:10px}.article-actions{width:100%}.article-actions .small-btn{flex:0 0 auto}}

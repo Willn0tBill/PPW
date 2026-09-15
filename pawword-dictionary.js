@@ -3,7 +3,7 @@
 
 // PawWord's large guess dictionary. The actual words live in pawword-words.txt
 // so the main game script stays small and easy to maintain.
-const WORDS_URL='pawword-words.txt?v=1';
+const WORDS_URL='pawword-words.txt?v=2';
 const originalHas=Set.prototype.has;
 
 fetch(WORDS_URL,{cache:'no-store'})
@@ -14,9 +14,13 @@ fetch(WORDS_URL,{cache:'no-store'})
   .then(text=>{
     const dictionary=new Set(
       text.split(/\s+/)
-        .map(word=>word.trim().toUpperCase())
+        .map(word=>word.trim().toUpperCase().replace(/^\\/,''))
         .filter(word=>/^[A-Z]{5}$/.test(word))
     );
+
+    // Keep this common word available even if the pasted source contains
+    // a stray escape character before it.
+    dictionary.add('EATER');
 
     // games-v3.js keeps PawWord's valid guesses in a local Set.
     // Extend only that kind of Set, without affecting the dictionary Set itself.

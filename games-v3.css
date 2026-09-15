@@ -1,0 +1,18 @@
+/* PPW GAMES V3 — rebuilt game UI */
+.crossword-grid{grid-template-columns:repeat(5,minmax(0,1fr))!important;width:min(430px,100%)!important;gap:0!important;background:#21181a!important}
+.cw-cell{background:#fff!important;border:1px solid #21181a!important;position:relative!important}
+.cw-cell.block{background:#21181a!important;border-color:#21181a!important}
+.cw-number{color:#21181a!important;z-index:2}
+.cw-input{color:#21181a!important;caret-color:#8f1d2c!important}
+.cw-input:focus{background:#fff9e9!important;box-shadow:inset 0 0 0 3px rgba(242,169,0,.75)!important}
+.cw-input.correct{background:#e7f4df!important;color:#245d25!important}
+.cw-input.wrong{background:#f8dddd!important;color:#8f1d2c!important}
+.crossword-clues{align-content:start}
+.crossword-clues h3{color:#8f1d2c!important}
+.game-panel:focus-within{border-color:rgba(242,169,0,.55)!important}
+.word-panel .key.correct{background:#8f1d2c!important}.word-panel .key.present{background:#b77d00!important}.word-panel .key.absent{background:#555b63!important}
+.memory-card{background:linear-gradient(145deg,#681421,#8f1d2c)!important;border:2px solid rgba(242,169,0,.35)!important}
+.memory-card.flipped,.memory-card.matched{background:#fff0d5!important}
+.memory-back{color:#ffd56b!important}.memory-face{border-color:#f2a900!important}
+@media(max-width:760px){.crossword-grid{width:min(360px,94vw)!important;grid-template-columns:repeat(5,minmax(0,1fr))!important}.cw-input{font-size:clamp(.85rem,6vw,1.3rem)!important}}
+@media(max-width:380px){.crossword-grid{width:290px!important}.cw-input{font-size:.9rem!important}}

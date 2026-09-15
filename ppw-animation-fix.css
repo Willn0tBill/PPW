@@ -1,4 +1,4 @@
-/* PPW loader — restored animated opening, shared by homepage and admin. */
+/* PPW loader — restored animated opening, homepage loader animation source of truth. */
 html.ppw-loader-active,html.ppw-loader-active body{overflow:hidden!important}
 html body .ppw-loader{position:fixed!important;inset:0!important;width:100vw!important;height:100vh!important;min-height:100vh!important;z-index:2147483647!important;display:grid!important;place-items:center!important;overflow:hidden!important;isolation:isolate;background:#f7f4ed!important;opacity:1;visibility:visible;pointer-events:all!important;transition:opacity .7s cubic-bezier(.4,0,.2,1),visibility .7s linear}
 html body .ppw-loader::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.72),rgba(247,244,237,.96) 52%,#f7f4ed 100%)}

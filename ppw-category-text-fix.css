@@ -1,0 +1,83 @@
+/* PPW category readability — light sections need dark text. */
+html.light-mode .category-section,
+body.light-mode .category-section,
+html:not(.dark-mode) .category-section{
+  color:var(--ink,#202020);
+}
+
+html.light-mode .category-section .section-head h2,
+body.light-mode .category-section .section-head h2,
+html:not(.dark-mode) .category-section .section-head h2{
+  color:var(--ink,#202020)!important;
+}
+
+html.light-mode .category-section .section-head .eyebrow,
+body.light-mode .category-section .section-head .eyebrow,
+html:not(.dark-mode) .category-section .section-head .eyebrow{
+  color:var(--cardinal,#9d1b2e)!important;
+}
+
+html.light-mode .category-section .section-head .head-note,
+body.light-mode .category-section .section-head .head-note,
+html:not(.dark-mode) .category-section .section-head .head-note{
+  color:var(--muted,#6e6a64)!important;
+}
+
+/* Category-specific kicker/title text inside the layouts. */
+html.light-mode .category-section .layout-kicker,
+body.light-mode .category-section .layout-kicker,
+html:not(.dark-mode) .category-section .layout-kicker{
+  color:var(--cardinal,#9d1b2e)!important;
+}
+
+html.light-mode .category-section .layout-card h3,
+html.light-mode .category-section .school-row h3,
+html.light-mode .category-section .sports-card h3,
+html.light-mode .category-section .feature-card h3,
+html.light-mode .category-section .media-card h3,
+html.light-mode .category-section .editorial-card h3,
+body.light-mode .category-section .layout-card h3,
+body.light-mode .category-section .school-row h3,
+body.light-mode .category-section .sports-card h3,
+body.light-mode .category-section .feature-card h3,
+body.light-mode .category-section .media-card h3,
+body.light-mode .category-section .editorial-card h3,
+html:not(.dark-mode) .category-section .layout-card h3,
+html:not(.dark-mode) .category-section .school-row h3,
+html:not(.dark-mode) .category-section .sports-card h3,
+html:not(.dark-mode) .category-section .feature-card h3,
+html:not(.dark-mode) .category-section .media-card h3,
+html:not(.dark-mode) .category-section .editorial-card h3{
+  color:var(--ink,#202020)!important;
+}
+
+html.light-mode .category-section .layout-card p,
+html.light-mode .category-section .school-row p,
+html.light-mode .category-section .sports-card p,
+html.light-mode .category-section .feature-card p,
+html.light-mode .category-section .media-card p,
+html.light-mode .category-section .editorial-card p,
+body.light-mode .category-section .layout-card p,
+body.light-mode .category-section .school-row p,
+body.light-mode .category-section .sports-card p,
+body.light-mode .category-section .feature-card p,
+body.light-mode .category-section .media-card p,
+body.light-mode .category-section .editorial-card p,
+html:not(.dark-mode) .category-section .layout-card p,
+html:not(.dark-mode) .category-section .school-row p,
+html:not(.dark-mode) .category-section .sports-card p,
+html:not(.dark-mode) .category-section .feature-card p,
+html:not(.dark-mode) .category-section .media-card p,
+html:not(.dark-mode) .category-section .editorial-card p{
+  color:var(--muted,#6e6a64)!important;
+}
+
+/* Perspectives intentionally keeps its dark editorial cards. */
+html.light-mode .perspective-card h3,
+body.light-mode .perspective-card h3,
+html:not(.dark-mode) .perspective-card h3{color:#fff!important}
+html.light-mode .perspective-card p,
+body.light-mode .perspective-card p,
+html:not(.dark-mode) .perspective-card p{color:#d9d0d0!important}
+
+@media(prefers-reduced-motion:reduce){*{transition-duration:0.01ms!important}}

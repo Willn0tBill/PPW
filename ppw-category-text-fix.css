@@ -81,3 +81,36 @@ body.light-mode .perspective-card p,
 html:not(.dark-mode) .perspective-card p{color:#d9d0d0!important}
 
 @media(prefers-reduced-motion:reduce){*{transition-duration:0.01ms!important}}
+
+
+/* Article card text visibility fix — colors only. */
+.category-section .layout-card h3,
+.category-section .school-row h3,
+.category-section .sports-card h3,
+.category-section .perspective-card h3,
+.category-section .world-card h3,
+.category-section .feature-card h3,
+.category-section .media-card h3,
+.category-section .editorial-card h3{
+  color:#ffc94d!important;
+}
+
+.category-section .layout-card p,
+.category-section .school-row p,
+.category-section .sports-card p,
+.category-section .perspective-card p,
+.category-section .world-card p,
+.category-section .feature-card p,
+.category-section .media-card p,
+.category-section .editorial-card p{
+  color:#d9dde3!important;
+}
+
+.category-section .layout-meta,
+.category-section .layout-meta span{
+  color:#f4f4f4!important;
+}
+
+.category-section .layout-kicker{
+  color:#ffc94d!important;
+}

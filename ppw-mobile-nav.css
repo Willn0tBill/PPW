@@ -1,3 +1,5 @@
+@import url('ppw-mobile-polish.css?v=1');
+
 @media (max-width: 760px){
   .ppw-mobile-menu-toggle{
     display:flex;

@@ -5,8 +5,9 @@ const root=path.resolve(__dirname,'..');
 
 const files=[
   'admin-v3.js',
-  'article.js',
-  'games-v3.js',
+  'admin-media-extension.js',
+  'article-loader-v3.js',
+  'games-v4.js',
   'ppw-enhancements.js',
   'ppw-page-theme.js',
   'pawword-dictionary.js',

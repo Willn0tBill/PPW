@@ -39,8 +39,14 @@ function renderCurrentGallery(title){
  root.innerHTML=currentGallery.map(x=>{const n=marker(x.sort_order);return `<div class="image-preview-card ppw-media-card"><img src="${esc(x.image_url)}" alt="${esc(x.alt_text||title||'Article photo')}"><span>Article photo ${n}</span><button type="button" class="small-btn" data-insert-marker="${n}">Insert in article</button><label class="photo-credit-label">Photo credit<input type="text" maxlength="180" value="${esc(x.credit||'')}" data-gallery-credit="${x.id}"></label><button type="button" class="small-btn danger" data-gallery-delete-x="${x.id}" data-marker="${n}">Remove</button></div>`}).join('');
  $('currentGalleryWrap')?.classList.toggle('hidden',!currentGallery.length);
 }
-async function syncEditMedia(){
- await wait(250);const id=Number($('articleId')?.value||0);if(!id)return;
+async function syncEditMedia(expectedId=0){
+ let id=0;
+ for(let attempt=0;attempt<25;attempt++){
+  id=Number($('articleId')?.value||0);
+  if(id&&(!expectedId||id===expectedId))break;
+  await wait(100);
+ }
+ if(!id||expectedId&&id!==expectedId)return;
  const a=await db.from('articles').select('title,image_credit').eq('id',id).single();if(!a.error&&$('coverCredit'))$('coverCredit').value=a.data?.image_credit||'';
  try{currentGallery=await gallery(id);renderCurrentGallery(a.data?.title||'')}catch(e){console.warn('PPW media gallery load failed',e)}
 }
@@ -72,7 +78,7 @@ function init(){
  document.addEventListener('click',e=>{
   const draft=e.target.closest('#saveDraftBtn');if(draft){e.preventDefault();e.stopImmediatePropagation();save('draft');return}
   const ins=e.target.closest('[data-insert-marker]');if(ins){e.preventDefault();insertMarker(Number(ins.dataset.insertMarker));return}
-  const edit=e.target.closest('[data-action="edit"]');if(edit)setTimeout(syncEditMedia,0);
+  const edit=e.target.closest('[data-action="edit"]');if(edit)syncEditMedia(Number(edit.dataset.id));
   const del=e.target.closest('[data-gallery-delete-x]');if(del){e.preventDefault();e.stopImmediatePropagation();(async()=>{if(!confirm('Remove this article photo?'))return;const n=Number(del.dataset.marker),r=await db.from('article_images').delete().eq('id',Number(del.dataset.galleryDeleteX));if(r.error)return msg(r.error.message,'error');const a=$('content');if(a)a.value=a.value.replace(new RegExp(`\\n{0,2}\\[\\[\\s*image\\s*:\\s*${n}\\s*\\]\\]\\n{0,2}`,'ig'),'\n\n').replace(/\n{3,}/g,'\n\n').trim();currentGallery=currentGallery.filter(x=>x.id!==Number(del.dataset.galleryDeleteX));renderCurrentGallery($('title')?.value||'');enhanceSelected();msg(`Article photo ${n} removed.`,'success')})()}
  },true);
  $('imageFile')?.addEventListener('change',()=>setTimeout(enhanceSelected,0));

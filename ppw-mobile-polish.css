@@ -1,0 +1,179 @@
+/* PPW mobile polish — shared across homepage, articles, games, and newsroom. */
+
+@media (max-width:760px){
+  html,body{max-width:100%;overflow-x:hidden}
+  body{min-width:0}
+  img,video,svg,canvas{max-width:100%}
+  button,a,input,select,textarea{touch-action:manipulation}
+  input,select,textarea{font-size:16px!important}
+  body.ppw-nav-open{overflow:hidden!important}
+
+  /* ---------- HOMEPAGE / SHARED HEADER ---------- */
+  .site-header{position:sticky!important;top:0!important;z-index:1000!important}
+  .topbar{font-size:.56rem!important;line-height:1.25!important;padding-left:10px!important;padding-right:10px!important}
+  .nav-wrap{width:calc(100% - 16px)!important;min-height:58px!important}
+  .brand{min-width:0!important;gap:7px!important}
+  .brand-logo{width:40px!important;height:40px!important;flex:0 0 40px!important}
+  .brand strong{font-size:.72rem!important;letter-spacing:.08em!important;white-space:nowrap!important}
+  .brand small{font-size:.48rem!important;letter-spacing:.2em!important;white-space:nowrap!important}
+  .menu-toggle,.ppw-mobile-menu-toggle{min-width:44px!important;min-height:44px!important}
+  .site-header.ppw-mobile-nav-open nav,
+  header.ppw-mobile-nav-open nav{
+    max-height:calc(100dvh - 70px)!important;
+    overflow-y:auto!important;
+    overscroll-behavior:contain!important;
+    padding-bottom:max(16px,env(safe-area-inset-bottom))!important;
+  }
+  .site-header.ppw-mobile-nav-open nav a,
+  header.ppw-mobile-nav-open nav a{
+    min-height:50px!important;
+    font-size:.78rem!important;
+  }
+
+  /* ---------- HOMEPAGE CONTENT ---------- */
+  .hero{width:calc(100% - 16px)!important;padding:24px 0 20px!important}
+  .hero-copy{padding-top:12px!important}
+  .hero h1{font-size:clamp(2.8rem,15vw,4.4rem)!important;line-height:.9!important}
+  .hero-copy>p{font-size:.95rem!important;line-height:1.55!important}
+  .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;width:100%!important}
+  .hero-actions .button{width:100%!important;min-height:48px!important}
+  .hero-circle{width:min(300px,76vw)!important}
+
+  .section{width:calc(100% - 16px)!important;padding:38px 0!important}
+  .section-head{gap:8px!important;margin-bottom:17px!important}
+  .section-head h2{font-size:clamp(1.9rem,9vw,2.8rem)!important;line-height:1!important}
+  .head-note{font-size:.78rem!important;line-height:1.45!important}
+
+  .latest-grid,.section-grid,.life-grid,.features-grid,.editorial-grid,.sports-grid,.perspective-grid,.staff-grid,.about-grid{grid-template-columns:minmax(0,1fr)!important}
+  .story-card,.featured-card,.sports-card,.perspective-card,.media-card,.world-card,.feature-card,.editorial-card,.staff-card{min-width:0!important;max-width:100%!important}
+  .story-image,.story-placeholder{height:180px!important}
+  .featured-card .story-image,.featured-card .story-placeholder{height:210px!important}
+  .story-body{padding:16px!important}
+  .story-body h3{font-size:1.24rem!important;line-height:1.15!important;overflow-wrap:anywhere}
+  .story-body p{font-size:.9rem!important;line-height:1.5!important}
+  .story-meta,.layout-meta{display:flex!important;flex-wrap:wrap!important;gap:5px 8px!important}
+
+  .school-row{grid-template-columns:38px minmax(0,1fr)!important;gap:10px!important}
+  .school-row>img{grid-column:1/-1!important;height:145px!important}
+  .sports-card{grid-template-columns:58px minmax(0,1fr)!important;gap:10px!important}
+  .sports-card>*{min-width:0!important}
+  .sports-thumb{width:58px!important;height:58px!important}
+  .sports-card .score,.sports-card .sports-score{grid-column:1/-1!important;justify-self:start!important}
+
+  .world-grid{columns:1!important;column-gap:0!important}
+  .world-card{break-inside:avoid!important;margin-bottom:12px!important}
+  .world-card img{height:170px!important}
+  .media-grid,.section-links{grid-template-columns:1fr!important;gap:10px!important}
+  .media-card img,.media-img{height:180px!important}
+
+  .welcome-strip{padding:14px 12px!important}
+  .welcome-strip strong,.welcome-strip span,.welcome-strip a{max-width:100%!important;overflow-wrap:anywhere}
+  .footer-inner{width:calc(100% - 16px)!important;padding-left:0!important;padding-right:0!important}
+
+  /* ---------- ARTICLE PAGE ---------- */
+  .article-site-nav{position:sticky!important;top:0!important}
+  .article-site-nav .inner{width:calc(100% - 16px)!important;min-height:0!important;padding:8px 0!important;display:flex!important;flex-wrap:wrap!important;gap:7px!important}
+  .article-site-nav .brand{width:100%!important;min-height:42px!important;font-size:.9rem!important}
+  .article-site-nav .brand img{width:36px!important;height:36px!important}
+  .article-site-nav nav{display:flex!important;width:100%!important;max-width:100%!important;overflow-x:auto!important;overscroll-behavior-x:contain!important;scrollbar-width:none!important;gap:4px!important;padding-bottom:2px!important;flex-wrap:nowrap!important}
+  .article-site-nav nav::-webkit-scrollbar{display:none!important}
+  .article-site-nav nav a,
+  .article-site-nav nav a:nth-child(2),
+  .article-site-nav nav a:nth-child(3){display:inline-flex!important;align-items:center!important;min-height:42px!important;flex:0 0 auto!important;padding:9px 10px!important;font-size:.68rem!important;white-space:nowrap!important}
+  .article-page{width:calc(100% - 20px)!important;margin:22px auto 55px!important}
+  .article-page>.article-back{display:inline-flex!important;align-items:center!important;min-height:42px!important;margin-bottom:16px!important}
+  .article-page h1{font-size:clamp(2rem,11vw,3.25rem)!important;line-height:1.02!important;overflow-wrap:anywhere}
+  .article-byline{font-size:.72rem!important;line-height:1.45!important;gap:5px 11px!important;margin-bottom:20px!important}
+  .article-hero-wrap{margin-bottom:24px!important}
+  .article-hero-image{max-height:430px!important;border-radius:12px!important}
+  .article-photo-credit{font-size:.7rem!important;padding:7px 2px 0!important;overflow-wrap:anywhere}
+  .article-body{font-size:1rem!important;line-height:1.75!important}
+  .article-body p{margin-bottom:1.25em!important}
+  .article-inline-image{margin:24px 0!important}
+  .article-inline-image img{border-radius:11px!important}
+  .article-inline-image figcaption{font-size:.7rem!important;line-height:1.4!important}
+  .article-gallery{grid-template-columns:1fr!important;gap:13px!important;margin-top:28px!important}
+  .article-gallery-item img{max-height:420px!important;border-radius:11px!important}
+  .ppw-article-nav{flex-direction:column!important;gap:8px!important}
+  .ppw-article-nav a{display:flex!important;align-items:center!important;min-height:44px!important}
+
+  /* ---------- GAMES PAGE ---------- */
+  .games-header{position:sticky!important;top:0!important;z-index:1000!important}
+  .games-topbar{padding:7px 9px!important;font-size:.55rem!important}
+  .games-nav{width:calc(100% - 16px)!important;min-height:0!important;padding:8px 0!important;display:flex!important;flex-wrap:wrap!important;gap:6px!important}
+  .games-brand{width:100%!important;min-height:42px!important}
+  .games-brand img{width:38px!important;height:38px!important}
+  .games-nav nav{display:flex!important;width:100%!important;overflow-x:auto!important;overscroll-behavior-x:contain!important;scrollbar-width:none!important;gap:4px!important;padding-bottom:2px!important}
+  .games-nav nav::-webkit-scrollbar{display:none!important}
+  .games-nav nav a,
+  .games-nav nav a:not(.games-active):not(.games-admin){display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:42px!important;flex:0 0 auto!important;padding:9px 10px!important;font-size:.61rem!important;white-space:nowrap!important}
+  .games-page{width:calc(100% - 12px)!important;padding:12px 0 38px!important}
+  .games-hero{padding:18px 6px 24px!important}
+  .games-hero h1{font-size:clamp(2.8rem,15vw,4rem)!important}
+  .games-hero p{font-size:.92rem!important;line-height:1.5!important}
+  .game-stats{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;width:100%!important;gap:5px!important}
+  .game-stats div{min-width:0!important;padding:10px 3px!important}
+  .game-stats span{font-size:.43rem!important;line-height:1.25!important}
+  .game-panel{padding:18px 9px!important;border-radius:16px!important}
+  .game-heading h2{font-size:clamp(1.8rem,10vw,2.5rem)!important}
+  .game-heading p{font-size:.88rem!important;line-height:1.48!important}
+  .word-board{width:min(310px,91vw)!important}
+  .keyboard{max-width:100%!important;padding:0!important}
+  .key{height:46px!important;font-size:clamp(.56rem,2.55vw,.68rem)!important;padding:0 1px!important}
+  .crossword-wrap{grid-template-columns:minmax(0,1fr)!important}
+  .crossword-grid{width:min(340px,92vw)!important}
+  .crossword-clues{grid-template-columns:1fr!important;gap:13px!important}
+  .crossword-clues li{font-size:.82rem!important;line-height:1.45!important}
+  .memory-grid{width:min(390px,94vw)!important;gap:5px!important}
+  .game-actions{display:grid!important;grid-template-columns:1fr!important}
+  .game-actions .small-button{width:100%!important;min-height:46px!important}
+  .weekly-challenge{padding:22px 13px!important}
+  .games-note{padding:17px!important}
+
+  /* ---------- ADMIN / NEWSROOM ---------- */
+  .auth-screen{padding:12px!important}
+  .auth-card{padding:22px 17px!important;border-radius:16px!important}
+  .auth-card h1{font-size:2.2rem!important}
+  .admin-header{position:static!important;padding:15px 12px!important;gap:12px!important}
+  .admin-header h1{font-size:2.25rem!important}
+  .header-actions{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important;gap:7px!important}
+  .header-actions .role-badge{grid-column:1/-1!important}
+  .header-actions .secondary-btn{width:100%!important;min-height:44px!important}
+  .admin-main{width:calc(100% - 12px)!important;margin:12px auto 45px!important;grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+  .editor-panel,.articles-panel{padding:18px 12px!important;border-radius:14px!important;min-width:0!important}
+  .panel-heading{align-items:flex-start!important;gap:8px!important;margin-bottom:17px!important}
+  .panel-heading h2{font-size:1.7rem!important}
+  .form-grid{grid-template-columns:minmax(0,1fr)!important;gap:13px!important}
+  .full{grid-column:auto!important}
+  label{min-width:0!important;font-size:.87rem!important}
+  input,textarea,select{padding:12px!important;border-radius:9px!important;max-width:100%!important}
+  textarea{min-height:130px!important}
+  #content{min-height:300px!important}
+  .options{padding:14px 0!important;gap:12px!important}
+  .form-actions{display:grid!important;grid-template-columns:1fr!important;width:100%!important;gap:8px!important}
+  .form-actions .primary-btn,.form-actions .secondary-btn{width:100%!important;min-height:46px!important}
+  .ppw-admin-tools{display:grid!important;grid-template-columns:1fr!important;gap:8px!important}
+  .ppw-admin-tools .secondary-btn{width:100%!important;min-height:44px!important}
+  .image-preview-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .image-preview-card{min-width:0!important}
+  .image-preview-card img{height:auto!important;max-height:260px!important}
+  .photo-credit-label input{font-size:16px!important}
+  .current-image img{width:100%!important;height:auto!important;max-height:260px!important}
+  .article-list{max-height:none!important;overflow:visible!important;padding-right:0!important}
+  .article-item{grid-template-columns:1fr!important;padding:13px!important;gap:10px!important}
+  .article-thumb{width:100%!important;height:150px!important}
+  .article-item-top{display:block!important}
+  .badges{display:flex!important;flex-wrap:wrap!important;gap:5px!important;margin-top:8px!important}
+  .article-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:7px!important}
+  .article-actions .small-btn{display:flex!important;align-items:center!important;justify-content:center!important;min-height:42px!important;text-align:center!important}
+}
+
+@media (max-width:390px){
+  .game-stats{grid-template-columns:1fr!important}
+  .hero h1{font-size:2.7rem!important}
+  .section{width:calc(100% - 12px)!important}
+  .article-page{width:calc(100% - 14px)!important}
+  .article-actions{grid-template-columns:1fr!important}
+  .header-actions{grid-template-columns:1fr!important}
+  .header-actions .role-badge{grid-column:auto!important}
+}

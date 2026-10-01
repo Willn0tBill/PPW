@@ -1,0 +1,8 @@
+.ppw-media-card{display:flex;flex-direction:column;gap:8px;align-items:stretch}
+.ppw-media-card .small-btn{align-self:flex-start}
+.ppw-media-card small{color:#6e6a64;font:600 .68rem/1.4 Arial,sans-serif}
+.photo-credit-label{display:grid;gap:5px;font:800 .62rem/1.2 Arial,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#6e6a64}
+.photo-credit-label input{width:100%;text-transform:none;letter-spacing:0;font:600 .82rem/1.2 Arial,sans-serif}
+.image-preview-card>small{display:block}
+#coverCredit{width:100%}
+.dark-mode .ppw-media-card small,.dark-mode .photo-credit-label{color:#c7bfc0}
